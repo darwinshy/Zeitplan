@@ -23,8 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
+  splashscreen: ^1.2.0
+  firebase_core: ^0.4.5
+  cloud_firestore: ^0.13.7
+  shared_preferences: ^0.5.8
+  firebase_auth: ^0.16.1
+  firebase_database: ^3.1.6
+  google_sign_in: ^4.5.1   
+  getwidget: ^1.1.3
+  google_fonts: ^1.1.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
@@ -43,7 +50,24 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - asset/
+  fonts:
+    - family: rob
+      fonts:
+        - asset: asset/robot.ttf
+    - family: OpenSans
+      fonts:
+        - asset: asset/fonts/OpenSans-Bold.ttf
+        - asset: asset/fonts/OpenSans-Regular.ttf
+          weight: 700
 
+    - family: QuickSand
+      fonts:
+        - asset: asset/fonts/Quicksand-Regular.ttf
+        - asset: asset/fonts/Quicksand-Bold.ttf
+          weight: 700
+  
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "632663256462",
+    "firebase_url": "https://zeitplan-93d95.firebaseio.com",
+    "project_id": "zeitplan-93d95",
+    "storage_bucket": "zeitplan-93d95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632663256462:android:e84c620d1a3485faf0c8df",
+        "android_client_info": {
+          "package_name": "com.example.Zeitplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632663256462-cu6mr7rrru9envb30kr19bqiu7jd4niv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-5ttV1UyHERQAC3wsaBok2t57E8x9adk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632663256462-cu6mr7rrru9envb30kr19bqiu7jd4niv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
