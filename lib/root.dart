@@ -1,3 +1,5 @@
+import 'package:Zeitplan/authentication/auth.dart';
+import 'package:Zeitplan/screens/schedules.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,19 +16,22 @@ class _RootState extends State<Root> {
   AuthStatus signStatus = AuthStatus.notSignedIn;
 
   void areYouLoggedIn() async {
-    SharedPreferences loggedInStatus = await SharedPreferences.getInstance();
+    SharedPreferences cacheData = await SharedPreferences.getInstance();
 
-    print(loggedInStatus.getBool('loggedInStatus'));
+    // print(cacheData.getBool('loggedInStatus'));
+    setState(() {
+      if (cacheData.getBool('loggedInStatus') == null) {
+        signStatus = AuthStatus.notSignedIn;
+      }
+      if (cacheData.getBool('loggedInStatus') == true) {
+        signStatus = AuthStatus.signedIn;
+      }
+      if (cacheData.getBool('loggedInStatus') == false) {
+        signStatus = AuthStatus.notSignedIn;
+      }
+    });
 
-    if (loggedInStatus.getBool('loggedInStatus') == null) {
-      signStatus = AuthStatus.notSignedIn;
-    }
-    if (loggedInStatus.getBool('loggedInStatus') == true) {
-      signStatus = AuthStatus.signedIn;
-    }
-    if (loggedInStatus.getBool('loggedInStatus') == false) {
-      signStatus = AuthStatus.notSignedIn;
-    }
+    // print(signStatus);
   }
 
   @override
@@ -34,16 +39,12 @@ class _RootState extends State<Root> {
     areYouLoggedIn();
     switch (signStatus) {
       case AuthStatus.notSignedIn:
-        return LoginPage();
+        return LoginPage(Auth());
         break;
       case AuthStatus.signedIn:
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("SignedIn"),
-          ),
-        );
+        return Schedules();
       default:
-        return Scaffold();
+        return LoginPage(Auth());
     }
   }
 }

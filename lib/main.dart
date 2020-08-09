@@ -19,8 +19,8 @@ class _MyAppState extends State<MyApp> {
       title: 'Zeitplan',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        brightness: Brightness.dark,
         backgroundColor: Colors.black,
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
