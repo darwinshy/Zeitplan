@@ -266,13 +266,8 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
             Center(
-              child: FlatButton(
-                padding: EdgeInsets.all(10),
-                onPressed: null,
-                child: Text('Swipe right to create a new account',
-                    style: TextStyle(color: Colors.white38, fontSize: 12)),
-                textColor: Colors.white,
-              ),
+              child: Text('Swipe right to create a new account',
+                  style: TextStyle(color: Colors.white38, fontSize: 12)),
             )
           ],
         ),
@@ -424,6 +419,42 @@ class _LoginPageState extends State<LoginPage> {
                                 : null,
                             keyboardType: TextInputType.text,
                             onSaved: (value) => section = value,
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Phone Number (with Country Code)",
+                            style:
+                                TextStyle(color: Colors.white70, fontSize: 12),
+                          ),
+                          TextFormField(
+                            // initialValue: "eg. BranchCode-BatchYear-Section",
+                            decoration: InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.4,
+                                ),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.2,
+                                ),
+                              ),
+                            ),
+                            style: TextStyle(color: Colors.white),
+                            validator: (value) => value.isEmpty
+                                ? "Section cannot be empty."
+                                : null,
+                            keyboardType: TextInputType.text,
+                            onSaved: (value) => phoneNumber = value,
                           )
                         ],
                       ),

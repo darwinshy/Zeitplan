@@ -66,7 +66,7 @@ class Auth extends BaseAuth with ChangeNotifier {
           .snapshots();
       SharedPreferences cacheData = await SharedPreferences.getInstance();
 
-      print(snapShot.forEach((element) {
+      snapShot.forEach((element) {
         dbUrlSchedules = "schedules/" +
             element.documents.elementAt(0).data["batch"].substring(2) +
             "/" +
@@ -91,7 +91,9 @@ class Auth extends BaseAuth with ChangeNotifier {
             "branch", element.documents.elementAt(0).data["branch"]);
         cacheData.setBool("CR", element.documents.elementAt(0).data["CR"]);
         cacheData.setString("dbUrlSchedules", dbUrlSchedules);
-      }));
+        cacheData.setString(
+            "photoURL", element.documents.elementAt(0).data["url"]);
+      });
 
       notifyListeners();
       return user.uid;
@@ -182,7 +184,7 @@ class Auth extends BaseAuth with ChangeNotifier {
           "section": section.toUpperCase(),
           "batch": batchYear,
           "branch": branch,
-          "CR": false
+          "CR": false,
         });
 
         dbUrlProfile = "users/" + user.uid;
