@@ -1,7 +1,7 @@
 import 'dart:io';
-
 import 'package:Zeitplan/authentication/auth.dart';
 import 'package:Zeitplan/screens/about.dart';
+import 'package:Zeitplan/screens/editAmeeting.dart';
 import 'package:Zeitplan/screens/whatsappDirectory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
@@ -25,10 +25,53 @@ DateTime now = DateTime.now();
 DateFormat formatter = DateFormat('ddMMyyyy');
 String formatted = formatter.format(now);
 
-class Schedules extends StatelessWidget {
+class Schedules extends StatefulWidget {
+  @override
+  _SchedulesState createState() => _SchedulesState();
+}
+
+class _SchedulesState extends State<Schedules> {
   @override
   Widget build(BuildContext context) {
     globalContext = context;
+
+    void refresh() async {
+      String dbUrlSchedules;
+      SharedPreferences cacheData = await SharedPreferences.getInstance();
+
+      final snapShot = Firestore.instance
+          .collection('users')
+          .where(
+            "uid",
+            isEqualTo: cacheData.getString("userUID").toString(),
+          )
+          .snapshots();
+
+      setState(() {
+        crStatus = cacheData.getBool("CR").toString();
+        snapShot.forEach((element) {
+          dbUrlSchedules = "schedules/" +
+              element.documents.elementAt(0).data["batch"].substring(2) +
+              "/" +
+              element.documents.elementAt(0).data["branch"] +
+              "/section/" +
+              element.documents.elementAt(0).data["section"].toUpperCase() +
+              "_SX";
+          cacheData.setString(
+              "fullname", element.documents.elementAt(0).data["name"]);
+          cacheData.setString(
+              "phone", element.documents.elementAt(0).data["phone"]);
+          cacheData.setString(
+              "section", element.documents.elementAt(0).data["section"]);
+          cacheData.setString(
+              "branch", element.documents.elementAt(0).data["branch"]);
+          cacheData.setBool("CR", element.documents.elementAt(0).data["CR"]);
+          cacheData.setString("dbUrlSchedules", dbUrlSchedules);
+          cacheData.setString(
+              "photoURL", element.documents.elementAt(0).data["url"]);
+        });
+      });
+    }
     // ###################################################################
     // Date Formatting
 
@@ -57,11 +100,6 @@ class Schedules extends StatelessWidget {
       ];
     }
 
-    Future<String> retriveUID() async {
-      SharedPreferences cacheData = await SharedPreferences.getInstance();
-      return cacheData.getString("userUID").toString();
-    }
-
     // ###################################################################
     // Functions
     void addAMeeting(BuildContext ctx) {
@@ -76,11 +114,13 @@ class Schedules extends StatelessWidget {
               initialDate: now,
               firstDate: DateTime(2020),
               lastDate: DateTime.now())
-          .then((value) => {formatted = formatter.format(value), now = value});
+          .then((value) => {formatted = formatter.format(value), now = value})
+          .then((value) => refresh());
     }
 
     Future<List<String>> canIaccess() async {
       try {
+        SharedPreferences cacheData = await SharedPreferences.getInstance();
         ConnectivityResult connectivityResult =
             await Connectivity().checkConnectivity();
         final snapShot = await Firestore.instance
@@ -92,23 +132,27 @@ class Schedules extends StatelessWidget {
         return [
           snapShot.data["access"],
           snapShot.data["message"],
-          connectivityResult.toString()
+          connectivityResult.toString(),
+          cacheData.getString("welcomeScreenShow")
         ];
       } catch (e) {
         print(e);
         return [
           e.toString(),
           "Couldn't connect to the Internet",
-          "ConnectivityResult.none"
+          "ConnectivityResult.none",
+          "true",
+          "null"
         ];
       }
     }
 
 // ###################################################################
     return FutureBuilder<List<String>>(
-      initialData: ["true", "Internet Issues", "null"],
+      initialData: ["true", "Internet Issues", "null", "null"],
       future: canIaccess(),
       builder: (context, snapshots) {
+        // print(snapshots.data[3]);
         if (snapshots.data[2] == "null") {
           return Scaffold(
             backgroundColor: Colors.black,
@@ -169,16 +213,32 @@ class Schedules extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Text(
-                          "More",
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w800)),
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Text(
+                              "More",
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w800)),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: IconButton(
+                                onPressed: () {
+                                  refresh();
+                                },
+                                icon: Icon(
+                                  Icons.refresh,
+                                  color: Colors.white60,
+                                )),
+                          )
+                        ],
                       ),
                       SizedBox(
                         height: 20,
@@ -197,6 +257,21 @@ class Schedules extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Divider(
+                        color: Colors.white60,
+                      ),
+                      ListTile(
+                        title: Row(
+                          children: <Widget>[
+                            Icon(Icons.adb),
+                            FlatButton(
+                                onPressed: () {
+                                  infoDrawer(context);
+                                },
+                                child: Text("Version Info")),
+                          ],
+                        ),
+                      ),
                       ListTile(
                         title: Row(
                           children: <Widget>[
@@ -210,6 +285,9 @@ class Schedules extends StatelessWidget {
                                 child: Text("About")),
                           ],
                         ),
+                      ),
+                      Divider(
+                        color: Colors.white60,
                       ),
                       ListTile(
                           title: Row(
@@ -288,11 +366,14 @@ class Schedules extends StatelessWidget {
                     )
                   : null,
               backgroundColor: Colors.black87,
-              body: _buildSchedulesBody(
-                context,
-                retriveScheduleURL,
-                retriveProfileDetails,
-              ));
+              body: snapshots.data[3] != "true" || snapshots.data[3] == "null"
+                  ? info(context)
+                  : _buildSchedulesBody(
+                      refresh,
+                      context,
+                      retriveScheduleURL,
+                      retriveProfileDetails,
+                    ));
         } else {
           return Scaffold(
               backgroundColor: Colors.black,
@@ -329,7 +410,142 @@ class Schedules extends StatelessWidget {
   }
 }
 
+void infoDrawer(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          actions: [
+            FlatButton(
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "OK",
+                  style: TextStyle(color: Colors.black),
+                ))
+          ],
+          backgroundColor: Colors.grey[900],
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Welcome, \nv1.0\n",
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w800)),
+                ),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "You can join the Class Meeting by tapping on \"Join Meeting\"",
+                        style: TextStyle(fontSize: 12, height: 1.25),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact",
+                        style: TextStyle(fontSize: 12, height: 1.25),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "Change your Profile Picture by long pressing on your picture.",
+                        style: TextStyle(fontSize: 12, height: 1.25),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      });
+}
+
+Widget info(BuildContext context) {
+  return AlertDialog(
+    actions: [
+      FlatButton(
+          color: Colors.white,
+          onPressed: () async {
+            globalContext = context;
+            SharedPreferences cacheData = await SharedPreferences.getInstance();
+            cacheData.setString("welcomeScreenShow", "true");
+            Navigator.of(context).pushReplacement(PageTransition(
+                child: Schedules(), type: PageTransitionType.fade));
+          },
+          child: Text(
+            "OK",
+            style: TextStyle(color: Colors.black),
+          ))
+    ],
+    backgroundColor: Colors.grey[900],
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Welcome, \nv1.0\n",
+            textAlign: TextAlign.start,
+            style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800)),
+          ),
+        ),
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "You can join the Class Meeting by tapping on \"Join Meeting\"",
+                  style: TextStyle(fontSize: 12, height: 1.25),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact",
+                  style: TextStyle(fontSize: 12, height: 1.25),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Change your Profile Picture by long pressing on your picture.",
+                  style: TextStyle(fontSize: 12, height: 1.25),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
+}
+
 Widget _buildSchedulesBody(
+    void Function() refresh,
     BuildContext context,
     Future<String> Function() retriveScheduleURL,
     Future<List<String>> Function() retriveProfileDetails) {
@@ -337,7 +553,7 @@ Widget _buildSchedulesBody(
       future: retriveScheduleURL(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          return _streamBuild(snapshot, retriveProfileDetails);
+          return _streamBuild(refresh, snapshot, retriveProfileDetails);
         } else {
           return Center(
               child: CircularProgressIndicator(
@@ -347,7 +563,7 @@ Widget _buildSchedulesBody(
       });
 }
 
-Widget _streamBuild(AsyncSnapshot<String> snapshot,
+Widget _streamBuild(void Function() refresh, AsyncSnapshot<String> snapshot,
     Future<List<String>> Function() retriveProfileDetails) {
   // print(snapshot.data);
   // return Text("data");
@@ -371,7 +587,7 @@ Widget _streamBuild(AsyncSnapshot<String> snapshot,
       builder: (context, snapshots) {
         try {
           return _buildListofSchedules(
-              snapshots.data.documents, retriveProfileDetails);
+              refresh, snapshots.data.documents, retriveProfileDetails);
         } catch (e) {
           return Center(
               child: Column(
@@ -391,7 +607,9 @@ Widget _streamBuild(AsyncSnapshot<String> snapshot,
       });
 }
 
-Widget _buildListofSchedules(List<DocumentSnapshot> documents,
+Widget _buildListofSchedules(
+    void Function() refresh,
+    List<DocumentSnapshot> documents,
     Future<List<String>> Function() retriveProfileDetails) {
   Color badgeBg = Colors.grey[700];
   Color badgeBgGold = Color.fromRGBO(229, 194, 102, 1);
@@ -557,7 +775,7 @@ Widget _buildListofSchedules(List<DocumentSnapshot> documents,
                                     .document(snapshot.data.elementAt(8))
                                     .updateData({
                                   "url": downloadUrl,
-                                });
+                                }).whenComplete(() => refresh());
                                 snapShot.forEach((element) {
                                   cacheData.setString("photoURL", downloadUrl);
                                 });
@@ -634,7 +852,7 @@ Widget _buildListofSchedules(List<DocumentSnapshot> documents,
               ),
             ),
             ...documents
-                .map((data) => _itemTileL(data, data.reference))
+                .map((data) => _itemTileL(refresh, data, data.reference))
                 .toList(),
             Divider(
               color: Colors.grey[800],
@@ -647,7 +865,7 @@ Widget _buildListofSchedules(List<DocumentSnapshot> documents,
               ),
             ),
             ...documents
-                .map((data) => _itemTileS(data, data.reference))
+                .map((data) => _itemTileS(refresh, data, data.reference))
                 .toList(),
             Divider(
               color: Colors.grey[800],
@@ -657,7 +875,7 @@ Widget _buildListofSchedules(List<DocumentSnapshot> documents,
               child: Text("Completed", style: TextStyle(color: Colors.grey)),
             ),
             ...documents
-                .map((data) => _itemTileC(data, data.reference))
+                .map((data) => _itemTileC(refresh, data, data.reference))
                 .toList(),
             Divider(
               color: Colors.grey[800],
@@ -683,7 +901,8 @@ Widget _buildListofSchedules(List<DocumentSnapshot> documents,
 
 bool isEmptyL = true, isEmptyS = true, isEmptyC = true;
 
-Widget _itemTileL(DocumentSnapshot data, DocumentReference reference) {
+Widget _itemTileL(void Function() refresh, DocumentSnapshot data,
+    DocumentReference reference) {
   final record = Schedule.fromSnapshot(data);
   if (record.meetingStatus == "0") {
     return Container(
@@ -744,11 +963,8 @@ Widget _itemTileL(DocumentSnapshot data, DocumentReference reference) {
                                                       reference.firestore
                                                           .document(
                                                               reference.path)
-                                                          .updateData({
-                                                        "mStatus": "0"
-                                                      }).then((value) =>
-                                                              Navigator.pop(
-                                                                  context))
+                                                          .updateData(
+                                                              {"mStatus": "0"})
                                                     },
                                                 child: Text("Live")),
                                             FlatButton(
@@ -762,11 +978,8 @@ Widget _itemTileL(DocumentSnapshot data, DocumentReference reference) {
                                                       reference.firestore
                                                           .document(
                                                               reference.path)
-                                                          .updateData({
-                                                        "mStatus": "2"
-                                                      }).then((value) =>
-                                                              Navigator.pop(
-                                                                  context))
+                                                          .updateData(
+                                                              {"mStatus": "2"})
                                                     },
                                                 child: Text("Completed")),
                                             FlatButton(
@@ -780,11 +993,8 @@ Widget _itemTileL(DocumentSnapshot data, DocumentReference reference) {
                                                       reference.firestore
                                                           .document(
                                                               reference.path)
-                                                          .updateData({
-                                                        "mStatus": "1"
-                                                      }).then((value) =>
-                                                              Navigator.pop(
-                                                                  context))
+                                                          .updateData(
+                                                              {"mStatus": "1"})
                                                     },
                                                 child: Text("Sceduled"))
                                           ],
@@ -878,7 +1088,8 @@ Widget _itemTileL(DocumentSnapshot data, DocumentReference reference) {
   }
 }
 
-Widget _itemTileS(DocumentSnapshot data, DocumentReference reference) {
+Widget _itemTileS(void Function() refresh, DocumentSnapshot data,
+    DocumentReference reference) {
   final record = Schedule.fromSnapshot(data);
 
   if (record.meetingStatus == "1") {
@@ -936,11 +1147,8 @@ Widget _itemTileS(DocumentSnapshot data, DocumentReference reference) {
                                                       reference.firestore
                                                           .document(
                                                               reference.path)
-                                                          .updateData({
-                                                        "mStatus": "0"
-                                                      }).then((value) =>
-                                                              Navigator.pop(
-                                                                  context))
+                                                          .updateData(
+                                                              {"mStatus": "0"})
                                                     },
                                                 child: Text("Live")),
                                             FlatButton(
@@ -954,11 +1162,8 @@ Widget _itemTileS(DocumentSnapshot data, DocumentReference reference) {
                                                       reference.firestore
                                                           .document(
                                                               reference.path)
-                                                          .updateData({
-                                                        "mStatus": "2"
-                                                      }).then((value) =>
-                                                              Navigator.pop(
-                                                                  context))
+                                                          .updateData(
+                                                              {"mStatus": "2"})
                                                     },
                                                 child: Text("Completed")),
                                             FlatButton(
@@ -972,11 +1177,8 @@ Widget _itemTileS(DocumentSnapshot data, DocumentReference reference) {
                                                       reference.firestore
                                                           .document(
                                                               reference.path)
-                                                          .updateData({
-                                                        "mStatus": "1"
-                                                      }).then((value) =>
-                                                              Navigator.pop(
-                                                                  context))
+                                                          .updateData(
+                                                              {"mStatus": "1"})
                                                     },
                                                 child: Text("Sceduled"))
                                           ],
@@ -1070,7 +1272,8 @@ Widget _itemTileS(DocumentSnapshot data, DocumentReference reference) {
   }
 }
 
-Widget _itemTileC(DocumentSnapshot data, DocumentReference reference) {
+Widget _itemTileC(void Function() refresh, DocumentSnapshot data,
+    DocumentReference reference) {
   final record = Schedule.fromSnapshot(data);
 
   if (record.meetingStatus == "2") {
@@ -1125,11 +1328,8 @@ Widget _itemTileC(DocumentSnapshot data, DocumentReference reference) {
                                             onPressed: () => {
                                                   reference.firestore
                                                       .document(reference.path)
-                                                      .updateData({
-                                                    "mStatus": "0"
-                                                  }).then((value) =>
-                                                          Navigator.pop(
-                                                              context))
+                                                      .updateData(
+                                                          {"mStatus": "0"})
                                                 },
                                             child: Text("Live")),
                                         FlatButton(
@@ -1142,11 +1342,8 @@ Widget _itemTileC(DocumentSnapshot data, DocumentReference reference) {
                                             onPressed: () => {
                                                   reference.firestore
                                                       .document(reference.path)
-                                                      .updateData({
-                                                    "mStatus": "2"
-                                                  }).then((value) =>
-                                                          Navigator.pop(
-                                                              context))
+                                                      .updateData(
+                                                          {"mStatus": "2"})
                                                 },
                                             child: Text("Completed")),
                                         FlatButton(
@@ -1159,11 +1356,8 @@ Widget _itemTileC(DocumentSnapshot data, DocumentReference reference) {
                                             onPressed: () => {
                                                   reference.firestore
                                                       .document(reference.path)
-                                                      .updateData({
-                                                    "mStatus": "1"
-                                                  }).then((value) =>
-                                                          Navigator.pop(
-                                                              context))
+                                                      .updateData(
+                                                          {"mStatus": "1"})
                                                 },
                                             child: Text("Sceduled"))
                                       ],
@@ -1171,6 +1365,23 @@ Widget _itemTileC(DocumentSnapshot data, DocumentReference reference) {
                                   },
                                 )
                               }),
+                      IconButton(
+                        icon: Icon(
+                          Icons.edit,
+                        ),
+                        onPressed: () => {
+                          Navigator.of(globalContext).push(PageTransition(
+                              child: EditAMeeting(
+                                  record.subjectName,
+                                  record.subjectCode,
+                                  record.startTime,
+                                  record.endTime,
+                                  record.link,
+                                  record.about,
+                                  reference.path),
+                              type: PageTransitionType.fade))
+                        },
+                      ),
                       IconButton(
                         icon: Icon(
                           Icons.delete,

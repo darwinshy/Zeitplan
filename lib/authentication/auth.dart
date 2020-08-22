@@ -116,26 +116,50 @@ class Auth extends BaseAuth with ChangeNotifier {
     SharedPreferences cacheData = await SharedPreferences.getInstance();
     batchYear = "20" + scholarId.substring(0, 2);
 
-    switch (scholarId.substring(3, 4)) {
-      case "1":
-        branch = "CE";
-        break;
-      case "2":
-        branch = "CSE";
-        break;
-      case "3":
-        branch = "EE";
-        break;
-      case "4":
-        branch = "ECE";
-        break;
-      case "5":
-        branch = "E&I";
-        break;
-      case "6":
-        branch = "EE";
-        break;
-      default:
+    if (batchYear == "2018" || batchYear == "2017") {
+      switch (scholarId.substring(3, 4)) {
+        case "1":
+          branch = "CE";
+          break;
+        case "2":
+          branch = "ME";
+          break;
+        case "3":
+          branch = "EE";
+          break;
+        case "4":
+          branch = "ECE";
+          break;
+        case "5":
+          branch = "CSE";
+          break;
+        case "6":
+          branch = "E&I";
+          break;
+        default:
+      }
+    } else {
+      switch (scholarId.substring(3, 4)) {
+        case "1":
+          branch = "CE";
+          break;
+        case "2":
+          branch = "CSE";
+          break;
+        case "3":
+          branch = "EE";
+          break;
+        case "4":
+          branch = "ECE";
+          break;
+        case "5":
+          branch = "E&I";
+          break;
+        case "6":
+          branch = "ME";
+          break;
+        default:
+      }
     }
 
     print(branch);
