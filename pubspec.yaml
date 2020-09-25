@@ -23,26 +23,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  splashscreen: 
-  firebase_core: 
-  cloud_firestore: 
-  shared_preferences: 
-  firebase_auth: 
-  firebase_database: 
-  google_sign_in: 
-  getwidget: 
-  google_fonts: 
-  intl: 
-  sliding_up_panel: 
-  page_transition: 
-  line_awesome_icons: 
-  flutter_icons: 
-  fluttericon: 
-  url_launcher: 
-  firebase_storage: 
-  image_picker: 
-  connectivity: 
-   # The following adds the Cupertino Icons font to your application.
+  splashscreen: ^1.2.0
+  firebase_core: ^0.4.5
+  cloud_firestore: ^0.13.7
+  shared_preferences: ^0.5.8
+  firebase_auth: ^0.16.1
+  firebase_database: ^3.1.6
+  google_sign_in: ^4.5.1
+  getwidget: ^1.1.3
+  google_fonts: ^1.1.0
+  intl: ^0.16.1
+  sliding_up_panel: ^1.0.2
+  page_transition: ^1.1.5
+  line_awesome_icons: ^1.0.4+2
+  flutter_icons: ^1.1.0
+  fluttericon: ^1.0.7
+  url_launcher: ^5.4.2
+  firebase_storage: ^3.1.6
+  image_picker: ^0.6.7+4
+  connectivity: ^0.4.9
+  # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
