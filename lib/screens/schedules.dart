@@ -17,6 +17,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../root.dart';
 import 'addingAmeeting.dart';
+import 'editProfile.dart';
 
 BuildContext globalContext;
 String crStatus = "false";
@@ -263,6 +264,20 @@ class _SchedulesState extends State<Schedules> {
                       ListTile(
                         title: Row(
                           children: <Widget>[
+                            Icon(Icons.account_circle),
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(PageTransition(
+                                      child: EditProfile(refresh),
+                                      type: PageTransitionType.fade));
+                                },
+                                child: Text("Edit Profile")),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        title: Row(
+                          children: <Widget>[
                             Icon(Icons.adb),
                             FlatButton(
                                 onPressed: () {
@@ -321,15 +336,6 @@ class _SchedulesState extends State<Schedules> {
               appBar: AppBar(
                 backgroundColor: Colors.grey[900],
                 centerTitle: true,
-                // leading: FlatButton(
-                //   padding: EdgeInsets.all(0),
-                //   onPressed: changeDate,
-                //   child: Text(
-                //     formattedAppBar,
-                //     style: TextStyle(
-                //         fontFamily: "rob", color: Colors.white, fontSize: 12),
-                //   ),
-                // ),
                 title: Text(
                   "Dashboard",
                   textAlign: TextAlign.center,
@@ -565,15 +571,6 @@ Widget _buildSchedulesBody(
 
 Widget _streamBuild(void Function() refresh, AsyncSnapshot<String> snapshot,
     Future<List<String>> Function() retriveProfileDetails) {
-  // print(snapshot.data);
-  // return Text("data");
-
-  // print(Firestore.instance
-  //     .collection(snapshot.data)
-  //     .document(formatted)
-  //     .collection("meetings")
-  //     .path);
-  // print(formatted);
   return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection(snapshot.data)

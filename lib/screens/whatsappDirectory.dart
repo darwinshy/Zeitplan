@@ -31,16 +31,6 @@ class WhatsappScreen extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        // centerTitle: true,
-        // title: Text(
-        //   "Whatsapp Directory",
-        //   textAlign: TextAlign.center,
-        //   style: GoogleFonts.montserrat(
-        //       textStyle: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 18,
-        //           fontWeight: FontWeight.w800)),
-        // ),
       ),
       body: FutureBuilder(
           future: retriveProfileDetails(),
@@ -62,7 +52,7 @@ Widget _streamBuild(AsyncSnapshot<List<String>> snapshot,
     Future<List<String>> Function() retriveProfileDetails) {
   var batchYear = snapshot.data.elementAt(5);
   var batchBranch = snapshot.data.elementAt(6);
-  // print(batchBranch);
+  print(batchYear);
   return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance
           .collection("users")
@@ -77,6 +67,7 @@ Widget _streamBuild(AsyncSnapshot<List<String>> snapshot,
         try {
           return _buildListofNames(snapshot.data.documents);
         } catch (e) {
+          print(e);
           return Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -143,7 +134,7 @@ Widget _itemTile(DocumentSnapshot data) {
                       "Email Address",
                       style: TextStyle(color: badgeTx),
                     ),
-                    SelectableText(record.email,
+                    SelectableText(record.email.toString(),
                         style: TextStyle(color: badgeTx, fontSize: 18))
                   ],
                 ),

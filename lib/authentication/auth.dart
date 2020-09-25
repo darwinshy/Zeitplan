@@ -172,32 +172,6 @@ class Auth extends BaseAuth with ChangeNotifier {
 
       final snapShot =
           await Firestore.instance.collection('users').document(user.uid).get();
-
-      // final snapShot = await Firestore.instance
-      //     .collection('users')
-      //     .document(batchYear)
-      //     .collection(branch)
-      //     .document("section")
-      //     .collection(section.toUpperCase())
-      //     .document(user.uid)
-      //     .get();
-      //  if (!snapShot.exists) {
-      //   Firestore.instance
-      //       .collection('users')
-      //       .document(batchYear)
-      //       .collection(branch)
-      //       .document("section")
-      //       .collection(section.toUpperCase())
-      //       .document(user.uid)
-      //       .setData({
-      //     "uid": user.uid,
-      //     "name": fullName,
-      //     "email": user.email,
-      //     "phone": phoneNumber,
-      //     "scholarId": scholarId,
-      //     "section": section.toUpperCase()
-      //   });
-
       if (!snapShot.exists) {
         Firestore.instance.collection('users').document(user.uid).setData({
           "uid": user.uid,
