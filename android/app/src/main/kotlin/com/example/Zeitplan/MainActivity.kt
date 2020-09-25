@@ -1,4 +1,4 @@
-package com.example.Zeitplan
+package com.myapplication.Zeitplan
 
 import io.flutter.embedding.android.FlutterActivity
 
