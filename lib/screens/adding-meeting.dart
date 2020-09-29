@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/reusables.dart';
+
 class AddMeetingScreen extends StatefulWidget {
   @override
   _AddMeetingScreenState createState() => _AddMeetingScreenState();
@@ -73,14 +75,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Add a meeting",
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w800)),
-                    ),
+                    screentitleBoldMedium("Add a meeting"),
                     SizedBox(
                       height: 20,
                     ),

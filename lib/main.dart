@@ -1,10 +1,20 @@
-import 'package:Zeitplan/root.dart';
+import 'root.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'streamproviders.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SharedPreferencesProviders()),
+        ChangeNotifierProvider(create: (_) => DatabaseQueries()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

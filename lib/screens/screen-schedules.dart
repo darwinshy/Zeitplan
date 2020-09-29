@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/screens/about.dart';
-import 'package:Zeitplan/screens/editAmeeting.dart';
-import 'package:Zeitplan/screens/whatsappDirectory.dart';
+import '../authentication/auth.dart';
+import '../screens/screen-about.dart';
+import 'edit-meeting.dart';
+import '../screens/screen-whatsappdirectory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -14,10 +14,10 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../root.dart';
-import 'addingAmeeting.dart';
-import 'editProfile.dart';
+import 'screen-adding.dart';
+import 'edit-profile.dart';
+import 'screen-assigmentlist.dart';
 
 BuildContext globalContext;
 String crStatus = "false";
@@ -38,8 +38,8 @@ class _SchedulesState extends State<Schedules> {
 
     void refresh() async {
       String dbUrlSchedules;
+      String dbUrlAssignment;
       SharedPreferences cacheData = await SharedPreferences.getInstance();
-
       final snapShot = Firestore.instance
           .collection('users')
           .where(
@@ -47,10 +47,16 @@ class _SchedulesState extends State<Schedules> {
             isEqualTo: cacheData.getString("userUID").toString(),
           )
           .snapshots();
-
       setState(() {
         crStatus = cacheData.getBool("CR").toString();
         snapShot.forEach((element) {
+          dbUrlAssignment = "assignment/" +
+              element.documents.elementAt(0).data["batch"].substring(2) +
+              "/" +
+              element.documents.elementAt(0).data["branch"] +
+              "/section/" +
+              element.documents.elementAt(0).data["section"].toUpperCase() +
+              "_SX";
           dbUrlSchedules = "schedules/" +
               element.documents.elementAt(0).data["batch"].substring(2) +
               "/" +
@@ -70,6 +76,7 @@ class _SchedulesState extends State<Schedules> {
           cacheData.setString("dbUrlSchedules", dbUrlSchedules);
           cacheData.setString(
               "photoURL", element.documents.elementAt(0).data["url"]);
+          cacheData.setString("dbUrlAssignment", dbUrlAssignment);
         });
       });
     }
@@ -103,9 +110,9 @@ class _SchedulesState extends State<Schedules> {
 
     // ###################################################################
     // Functions
-    void addAMeeting(BuildContext ctx) {
-      Navigator.of(ctx).push(PageTransition(
-          child: AddMeetingScreen(), type: PageTransitionType.fade));
+    void gotoaddscreen(BuildContext ctx) {
+      Navigator.of(ctx).push(
+          PageTransition(child: AddingScreen(), type: PageTransitionType.fade));
     }
 
     void changeDate() {
@@ -247,6 +254,20 @@ class _SchedulesState extends State<Schedules> {
                       ListTile(
                         title: Row(
                           children: <Widget>[
+                            Icon(Icons.note),
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(PageTransition(
+                                      child: Assignments(),
+                                      type: PageTransitionType.fade));
+                                },
+                                child: Text("Assignments")),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        title: Row(
+                          children: <Widget>[
                             Icon(Icons.person_add),
                             FlatButton(
                                 onPressed: () {
@@ -367,11 +388,11 @@ class _SchedulesState extends State<Schedules> {
                   ? FloatingActionButton(
                       backgroundColor: Color.fromRGBO(229, 194, 102, 1),
                       child: Icon(Icons.add),
-                      onPressed: () => {addAMeeting(context)},
+                      onPressed: () => {gotoaddscreen(context)},
                       isExtended: true,
                     )
                   : null,
-              backgroundColor: Colors.black87,
+              backgroundColor: Colors.grey[900],
               body: snapshots.data[3] != "true" || snapshots.data[3] == "null"
                   ? info(context)
                   : _buildSchedulesBody(

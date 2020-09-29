@@ -1,12 +1,11 @@
 import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/screens/schedules.dart';
+import 'package:Zeitplan/screens/screen-schedules.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'screens/loginScreen.dart';
+import 'screens/screen-login-register-screen.dart';
 
 class Root extends StatefulWidget {
   @override
@@ -21,7 +20,6 @@ class _RootState extends State<Root> {
   void areYouLoggedIn() async {
     SharedPreferences cacheData = await SharedPreferences.getInstance();
 
-    // print(cacheData.getBool('loggedInStatus'));
     setState(() {
       if (cacheData.getBool('loggedInStatus') == null) {
         signStatus = AuthStatus.notSignedIn;
@@ -33,8 +31,6 @@ class _RootState extends State<Root> {
         signStatus = AuthStatus.notSignedIn;
       }
     });
-
-    // print(signStatus);
   }
 
   Future<List<String>> canIaccess() async {
@@ -46,7 +42,6 @@ class _RootState extends State<Root> {
           .document("access")
           .get();
 
-      // print(connectivityResult);
       return [
         snapShot.data["access"],
         snapShot.data["message"],

@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   String scholarId;
   String phoneNumber;
   String section;
+  final PageController pageController = PageController();
 
   final formKeyLogin = new GlobalKey<FormState>();
   final formKeySignUp = new GlobalKey<FormState>();
@@ -64,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                                     return AlertDialog(
                                       title: Center(
                                         child: Text(
-                                          userID,
+                                          userID.substring(1),
                                           style: TextStyle(
                                             fontSize: 12,
                                           ),
@@ -112,20 +113,46 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           else
                             {
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext ctx) {
-                                    return AlertDialog(
-                                      title: Center(
-                                        child: Text(
-                                          userID,
-                                          style: TextStyle(
-                                            fontSize: 12,
+                              if (userID ==
+                                  "#Notice: An email verification link has been sent to your email. Please follow the link to verify your account")
+                                {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return AlertDialog(
+                                          title: Center(
+                                            child: Text(
+                                              userID.substring(1),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  })
+                                        );
+                                      }).then((value) => {
+                                        pageController.animateToPage(1,
+                                            duration: new Duration(
+                                                milliseconds: 1500),
+                                            curve: Curves.easeOut)
+                                      })
+                                }
+                              else
+                                {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext ctx) {
+                                        return AlertDialog(
+                                          title: Center(
+                                            child: Text(
+                                              userID.substring(1),
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      })
+                                }
                             }
                         })
               });
@@ -136,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
+        controller: pageController,
         pageSnapping: true,
         children: <Widget>[login(), signUp()],
       ),
