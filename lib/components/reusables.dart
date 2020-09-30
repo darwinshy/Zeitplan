@@ -49,3 +49,46 @@ void showProgressBar(BuildContext context) {
         );
       });
 }
+
+Widget centerLoading() {
+  return Center(
+      child: Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      Text(
+        "Loading",
+        style: TextStyle(color: Colors.white),
+      ),
+      SizedBox(
+        height: 30,
+      ),
+      CircularProgressIndicator()
+    ],
+  ));
+}
+
+Widget linearProgressbar() {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: <Widget>[
+      LinearProgressIndicator(
+        backgroundColor: Colors.white,
+      )
+    ],
+  );
+}
+
+String giveMePMAM(String time) {
+  int hrs = int.parse(time.substring(0, 2));
+  String minutes = (time.substring(3, 5));
+  // print(time);
+  // print(hrs.toString() + " " + minutes.toString());
+  String meridian = "AM";
+  if (hrs > 12) {
+    hrs = hrs - 12;
+    meridian = "PM";
+  }
+  String meridian2 = hrs.toString() + ":" + minutes + " " + meridian;
+  // print(meridian2);
+  return meridian2;
+}

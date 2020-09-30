@@ -1,7 +1,7 @@
 import 'dart:io';
 import '../authentication/auth.dart';
 import '../screens/screen-about.dart';
-import 'edit-meeting.dart';
+import 'screen-edit-meeting.dart';
 import '../screens/screen-whatsappdirectory.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
@@ -15,8 +15,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../root.dart';
-import 'screen-adding.dart';
-import 'edit-profile.dart';
+import 'screen-adding-admin.dart';
+import 'screen-edit-profile.dart';
 import 'screen-assigmentlist.dart';
 
 BuildContext globalContext;

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseQueries with ChangeNotifier {
-  Stream<QuerySnapshot> providestreams(String path) {
-    return Firestore.instance.collection(path).snapshots();
+  Stream<QuerySnapshot> providestreams(String path, String orderBy) {
+    return Firestore.instance.collection(path).orderBy(orderBy).snapshots();
   }
 
   Future<void> updateDocument(
@@ -13,6 +13,18 @@ class DatabaseQueries with ChangeNotifier {
         .collection(path)
         .document(uniqueDocID)
         .updateData(data);
+  }
+
+  Future<void> addDocumentWithUniqueID(
+      String path, String uniqueDocID, Map<String, dynamic> data) {
+    return Firestore.instance
+        .collection(path)
+        .document(uniqueDocID)
+        .setData(data);
+  }
+
+  Future<void> deleteDocumentWithpath(String path) {
+    return Firestore.instance.collection(path).document().delete();
   }
 
   Future<void> setDocumentWithUniqueID(

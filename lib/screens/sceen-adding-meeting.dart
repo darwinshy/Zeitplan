@@ -263,7 +263,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                             style: TextStyle(color: Colors.white),
                             validator: (value) =>
                                 value.isEmpty ? "Link cannot be empty." : null,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.url,
                             onSaved: (value) => mLink = value,
                           )
                         ],

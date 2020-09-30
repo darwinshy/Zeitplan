@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:validators/validators.dart';
 import '../streamproviders.dart';
 import '../components/reusables.dart';
 
@@ -14,7 +14,7 @@ class AddAssignmentScreen extends StatefulWidget {
 class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
   //
   final assignmentForm = new GlobalKey<FormState>();
-  DateFormat formatter = DateFormat('ddMMyyyy');
+
   //
   String subjectName;
   String assignmentDescription;
@@ -23,6 +23,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
   TimeOfDay assignmentDueTime;
   DateTime assignmentAssignedDate;
   String assignmentLink;
+  String uploadspath;
 
   // Functions Starts
   Future<void> _selectDueDate(BuildContext context) async {
@@ -44,7 +45,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
     if (pickedTime != null && pickedTime != assignmentDueTime) {
       setState(() {
         assignmentDueTime = pickedTime;
-        print(assignmentDueTime);
+        // print(assignmentDueTime);
       });
     }
     FocusScope.of(context).requestFocus(new FocusNode());
@@ -59,13 +60,21 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
     if (picked != null && picked != assignmentAssignedDate)
       setState(() {
         assignmentAssignedDate = picked;
-        print(assignmentAssignedDate);
+        // print(assignmentAssignedDate);
       });
     FocusScope.of(context).requestFocus(new FocusNode());
   }
   // Functions Ends
 
   // Before Submission Check Starts
+
+  bool fieldValidation() {
+    if (subjectName.length > 15 && subjectName.length == 0) return false;
+    if (assignmentDescription.length > 50 && assignmentDescription.length == 0)
+      return false;
+    if (isURL(assignmentLink) != true) return false;
+    return true;
+  }
 
   bool checkDateAndTimeNullity() {
     if (assignmentDueDate != null &&
@@ -89,12 +98,23 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
   // Validate the Form
   void validateTheForm() {
     final assignmentFormData = assignmentForm.currentState;
-    if (checkDateAndTimeNullity() != false && assignmentFormData.validate()) {
+    assignmentFormData.save();
+
+    if (checkDateAndTimeNullity() == false)
+      showSomeAlerts("Date and Time cannot be empty", context);
+
+    if (fieldValidation() == false)
+      showSomeAlerts("Assignment Link is not valid", context);
+
+    if (fieldValidation() != false &&
+        fieldValidation() != false &&
+        checkDateAndTimeNullity() != false) {
       assignmentFormData.save();
       createUniqueAssignmentID();
+      // Fire the storing call
       createAnAssignemnt();
     } else
-      showSomeAlerts("Date and Time cannot be empty", context);
+      showSomeAlerts("Something is wrong.", context);
   }
 
   //
@@ -121,7 +141,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
           assignmentAssignedDate.toString().substring(0, 10),
       "assignmentLink": assignmentLink,
       "active": true,
-      "uploads": []
+      "uploads": "/" + dbPath + "/" + assignmentId + "/uploaded"
     };
     var result = dbqueries.setDocumentWithUniqueID(dbPath, assignmentId, data);
     result.then(

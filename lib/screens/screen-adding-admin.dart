@@ -1,5 +1,5 @@
-import 'adding-assignment.dart';
-import 'adding-meeting.dart';
+import 'screen-adding-assignment.dart';
+import 'sceen-adding-meeting.dart';
 import 'package:flutter/material.dart';
 
 class AddingScreen extends StatefulWidget {
