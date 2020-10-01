@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../authentication/auth.dart';
 import '../components/dashboard/dashboardTile.dart';
@@ -300,76 +301,117 @@ Widget buildListofSchedules(
     Future<List<String>> Function() retriveProfileDetails,
     String crStatus) {
   try {
-    return ListView(
-      padding: const EdgeInsets.only(top: 20.0),
-      children: <Widget>[
-        FutureBuilder(
-            future: retriveProfileDetails(),
-            builder: (context, AsyncSnapshot<List<String>> snapshot) {
-              try {
-                if (snapshot.data.elementAt(7) == "true") {
-                  crStatus = "true";
-                } else {
-                  crStatus = "false";
-                }
-              } catch (e) {}
+    //
+    RefreshController _refreshController =
+        RefreshController(initialRefresh: false);
+    //
+    void onRefresh() {
+      refresh();
+      _refreshController.refreshCompleted();
+    }
 
-              if (snapshot.hasData) {
-                return dashboardTile(snapshot, context, refresh);
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }),
-        SizedBox(
-          height: 30,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Ongoing",
-                style: TextStyle(color: Colors.grey),
+    //
+    void onLoading() async {
+      // monitor network fetch
+      await Future.delayed(Duration(milliseconds: 1000));
+      _refreshController.loadComplete();
+    }
+
+    //
+    return SmartRefresher(
+      enablePullDown: true,
+      header: WaterDropHeader(),
+      // footer: CustomFooter(
+      //   builder: (BuildContext context, LoadStatus mode) {
+      //     if (mode == LoadStatus.idle) {
+      //       return Text("Swipe Down to reload");
+      //     } else if (mode == LoadStatus.loading) {
+      //       return CircularProgressIndicator();
+      //     } else if (mode == LoadStatus.failed) {
+      //       return Text("Load Failed! Click retry!");
+      //     } else if (mode == LoadStatus.canLoading) {
+      //       return Text("Release to load more");
+      //     } else {
+      //       return Text("No more Data");
+      //     }
+      //   },
+      // ),
+      controller: _refreshController,
+      onRefresh: onRefresh,
+      onLoading: onLoading,
+      child: ListView(
+        padding: const EdgeInsets.only(top: 20.0),
+        children: <Widget>[
+          FutureBuilder(
+              future: retriveProfileDetails(),
+              builder: (context, AsyncSnapshot<List<String>> snapshot) {
+                try {
+                  if (snapshot.data.elementAt(7) == "true") {
+                    crStatus = "true";
+                  } else {
+                    crStatus = "false";
+                  }
+                } catch (e) {
+                  print(e);
+                }
+
+                if (snapshot.hasData) {
+                  return dashboardTile(snapshot, context, refresh);
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
+          SizedBox(
+            height: 30,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Ongoing",
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
-            ),
-            ...documents
-                .map((data) =>
-                    itemTileL(refresh, data, data.reference, crStatus))
-                .toList(),
-            Divider(
-              color: Colors.grey[800],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "Scheduled",
-                style: TextStyle(color: Colors.grey),
+              ...documents
+                  .map((data) =>
+                      itemTileL(refresh, data, data.reference, crStatus))
+                  .toList(),
+              Divider(
+                color: Colors.grey[800],
               ),
-            ),
-            ...documents
-                .map((data) =>
-                    itemTileS(refresh, data, data.reference, crStatus))
-                .toList(),
-            Divider(
-              color: Colors.grey[800],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("Completed", style: TextStyle(color: Colors.grey)),
-            ),
-            ...documents
-                .map((data) =>
-                    itemTileC(refresh, data, data.reference, crStatus))
-                .toList(),
-            Divider(
-              color: Colors.grey[800],
-            ),
-          ],
-        )
-      ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Scheduled",
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+              ...documents
+                  .map((data) =>
+                      itemTileS(refresh, data, data.reference, crStatus))
+                  .toList(),
+              Divider(
+                color: Colors.grey[800],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Completed", style: TextStyle(color: Colors.grey)),
+              ),
+              ...documents
+                  .map((data) =>
+                      itemTileC(refresh, data, data.reference, crStatus))
+                  .toList(),
+              Divider(
+                color: Colors.grey[800],
+              ),
+            ],
+          )
+        ],
+      ),
     );
   } catch (e) {
     print(e);
