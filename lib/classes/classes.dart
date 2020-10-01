@@ -92,6 +92,7 @@ class Assignment {
 class Submission {
   String submitterUID;
   String submitterName;
+  String submissionTopic;
   String submitterDescription;
   String submissionId;
   String submitterDateAndTime;
@@ -110,6 +111,7 @@ class Submission {
   Submission.fromMap(Map<String, dynamic> map, {this.reference}) {
     submitterUID = map['submitterUID'].toString();
     submitterName = map['submitterName'].toString();
+    submissionTopic = map["submissionTopic"].toString();
     submitterDescription = map['submitterDescription'].toString();
     submitterDateAndTime = map['submitterDateAndTime'].toString();
     submitterFileLink = map['submitterFileLink'].toString();

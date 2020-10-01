@@ -93,6 +93,7 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
     Map<String, dynamic> data = {
       "submitterUID": submitterUID,
       "submitterName": submitterName,
+      "submissionTopic": widget.record.subjectName,
       "submitterDescription": submitterDescription,
       "submissionId": submissionId,
       "submitterDateAndTime": submitterDateAndTime.toString(),

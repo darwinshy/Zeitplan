@@ -38,7 +38,7 @@ Widget _streamBuildList(
         if (assignmentDataSnapshot.data.documents.length != 0) {
           return itemListAssignement(assignmentDataSnapshot.data.documents);
         } else {
-          return noAssignmentScreen();
+          return _noAssignmentScreen();
         }
       } catch (e) {
         return centerLoading();
@@ -62,7 +62,7 @@ Widget itemListAssignement(List<DocumentSnapshot> documents) {
   ]);
 }
 
-Widget noAssignmentScreen() {
+Widget _noAssignmentScreen() {
   return Column(children: <Widget>[
     Padding(
         padding: const EdgeInsets.all(20.0),

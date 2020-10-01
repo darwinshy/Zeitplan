@@ -1,3 +1,4 @@
+import 'package:Zeitplan/screens/screen-mySubmission.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -124,6 +125,11 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         PageTransition(child: Assignments(), type: PageTransitionType.fade));
   }
 
+  void goToMySubmissionScreen() {
+    Navigator.of(context).push(PageTransition(
+        child: MySubmssionScreen(), type: PageTransitionType.fade));
+  }
+
   void goToWhatsappDirectoryScreen() {
     Navigator.of(context).push(
         PageTransition(child: WhatsappScreen(), type: PageTransitionType.fade));
@@ -180,6 +186,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             goToEditScreen,
             goToAboutScreen,
             goToWhatsappDirectoryScreen,
+            goToMySubmissionScreen,
             refresh,
             context,
             signOut),

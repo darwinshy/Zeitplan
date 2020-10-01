@@ -7,6 +7,14 @@ class DatabaseQueries with ChangeNotifier {
     return Firestore.instance.collection(path).orderBy(orderBy).snapshots();
   }
 
+  Stream<QuerySnapshot> provideSubCollectionstreams(
+      String collectionName, String unique) {
+    return Firestore.instance
+        .collectionGroup(collectionName)
+        .where("submitterUID", isEqualTo: unique)
+        .snapshots();
+  }
+
   Future<void> updateDocument(
       String path, String uniqueDocID, Map<String, dynamic> data) {
     return Firestore.instance

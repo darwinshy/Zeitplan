@@ -8,6 +8,7 @@ Drawer mainDrawer(
     void Function() goToEditScreen,
     void Function() goToAboutScreen,
     void Function() goToWhatsappDirectoryScreen,
+    void Function() goToMySubmissionScreen,
     void Function() refresh,
     BuildContext context,
     void Function() signOut) {
@@ -55,6 +56,16 @@ Drawer mainDrawer(
                 FlatButton(
                     onPressed: goToAssignmentsScreen,
                     child: Text("Assignments")),
+              ],
+            ),
+          ),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(Icons.note_add_outlined),
+                FlatButton(
+                    onPressed: goToMySubmissionScreen,
+                    child: Text("My Submissions")),
               ],
             ),
           ),
