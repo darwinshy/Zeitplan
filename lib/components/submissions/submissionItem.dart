@@ -1,7 +1,7 @@
 import 'package:flutter_icons/flutter_icons.dart';
 
-import '../../../components/reusables.dart';
-import '../../../classes/classes.dart';
+import '../../components/reusables.dart';
+import '../../classes/classes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -14,18 +14,27 @@ Widget itemTileSubmission(
         context: context,
         builder: (BuildContext ctx) {
           return AlertDialog(
+            backgroundColor: Colors.grey[100],
+            titleTextStyle: TextStyle(color: Colors.grey[900]),
+            contentTextStyle: TextStyle(color: Colors.grey[900]),
             title: Text("Do you want to delete this submission ? "),
             actions: [
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text("Cancel")),
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(color: Colors.grey[900]),
+                  )),
               FlatButton(
                 onPressed: () => {
                   record.reference
                       .delete()
                       .then((_) => Navigator.of(context).pop())
                 },
-                child: Text("Delete"),
+                child: Text(
+                  "Delete",
+                  style: TextStyle(color: Colors.grey[900]),
+                ),
               )
             ],
           );

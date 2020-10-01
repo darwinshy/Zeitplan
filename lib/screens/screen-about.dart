@@ -12,8 +12,9 @@ class AboutScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(

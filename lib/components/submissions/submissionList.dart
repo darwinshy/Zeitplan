@@ -3,9 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../streamproviders.dart';
-import '../../reusables.dart';
-import '../assignmentList.dart';
+import '../../streamproviders.dart';
+import '../reusables.dart';
 
 Widget streamBuildUploadedAssignmentList(
     String uploadsPath, BuildContext context) {
@@ -45,7 +44,7 @@ Widget submissionList(AsyncSnapshot<List<String>> cacheData,
   print(submissionsDocuments.elementAt(0).data);
   return Column(children: <Widget>[
     ...submissionsDocuments
-        .map((data) => itemTileSubmission(cacheData.data, data, globalContenxt))
+        .map((data) => itemTileSubmission(cacheData.data, data, context))
         .toList()
   ]);
 }

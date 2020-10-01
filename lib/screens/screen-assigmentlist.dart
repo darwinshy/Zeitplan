@@ -5,9 +5,10 @@ class Assignments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: buildAssignmentList(context),
     );

@@ -11,6 +11,7 @@ class _AddingScreenState extends State<AddingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
       body: PageView(
         clipBehavior: Clip.antiAlias,
         children: [AddMeetingScreen(), AddAssignmentScreen()],

@@ -1,9 +1,9 @@
+import '../components/submissions/submissionList.dart';
 import '../classes/classes.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'screen-adding-uploadSubmission.dart';
 import '../components/reusables.dart';
-import '../components/assignments/submissions/submissionList.dart';
 
 BuildContext assignmentDetailViewglobalContext;
 
@@ -28,10 +28,10 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
   Widget build(BuildContext context) {
     assignmentDetailViewglobalContext = context;
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey[900],
         centerTitle: true,
         title: Text(
           "Assignment Details",
