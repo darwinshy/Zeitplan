@@ -1,3 +1,4 @@
+import 'package:Zeitplan/components/reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,8 +22,13 @@ class _EditProfileState extends State<EditProfile> {
   String batchYear;
   String dbUrlSchedules;
   final editProfileFormKey = new GlobalKey<FormState>();
+
+  Future<SharedPreferences> getSharedPreferenceInstance() {
+    return SharedPreferences.getInstance();
+  }
+
   Future<List<String>> retriveBasicProfileDetails() async {
-    SharedPreferences cacheData = await SharedPreferences.getInstance();
+    SharedPreferences cacheData = await getSharedPreferenceInstance();
     return [
       cacheData.getString("fullname").toString(),
       cacheData.getString("scholarId").toString(),
@@ -82,63 +88,81 @@ class _EditProfileState extends State<EditProfile> {
       }
       return true;
     } else {
-      showDialog(
-          context: context,
-          builder: (BuildContext ctx) {
-            return AlertDialog(
-              title: Center(
-                child: Text(
-                  "Scholar ID is not valid",
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                ),
-              ),
-            );
-          });
+      showSomeAlerts("Scholar ID is not valid", context);
       return false;
     }
   }
 
-  void validateAndEditProfile() async {
-    SharedPreferences cacheData = await SharedPreferences.getInstance();
-    final formLogin = editProfileFormKey.currentState;
-    String uid = cacheData.getString("userUID").toString();
+  Future<void> updateProfileOnDatabase() async {
+    SharedPreferences cacheData = await getSharedPreferenceInstance();
 
+    String uid = cacheData.getString("userUID").toString();
+    final snapShot =
+        await Firestore.instance.collection('users').document(uid).get();
+    if (snapShot.exists) {
+      Firestore.instance.collection('users').document(uid).updateData({
+        "name": fullname,
+        "phone": phoneNumber,
+        "scholarId": scholarId,
+        "section": section.toUpperCase(),
+        "batch": batchYear,
+        "branch": branch,
+      });
+      print("######################################################");
+      print("##### Profile Data Updated to Database #####");
+      print("name       : " + fullname);
+      print("phone      : " + phoneNumber);
+      print("scholarId  : " + scholarId);
+      print("section    : " + section.toUpperCase());
+      print("batch      : " + batchYear);
+      print("branch     : " + branch);
+      print("######################################################");
+    }
+  }
+
+  void updateProfileDataInSharedPreferences() async {
+    SharedPreferences cacheData = await getSharedPreferenceInstance();
+    dbUrlSchedules = "schedules/" +
+        batchYear.substring(2) +
+        "/" +
+        branch +
+        "/section/" +
+        section.toUpperCase() +
+        "_SX";
+
+    cacheData.setString("fullname", fullname);
+    cacheData.setString("phone", phoneNumber);
+    cacheData.setString("scholarId", scholarId);
+    cacheData.setString("section", section);
+    cacheData.setString("batchYear", batchYear);
+    cacheData.setString("branch", branch);
+    cacheData.setString("dbUrlSchedules", dbUrlSchedules);
+    print("######################################################");
+    print("##### Profile Data Updated to Shared Preferences #####");
+    print("name               : " + fullname);
+    print("phone              : " + phoneNumber);
+    print("scholarId          : " + scholarId);
+    print("section            : " + section.toUpperCase());
+    print("batch              : " + batchYear);
+    print("branch             : " + branch);
+    print("dbUrlSchedules     : " + dbUrlSchedules);
+    print("######################################################");
+  }
+
+  void validateAndEditProfile() async {
+    final formLogin = editProfileFormKey.currentState;
     if (formLogin.validate()) {
       formLogin.save();
       if (checkTheScholarID()) {
-        final snapShot =
-            await Firestore.instance.collection('users').document(uid).get();
-        if (snapShot.exists) {
-          Firestore.instance.collection('users').document(uid).updateData({
-            "email": cacheData.getString("email"),
-            "name": fullname,
-            "phone": phoneNumber,
-            "scholarId": scholarId,
-            "section": section.toUpperCase(),
-            "batch": batchYear,
-            "branch": branch,
-          });
-
-          dbUrlSchedules = "schedules/" +
-              batchYear.substring(2) +
-              "/" +
-              branch +
-              "/section/" +
-              section.toUpperCase() +
-              "_SX";
-          print(phoneNumber);
-          cacheData.setString("fullname", fullname);
-          cacheData.setString("phone", phoneNumber);
-          cacheData.setString("scholarId", scholarId);
-          cacheData.setString("section", section);
-          cacheData.setString("batchYear", batchYear);
-          cacheData.setString("branch", branch);
-          cacheData.setString("dbUrlSchedules", dbUrlSchedules);
-          widget.refresh();
-          Navigator.pop(context);
-        }
+        //
+        updateProfileOnDatabase().then((value) => {
+              //
+              updateProfileDataInSharedPreferences(),
+              //
+              widget.refresh(),
+              //
+              Navigator.pop(context)
+            });
       }
     }
   }

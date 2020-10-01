@@ -5,6 +5,7 @@ import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../classes/classes.dart';
 
 BuildContext ctx;
 
@@ -12,14 +13,23 @@ class WhatsappScreen extends StatelessWidget {
   Future<List<String>> retriveProfileDetails() async {
     SharedPreferences cacheData = await SharedPreferences.getInstance();
     return [
+      //0
       cacheData.getString("fullname").toString(),
+      //1
       cacheData.getString("email").toString(),
+      //2
       cacheData.getString("phone").toString(),
+      //3
       cacheData.getString("scholarId").toString(),
+      //4
       cacheData.getString("section").toString(),
+      //5
       cacheData.getString("batchYear").toString(),
+      //6
       cacheData.getString("branch").toString(),
+      //7
       cacheData.getBool("CR").toString(),
+      //8
       cacheData.getString("userUID").toString()
     ];
   }
@@ -276,31 +286,4 @@ Widget _itemTile(DocumentSnapshot data) {
     return SizedBox(
       height: 0,
     );
-}
-
-class Classmate {
-  final String email;
-  final String fullname;
-  final String cr;
-  final String batchBranch;
-  final String phoneNumber;
-  final String scholarId;
-  final String section;
-  final String photoURL;
-  final String verified;
-  final DocumentReference reference;
-
-  Classmate.fromMap(Map<String, dynamic> map, {this.reference})
-      : cr = map['CR'].toString(),
-        photoURL = map['url'].toString(),
-        batchBranch = map['branch'],
-        phoneNumber = map['phone'],
-        scholarId = map['scholarId'],
-        fullname = map["name"],
-        section = map['section'],
-        email = map["email"],
-        verified = map['verified'].toString();
-
-  Classmate.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
 }

@@ -1,5 +1,55 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+class Schedule {
+  final String subjectCode;
+  final String subjectName;
+  final String startTime;
+  final String endTime;
+  final String link;
+  final String about;
+  final String meetingStatus;
+  final DocumentReference reference;
+
+  Schedule.fromMap(Map<String, dynamic> map, {this.reference})
+      : subjectCode = map['sCode'],
+        subjectName = map['sName'],
+        startTime = map['startTime'],
+        endTime = map['endTime'],
+        about = map['about'],
+        link = map['link'],
+        meetingStatus = map["mStatus"];
+
+  Schedule.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+}
+
+class Classmate {
+  final String email;
+  final String fullname;
+  final String cr;
+  final String batchBranch;
+  final String phoneNumber;
+  final String scholarId;
+  final String section;
+  final String photoURL;
+  final String verified;
+  final DocumentReference reference;
+
+  Classmate.fromMap(Map<String, dynamic> map, {this.reference})
+      : cr = map['CR'].toString(),
+        photoURL = map['url'].toString(),
+        batchBranch = map['branch'],
+        phoneNumber = map['phone'],
+        scholarId = map['scholarId'],
+        fullname = map["name"],
+        section = map['section'],
+        email = map["email"],
+        verified = map['verified'].toString();
+
+  Classmate.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+}
+
 class Assignment {
   String subjectName;
   String assignmentDescription;
