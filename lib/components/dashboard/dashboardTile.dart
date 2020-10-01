@@ -8,15 +8,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Widget dashboardTile(AsyncSnapshot<List<String>> snapshot, BuildContext context,
     void Function() refresh) {
-  Color badgeBg = Colors.grey[700];
-  Color badgeBgGold = Color.fromRGBO(229, 194, 102, 1);
-  Color badgeTx = Colors.white;
-  Color badgeTxGold = Color.fromRGBO(92, 68, 0, 1);
+  Color badgeBg = Colors.grey[800];
+  Color badgeBgGold = Colors.grey[100];
+  Color badgeTx = Colors.grey[100];
+  Color badgeTxGold = Colors.grey[800];
+  String isCr = snapshot.data.elementAt(7);
   return Container(
     decoration: BoxDecoration(
-        color: (snapshot.data.elementAt(7) == "false") ? badgeBg : badgeBgGold,
+        color: (isCr == "false") ? badgeBg : badgeBgGold,
         borderRadius: BorderRadius.circular(20)),
-    margin: EdgeInsets.all(5),
+    margin: EdgeInsets.all(20),
     padding: EdgeInsets.fromLTRB(20, 30, 30, 30),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,9 +32,7 @@ Widget dashboardTile(AsyncSnapshot<List<String>> snapshot, BuildContext context,
                 child: Text(
                   snapshot.data.elementAt(0),
                   style: TextStyle(
-                      color: (snapshot.data.elementAt(7) == "false")
-                          ? badgeTx
-                          : badgeTxGold,
+                      color: (isCr == "false") ? badgeTx : badgeTxGold,
                       fontSize: 20,
                       fontWeight: FontWeight.w400),
                 ),
@@ -44,9 +43,7 @@ Widget dashboardTile(AsyncSnapshot<List<String>> snapshot, BuildContext context,
                   snapshot.data.elementAt(1),
                   style: TextStyle(
                     fontSize: 12,
-                    color: (snapshot.data.elementAt(7) == "false")
-                        ? badgeTx
-                        : badgeTxGold,
+                    color: (isCr == "false") ? badgeTx : badgeTxGold,
                   ),
                 ),
               ),
@@ -58,26 +55,18 @@ Widget dashboardTile(AsyncSnapshot<List<String>> snapshot, BuildContext context,
                     Text(
                       snapshot.data.elementAt(6),
                       style: TextStyle(
-                        color: (snapshot.data.elementAt(7) == "false")
-                            ? badgeTx
-                            : badgeTxGold,
+                        color: (isCr == "false") ? badgeTx : badgeTxGold,
                       ),
                     ),
                     Container(
                       margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                      color: (snapshot.data.elementAt(7) == "false")
-                          ? Colors.grey[800]
-                          : Colors.white,
+                      color: (isCr == "false") ? badgeTx : badgeTxGold,
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: Text(
-                          (snapshot.data.elementAt(7) == "true")
-                              ? " CR "
-                              : " Student ",
+                          (isCr == "true") ? " CR " : " Student ",
                           style: TextStyle(
-                            color: (snapshot.data.elementAt(7) == "false")
-                                ? badgeTx
-                                : badgeTxGold,
+                            color: (isCr == "false") ? badgeTxGold : badgeTx,
                           ),
                         ),
                       ),

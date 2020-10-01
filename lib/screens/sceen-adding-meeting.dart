@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/reusables.dart';
 
+BuildContext globalContext;
+
 class AddMeetingScreen extends StatefulWidget {
   @override
   _AddMeetingScreenState createState() => _AddMeetingScreenState();
@@ -26,9 +28,6 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
     SharedPreferences cacheData = await SharedPreferences.getInstance();
     String dbUrl = cacheData.getString("dbUrlSchedules").toString();
     final meetingFormData = meetingForm.currentState;
-    // dynamic dbURL;
-    // dbURL = retriveScheduleURL() as String;
-    // print(mStatus);
     if (meetingFormData.validate()) {
       meetingFormData.save();
 
@@ -48,12 +47,27 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
         "endTime": endTime,
         "mStatus": mStatus,
         "link": mLink
-      }).then((value) => Navigator.of(context).pop());
+      }).then((_) => {
+                print("######################################################"),
+                print("##### Meeting Data Added to Database #####"),
+                print("sName       : " + sName),
+                print("sCode       : " + sCode),
+                print("about       : " + about),
+                print("startTime   : " + startTime),
+                print("endTime     : " + endTime),
+                print("link        : " + mLink),
+                print("######################################################"),
+                showPromisedSomeAlerts(
+                        "You have successfully added a meeting. You can join the meeting from the meetings section.",
+                        globalContext)
+                    .then((_) => Navigator.of(context).pop()),
+              });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    globalContext = context;
     return Scaffold(
       body: formElement(),
     );

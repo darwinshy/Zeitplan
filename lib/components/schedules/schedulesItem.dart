@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../screens/screen-edit-meeting.dart';
-import '../../screens/ConnectivityScreenRerouter.dart';
+import '../../screens/connectivityScreenRerouter.dart';
 import '../../classes/classes.dart';
 
 bool isEmptyL = true, isEmptyS = true, isEmptyC = true;

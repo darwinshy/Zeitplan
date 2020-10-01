@@ -45,10 +45,32 @@ void showProgressBar(BuildContext context) {
   showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (BuildContext ctx) {
+      builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.transparent,
-          title: Center(child: CircularProgressIndicator()),
+          title: Center(
+            child: RefreshProgressIndicator(),
+          ),
+        );
+      });
+}
+
+Future<void> showPromisedSomeAlerts(String text, BuildContext context) {
+  return showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return AlertDialog(
+          backgroundColor: Colors.grey[100],
+          titleTextStyle: TextStyle(color: Colors.grey[900]),
+          contentTextStyle: TextStyle(color: Colors.grey[900]),
+          title: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 12,
+              ),
+            ),
+          ),
         );
       });
 }

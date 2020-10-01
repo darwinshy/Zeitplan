@@ -62,7 +62,7 @@ Drawer mainDrawer(
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.note_add_outlined),
+                Icon(Icons.notes),
                 FlatButton(
                     onPressed: goToMySubmissionScreen,
                     child: Text("My Submissions")),

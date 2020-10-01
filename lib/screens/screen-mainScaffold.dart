@@ -1,10 +1,9 @@
-import 'package:Zeitplan/screens/screen-mySubmission.dart';
+import '../screens/screen-mySubmission.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../authentication/auth.dart';
 import '../components/dashboard/dashboardTile.dart';
@@ -15,7 +14,7 @@ import 'screen-about.dart';
 import 'screen-adding-admin.dart';
 import 'screen-assigmentlist.dart';
 import 'screen-edit-profile.dart';
-import 'ConnectivityScreenRerouter.dart';
+import 'connectivityScreenRerouter.dart';
 import 'screen-whatsappdirectory.dart';
 import '../root.dart';
 
@@ -149,7 +148,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             initialDate: now,
             firstDate: DateTime(2020),
             lastDate: DateTime.now())
-        .then((value) => {setDateOnTheAppBar(value)})
+        .then((value) => setDateOnTheAppBar(value))
         .then((value) => refresh());
   }
 
@@ -218,10 +217,14 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             )
           ],
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: (crStatus == "true")
-            ? FloatingActionButton(
-                backgroundColor: Color.fromRGBO(229, 194, 102, 1),
-                child: Icon(Icons.add),
+            ? FloatingActionButton.extended(
+                icon: Icon(Icons.add),
+                label: Text("Admin Panel",
+                    style: TextStyle(color: Colors.grey[800])),
+                backgroundColor: Colors.grey[100],
+                // child: Icon(Icons.add),
                 onPressed: gotoAddScreen,
                 isExtended: true,
               )
@@ -308,117 +311,39 @@ Widget buildListofSchedules(
     Future<List<String>> Function() retriveProfileDetails,
     String crStatus) {
   try {
-    //
-    RefreshController _refreshController =
-        RefreshController(initialRefresh: false);
-    //
-    void onRefresh() {
-      refresh();
-      _refreshController.refreshCompleted();
-    }
-
-    //
-    void onLoading() async {
-      // monitor network fetch
-      await Future.delayed(Duration(milliseconds: 1000));
-      _refreshController.loadComplete();
-    }
-
-    //
-    return SmartRefresher(
-      enablePullDown: true,
-      header: WaterDropHeader(),
-      // footer: CustomFooter(
-      //   builder: (BuildContext context, LoadStatus mode) {
-      //     if (mode == LoadStatus.idle) {
-      //       return Text("Swipe Down to reload");
-      //     } else if (mode == LoadStatus.loading) {
-      //       return CircularProgressIndicator();
-      //     } else if (mode == LoadStatus.failed) {
-      //       return Text("Load Failed! Click retry!");
-      //     } else if (mode == LoadStatus.canLoading) {
-      //       return Text("Release to load more");
-      //     } else {
-      //       return Text("No more Data");
-      //     }
-      //   },
-      // ),
-      controller: _refreshController,
-      onRefresh: onRefresh,
-      onLoading: onLoading,
-      child: ListView(
-        padding: const EdgeInsets.only(top: 20.0),
-        children: <Widget>[
-          FutureBuilder(
-              future: retriveProfileDetails(),
-              builder: (context, AsyncSnapshot<List<String>> snapshot) {
-                try {
-                  if (snapshot.data.elementAt(7) == "true") {
-                    crStatus = "true";
-                  } else {
-                    crStatus = "false";
-                  }
-                } catch (e) {
-                  print(e);
-                }
-
-                if (snapshot.hasData) {
-                  return dashboardTile(snapshot, context, refresh);
+    return ListView(
+      padding: const EdgeInsets.only(top: 20.0),
+      children: <Widget>[
+        FutureBuilder(
+            future: retriveProfileDetails(),
+            builder: (context, AsyncSnapshot<List<String>> snapshot) {
+              try {
+                if (snapshot.data.elementAt(7) == "true") {
+                  crStatus = "true";
+                  refresh();
                 } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  crStatus = "false";
+                  refresh();
                 }
-              }),
-          SizedBox(
-            height: 30,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Ongoing",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              ...documents
-                  .map((data) =>
-                      itemTileL(refresh, data, data.reference, crStatus))
-                  .toList(),
-              Divider(
-                color: Colors.grey[800],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Scheduled",
-                  style: TextStyle(color: Colors.grey),
-                ),
-              ),
-              ...documents
-                  .map((data) =>
-                      itemTileS(refresh, data, data.reference, crStatus))
-                  .toList(),
-              Divider(
-                color: Colors.grey[800],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Completed", style: TextStyle(color: Colors.grey)),
-              ),
-              ...documents
-                  .map((data) =>
-                      itemTileC(refresh, data, data.reference, crStatus))
-                  .toList(),
-              Divider(
-                color: Colors.grey[800],
-              ),
-            ],
-          )
-        ],
-      ),
+              } catch (e) {
+                print(e);
+              }
+
+              if (snapshot.hasData) {
+                return dashboardTile(snapshot, context, refresh);
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            }),
+        SizedBox(
+          height: 30,
+        ),
+        (documents.length != 0)
+            ? schedulesColumn(documents, refresh, crStatus)
+            : noMeetings()
+      ],
     );
   } catch (e) {
     print(e);
@@ -433,4 +358,73 @@ Widget buildListofSchedules(
       ],
     ));
   }
+}
+
+Widget noMeetings() {
+  return Container(
+    margin: EdgeInsets.only(top: 100),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+            child: Image.asset(
+          "asset/img/nomeeting.png",
+          height: 150,
+        )),
+        Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Text(
+            "No classes scheduled today.\n Ask your Class Representative to add one.",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+          ),
+        )
+      ],
+    ),
+  );
+}
+
+Widget schedulesColumn(
+    List<DocumentSnapshot> documents, void refresh(), String crStatus) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "Ongoing",
+          style: TextStyle(color: Colors.grey),
+        ),
+      ),
+      ...documents
+          .map((data) => itemTileL(refresh, data, data.reference, crStatus))
+          .toList(),
+      Divider(
+        color: Colors.grey[800],
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "Scheduled",
+          style: TextStyle(color: Colors.grey),
+        ),
+      ),
+      ...documents
+          .map((data) => itemTileS(refresh, data, data.reference, crStatus))
+          .toList(),
+      Divider(
+        color: Colors.grey[800],
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("Completed", style: TextStyle(color: Colors.grey)),
+      ),
+      ...documents
+          .map((data) => itemTileC(refresh, data, data.reference, crStatus))
+          .toList(),
+      Divider(
+        color: Colors.grey[800],
+      ),
+    ],
+  );
 }

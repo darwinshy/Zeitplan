@@ -32,11 +32,12 @@ Widget _streamBuildList(
   String path = sharedPrefsData.data[12];
   print(path);
   return StreamBuilder<QuerySnapshot>(
-    stream: databaseQuery.providestreams(path, 'assignmentId'),
+    stream: databaseQuery.providestreamsOrderMinusOne(path, "active"),
     builder: (context, assignmentDataSnapshot) {
       try {
         if (assignmentDataSnapshot.data.documents.length != 0) {
-          return itemListAssignement(assignmentDataSnapshot.data.documents);
+          return itemListAssignement(
+              assignmentDataSnapshot.data.documents, sharedPrefsData.data[10]);
         } else {
           return _noAssignmentScreen();
         }
@@ -48,7 +49,7 @@ Widget _streamBuildList(
 }
 
 // Rendering the page
-Widget itemListAssignement(List<DocumentSnapshot> documents) {
+Widget itemListAssignement(List<DocumentSnapshot> documents, String isCR) {
   return ListView(children: <Widget>[
     Padding(
         padding: const EdgeInsets.all(20.0),
@@ -57,23 +58,37 @@ Widget itemListAssignement(List<DocumentSnapshot> documents) {
       height: 20,
     ),
     ...documents
-        .map((data) => itemTileAssignement(data, globalContenxt))
+        .map((data) => itemTileAssignement(data, globalContenxt, isCR))
         .toList(),
   ]);
 }
 
 Widget _noAssignmentScreen() {
-  return Column(children: <Widget>[
-    Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: screentitleBoldBig("Assignments")),
-    SizedBox(
-      height: 20,
-    ),
-    Center(
-        child: Text(
-      "No assignments found. Ask your CR to add one.",
-      style: TextStyle(fontSize: 12),
-    ))
-  ]);
+  return Column(
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: screentitleBoldBig("Assignments")),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                  child: Image.asset(
+                "asset/img/class.png",
+                height: 200,
+              )),
+              Center(
+                  child: Text(
+                      "No assignments found.\n Ask your Class Representative to add one.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12, color: Colors.grey[500])))
+            ],
+          ),
+        )
+      ]);
 }

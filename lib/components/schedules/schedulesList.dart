@@ -2,6 +2,8 @@ import 'package:Zeitplan/screens/screen-mainScaffold.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../reusables.dart';
+
 Widget buildSchedulesBody(
     void Function() refresh,
     BuildContext context,
@@ -13,7 +15,7 @@ Widget buildSchedulesBody(
       future: retriveScheduleURL(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          return _streamBuild(
+          return streamBuildSschedules(
               refresh, snapshot, retriveProfileDetails, formatted, crStatus);
         } else {
           return Center(
@@ -24,7 +26,7 @@ Widget buildSchedulesBody(
       });
 }
 
-Widget _streamBuild(
+Widget streamBuildSschedules(
     void Function() refresh,
     AsyncSnapshot<String> snapshot,
     Future<List<String>> Function() retriveProfileDetails,
@@ -45,20 +47,7 @@ Widget _streamBuild(
           return buildListofSchedules(refresh, snapshots.data.documents,
               retriveProfileDetails, crStatus);
         } catch (e) {
-          return Center(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Loading",
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              CircularProgressIndicator()
-            ],
-          ));
+          return centerLoading();
         }
       });
 }

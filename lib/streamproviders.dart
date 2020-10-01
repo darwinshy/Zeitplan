@@ -7,6 +7,14 @@ class DatabaseQueries with ChangeNotifier {
     return Firestore.instance.collection(path).orderBy(orderBy).snapshots();
   }
 
+  Stream<QuerySnapshot> providestreamsOrderMinusOne(
+      String path, String orderBy) {
+    return Firestore.instance
+        .collection(path)
+        .orderBy(orderBy, descending: true)
+        .snapshots();
+  }
+
   Stream<QuerySnapshot> provideSubCollectionstreams(
       String collectionName, String unique) {
     return Firestore.instance

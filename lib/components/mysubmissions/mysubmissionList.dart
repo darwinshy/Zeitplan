@@ -70,14 +70,22 @@ Widget _noAssignmentScreen() {
     SizedBox(
       height: 20,
     ),
-    Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Center(
-          child: Text(
-        "No Submissions found. Add some in the assigment section.",
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 12),
-      )),
+    Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+              child: Image.asset(
+            "asset/img/class.png",
+            height: 200,
+          )),
+          Center(
+              child: Text(
+                  "No Submissions found. \nAdd some in the assigments section.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12, color: Colors.grey[500])))
+        ],
+      ),
     )
   ]);
 }
