@@ -1,5 +1,5 @@
 import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/screens/screen-schedules.dart';
+import 'package:Zeitplan/screens/ConnectivityScreenRerouter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +120,7 @@ class _RootState extends State<Root> {
                 return LoginPage(Auth());
                 break;
               case AuthStatus.signedIn:
-                return Schedules();
+                return MainScreen();
               default:
                 return LoginPage(Auth());
             }

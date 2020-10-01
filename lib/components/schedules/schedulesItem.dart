@@ -3,7 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../screens/screen-edit-meeting.dart';
-import '../../screens/screen-schedules.dart';
+import '../../screens/ConnectivityScreenRerouter.dart';
 import '../../classes/classes.dart';
 
 bool isEmptyL = true, isEmptyS = true, isEmptyC = true;
@@ -109,6 +109,23 @@ Widget itemTileL(void Function() refresh, DocumentSnapshot data,
                                       },
                                     )
                                   }),
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                            ),
+                            onPressed: () => {
+                              Navigator.of(globalContext).push(PageTransition(
+                                  child: EditAMeeting(
+                                      record.subjectName,
+                                      record.subjectCode,
+                                      record.startTime,
+                                      record.endTime,
+                                      record.link,
+                                      record.about,
+                                      reference.path),
+                                  type: PageTransitionType.fade))
+                            },
+                          ),
                           IconButton(
                             icon: Icon(
                               Icons.delete,
@@ -293,6 +310,23 @@ Widget itemTileS(void Function() refresh, DocumentSnapshot data,
                                       },
                                     )
                                   }),
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                            ),
+                            onPressed: () => {
+                              Navigator.of(globalContext).push(PageTransition(
+                                  child: EditAMeeting(
+                                      record.subjectName,
+                                      record.subjectCode,
+                                      record.startTime,
+                                      record.endTime,
+                                      record.link,
+                                      record.about,
+                                      reference.path),
+                                  type: PageTransitionType.fade))
+                            },
+                          ),
                           IconButton(
                             icon: Icon(
                               Icons.delete,

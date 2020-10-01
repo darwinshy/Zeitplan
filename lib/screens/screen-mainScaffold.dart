@@ -9,12 +9,12 @@ import '../components/dashboard/dashboardTile.dart';
 import '../components/drawer.dart';
 import '../components/schedules/schedulesItem.dart';
 import '../components/schedules/schedulesList.dart';
-import '../screens/screen-about.dart';
-import '../screens/screen-adding-admin.dart';
-import '../screens/screen-assigmentlist.dart';
-import '../screens/screen-edit-profile.dart';
-import '../screens/screen-schedules.dart';
-import '../screens/screen-whatsappdirectory.dart';
+import 'screen-about.dart';
+import 'screen-adding-admin.dart';
+import 'screen-assigmentlist.dart';
+import 'screen-edit-profile.dart';
+import 'ConnectivityScreenRerouter.dart';
+import 'screen-whatsappdirectory.dart';
 import '../root.dart';
 
 class MainScreenScaffold extends StatefulWidget {
@@ -237,7 +237,7 @@ Widget info(BuildContext context) {
             SharedPreferences cacheData = await SharedPreferences.getInstance();
             cacheData.setString("welcomeScreenShow", "true");
             Navigator.of(context).pushReplacement(PageTransition(
-                child: Schedules(), type: PageTransitionType.fade));
+                child: MainScreen(), type: PageTransitionType.fade));
           },
           child: Text(
             "OK",

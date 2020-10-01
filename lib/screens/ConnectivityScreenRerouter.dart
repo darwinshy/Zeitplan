@@ -4,18 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/screen-main.dart';
+import 'screen-mainScaffold.dart';
 
 BuildContext globalContext;
 
-class Schedules extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   @override
-  _SchedulesState createState() => _SchedulesState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class _SchedulesState extends State<Schedules> {
+class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    globalContext = context;
     Future<List<String>> canIaccess() async {
       try {
         SharedPreferences cacheData = await SharedPreferences.getInstance();
