@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Drawer mainDrawer(
-    void Function() gotoAddScreen,
-    void Function() goToAssignmentsScreen,
-    void Function() goToEditScreen,
-    void Function() goToAboutScreen,
-    void Function() goToWhatsappDirectoryScreen,
-    void Function() goToMySubmissionScreen,
-    void Function() refresh,
-    BuildContext context,
-    void Function() signOut) {
+  void Function() gotoAddScreen,
+  void Function() goToAssignmentsScreen,
+  void Function() goToEditScreen,
+  void Function() goToAboutScreen,
+  void Function() goToWhatsappDirectoryScreen,
+  void Function() goToMySubmissionScreen,
+  void Function() goToDeveloperScreen,
+  void Function() refresh,
+  BuildContext context,
+  void Function() signOut,
+) {
   return Drawer(
     elevation: 100,
     child: Container(
@@ -92,6 +94,28 @@ Drawer mainDrawer(
             ),
           ),
           ListTile(
+              title: Row(
+            children: <Widget>[
+              Icon(
+                Icons.exit_to_app,
+              ),
+              FlatButton(onPressed: signOut, child: Text("Log Out")),
+            ],
+          )),
+          Divider(
+            color: Colors.white60,
+          ),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(Icons.code),
+                FlatButton(
+                    onPressed: goToDeveloperScreen,
+                    child: Text("Know the Developer")),
+              ],
+            ),
+          ),
+          ListTile(
             title: Row(
               children: <Widget>[
                 Icon(Icons.adb),
@@ -111,18 +135,6 @@ Drawer mainDrawer(
               ],
             ),
           ),
-          Divider(
-            color: Colors.white60,
-          ),
-          ListTile(
-              title: Row(
-            children: <Widget>[
-              Icon(
-                Icons.exit_to_app,
-              ),
-              FlatButton(onPressed: signOut, child: Text("Log Out")),
-            ],
-          )),
         ],
       ),
     ),

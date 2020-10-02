@@ -25,6 +25,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
   String mLink;
 
   void validateAndSaveToDb() async {
+    showProgressBar(globalContext);
     SharedPreferences cacheData = await SharedPreferences.getInstance();
     String dbUrl = cacheData.getString("dbUrlSchedules").toString();
     final meetingFormData = meetingForm.currentState;
@@ -60,7 +61,10 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                 showPromisedSomeAlerts(
                         "You have successfully added a meeting. You can join the meeting from the meetings section.",
                         globalContext)
-                    .then((_) => Navigator.of(context).pop()),
+                    .then((_) => {
+                          Navigator.of(context).pop(),
+                          Navigator.of(context).pop()
+                        }),
               });
     }
   }

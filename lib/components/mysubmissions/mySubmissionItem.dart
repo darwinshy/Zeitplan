@@ -2,11 +2,13 @@ import 'package:Zeitplan/classes/classes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../reusables.dart';
 
 Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
   final record = Submission.fromSnapshot(data);
+  // Functions
   void deleteThisSubmission() {
     showDialog(
         context: context,
@@ -37,6 +39,19 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
             ],
           );
         });
+  }
+
+  void openLink() async {
+    String url = record.submitterFileLink;
+    try {
+      bool launched = await launch(url, forceWebView: false);
+
+      if (!launched) {
+        await launch(url, forceWebView: false);
+      }
+    } catch (e) {
+      await launch(url, forceWebView: true);
+    }
   }
 
   return Container(
@@ -103,6 +118,27 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
                   style: TextStyle(
                     color: Colors.grey[900],
                   )),
+              SizedBox(
+                height: 8,
+              ),
+              Text("Click here",
+                  style: TextStyle(
+                    color: Colors.grey[900],
+                    fontSize: 10,
+                    fontFamily: "OpenSans",
+                  )),
+              SizedBox(
+                height: 4,
+              ),
+              OutlineButton(
+                  borderSide: BorderSide(color: Colors.grey[900]),
+                  child: new Text(
+                    "Visit",
+                    style: TextStyle(color: Colors.grey[900]),
+                  ),
+                  onPressed: openLink,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(5.0)))
             ],
           ),
         ),

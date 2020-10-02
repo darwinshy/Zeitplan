@@ -1,4 +1,5 @@
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../components/reusables.dart';
 import '../../classes/classes.dart';
@@ -9,6 +10,19 @@ Widget itemTileSubmission(
     List<String> cacehData, DocumentSnapshot data, BuildContext context) {
   final record = Submission.fromSnapshot(data);
   bool canModify = record.submitterUID == cacehData.elementAt(7) ? true : false;
+  void openLink() async {
+    String url = record.submitterFileLink;
+    try {
+      bool launched = await launch(url, forceWebView: false);
+
+      if (!launched) {
+        await launch(url, forceWebView: false);
+      }
+    } catch (e) {
+      await launch(url, forceWebView: true);
+    }
+  }
+
   void deleteThisSubmission() {
     showDialog(
         context: context,
@@ -90,6 +104,27 @@ Widget itemTileSubmission(
                   style: TextStyle(
                     color: Colors.grey[900],
                   )),
+              SizedBox(
+                height: 16,
+              ),
+              Text("Click here",
+                  style: TextStyle(
+                    color: Colors.grey[900],
+                    fontSize: 10,
+                    fontFamily: "OpenSans",
+                  )),
+              SizedBox(
+                height: 4,
+              ),
+              OutlineButton(
+                  borderSide: BorderSide(color: Colors.grey[900]),
+                  child: new Text(
+                    "Visit",
+                    style: TextStyle(color: Colors.grey[900]),
+                  ),
+                  onPressed: openLink,
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(5.0)))
             ],
           ),
         ),

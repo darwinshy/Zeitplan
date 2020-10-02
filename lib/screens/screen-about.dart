@@ -31,23 +31,105 @@ class AboutScreen extends StatelessWidget {
                       fontWeight: FontWeight.w800)),
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                    "Zeitplan is Class Management Service (CMS) that aims to manage online classes efficiently.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        height: 1.5,
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300)),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "Zeitplan is Class Management Service (CMS) that aims to manage online classes efficiently.",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          height: 1.5,
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w300)),
+                ),
                 SizedBox(
                   height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Current version : v1.1",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "New Features",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Check what assignments you have to complete.",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Share your assignment with everyone.",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Change your Profile Picture by long pressing on your picture.",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Features",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Divider(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "You can join the Class Meetings easily.",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Change your Profile Picture by long pressing on your picture.",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(fontSize: 12, height: 1.25),
+                  ),
                 ),
               ],
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.grey[900],
+                color: Colors.grey[800],
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: EdgeInsets.all(20),
@@ -129,12 +211,6 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Text("This version of the application is in beta vesion.",
-                style: TextStyle(
-                    height: 1.5,
-                    color: Colors.grey[500],
-                    fontSize: 10,
-                    fontWeight: FontWeight.w300)),
           ],
         ),
       ),

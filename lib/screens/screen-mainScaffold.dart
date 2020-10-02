@@ -13,6 +13,7 @@ import '../components/schedules/schedulesList.dart';
 import 'screen-about.dart';
 import 'screen-adding-admin.dart';
 import 'screen-assigmentlist.dart';
+import 'screen-developer.dart';
 import 'screen-edit-profile.dart';
 import 'connectivityScreenRerouter.dart';
 import 'screen-whatsappdirectory.dart';
@@ -134,6 +135,11 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         PageTransition(child: WhatsappScreen(), type: PageTransitionType.fade));
   }
 
+  void goToDeveloperScreen() {
+    Navigator.of(context).push(PageTransition(
+        child: DeveloperScreen(), type: PageTransitionType.fade));
+  }
+
   void goToAboutScreen() {
     Navigator.of(context).push(
         PageTransition(child: AboutScreen(), type: PageTransitionType.fade));
@@ -186,6 +192,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             goToAboutScreen,
             goToWhatsappDirectoryScreen,
             goToMySubmissionScreen,
+            goToDeveloperScreen,
             refresh,
             context,
             signOut),

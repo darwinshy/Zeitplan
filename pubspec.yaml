@@ -73,6 +73,8 @@ flutter:
     - asset/img/class.png
     - asset/img/error.png
     - asset/img/nomeeting.png
+    - asset/img/devimg.png
+    - asset/img/developererror.png
 
   fonts:
     - family: rob

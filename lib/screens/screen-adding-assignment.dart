@@ -144,8 +144,32 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
       "uploads": "/" + dbPath + "/" + assignmentId + "/uploaded"
     };
     var result = dbqueries.setDocumentWithUniqueID(dbPath, assignmentId, data);
-    result.then(
-        (value) => {Navigator.of(context).pop(), Navigator.of(context).pop()});
+    result.then((value) => {
+          print("######################################################"),
+          print("##### Assignment Data Added to Database #####"),
+          print("subjectName            : " + subjectName),
+          print("assignmentDescription  : " + assignmentDescription),
+          print("assignmentId           : " + assignmentId),
+          print("assignmentDueDate      : " +
+              assignmentDueDate.toString().substring(0, 10)),
+          print("assignmentDueTime      : " +
+              assignmentDueTime.toString().substring(10, 15)),
+          print("assignmentAssignedDate : " +
+              assignmentAssignedDate.toString().substring(0, 10)),
+          print("assignmentLink         : " + assignmentLink),
+          print("uploads                : " +
+              "/" +
+              dbPath +
+              "/" +
+              assignmentId +
+              "/uploaded"),
+          print("######################################################"),
+          showPromisedSomeAlerts(
+                  "You have successfully added an assignment. You can see the assignment in the assignment section.",
+                  globalContext)
+              .then((_) =>
+                  {Navigator.of(context).pop(), Navigator.of(context).pop()})
+        });
   }
 
   @override
