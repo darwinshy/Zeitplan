@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +12,20 @@ Widget screentitleBoldBig(String title) {
   );
 }
 
+Widget animatedLoader() {
+  return Container(
+    width: 100,
+    height: 100,
+    child: Center(
+        child: FlareActor(
+      "asset/icon/loader.flr",
+      animation: "Untitled",
+      alignment: Alignment.center,
+      fit: BoxFit.contain,
+    )),
+  );
+}
+
 Widget screentitleBoldMedium(String title) {
   return Text(
     title,
@@ -18,6 +33,58 @@ Widget screentitleBoldMedium(String title) {
     style: GoogleFonts.montserrat(
         textStyle: TextStyle(
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800)),
+  );
+}
+
+FlatButton genericFlatButtonWithRoundedBorders(
+    String text, void Function() function) {
+  return FlatButton(
+    padding: EdgeInsets.all(10),
+    focusColor: Colors.blue,
+    onPressed: function,
+    child: Text(text, style: TextStyle(color: Colors.yellow, fontSize: 18)),
+    textColor: Colors.white,
+    shape: RoundedRectangleBorder(
+        side: BorderSide(
+            color: Colors.yellow, width: 0.8, style: BorderStyle.solid),
+        borderRadius: BorderRadius.circular(20)),
+  );
+}
+
+FlatButton flatButtonWithRoundedShape(String text, void Function() function) {
+  return FlatButton(
+    minWidth: double.infinity,
+    height: 60,
+    padding: EdgeInsets.all(10),
+    color: Colors.grey[900],
+    onPressed: function,
+    child: Text(text,
+        style: TextStyle(
+            color: Colors.grey[100],
+            fontSize: 18,
+            fontWeight: FontWeight.w500)),
+    textColor: Colors.white,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+  );
+}
+// Themed
+
+InputDecoration inputDecoration(String hint) {
+  return InputDecoration(
+    hintText: hint,
+    hintStyle: TextStyle(color: Colors.grey[800], fontSize: 15),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey[100],
+        width: 0.2,
+      ),
+    ),
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey[600],
+        width: 0.2,
+      ),
+    ),
   );
 }
 

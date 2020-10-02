@@ -1,10 +1,11 @@
-import '../screens/screen-mySubmission.dart';
+import '../components/versionInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../screens/screen-mySubmission.dart';
 import '../authentication/auth.dart';
 import '../components/dashboard/dashboardTile.dart';
 import '../components/drawer.dart';
@@ -15,9 +16,10 @@ import 'screen-adding-admin.dart';
 import 'screen-assigmentlist.dart';
 import 'screen-developer.dart';
 import 'screen-edit-profile.dart';
-import 'connectivityScreenRerouter.dart';
 import 'screen-whatsappdirectory.dart';
 import '../root.dart';
+
+BuildContext mainScaffoldContext;
 
 class MainScreenScaffold extends StatefulWidget {
   final AsyncSnapshot<List<String>> snapshotOfInternetAccessibility;
@@ -38,6 +40,11 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
   String formattedAppBar = DateFormat('dd MMM ').format(DateTime.now());
   String formatted = DateFormat('ddMMyyyy').format(DateTime.now());
   // ###################################################################
+  @override
+  void initState() {
+    mainScaffoldContext = context;
+    super.initState();
+  }
 
   void refresh() async {
     String dbUrlSchedules;
@@ -245,78 +252,12 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
   }
 }
 
-Widget info(BuildContext context) {
-  return AlertDialog(
-    actions: [
-      FlatButton(
-          color: Colors.white,
-          onPressed: () async {
-            globalContext = context;
-            SharedPreferences cacheData = await SharedPreferences.getInstance();
-            cacheData.setString("welcomeScreenShow", "true");
-            Navigator.of(context).pushReplacement(PageTransition(
-                child: MainScreen(), type: PageTransitionType.fade));
-          },
-          child: Text(
-            "OK",
-            style: TextStyle(color: Colors.black),
-          ))
-    ],
-    backgroundColor: Colors.grey[900],
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Welcome, \nv1.0\n",
-            textAlign: TextAlign.start,
-            style: GoogleFonts.montserrat(
-                textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800)),
-          ),
-        ),
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "You can join the Class Meeting by tapping on \"Join Meeting\"",
-                  style: TextStyle(fontSize: 12, height: 1.25),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact",
-                  style: TextStyle(fontSize: 12, height: 1.25),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Change your Profile Picture by long pressing on your picture.",
-                  style: TextStyle(fontSize: 12, height: 1.25),
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
-    ),
-  );
-}
-
 Widget buildListofSchedules(
-    void Function() refresh,
-    List<DocumentSnapshot> documents,
-    Future<List<String>> Function() retriveProfileDetails,
-    String crStatus) {
+  void Function() refresh,
+  List<DocumentSnapshot> documents,
+  Future<List<String>> Function() retriveProfileDetails,
+  String crStatus,
+) {
   try {
     return ListView(
       padding: const EdgeInsets.only(top: 20.0),
@@ -404,7 +345,8 @@ Widget schedulesColumn(
         ),
       ),
       ...documents
-          .map((data) => itemTileL(refresh, data, data.reference, crStatus))
+          .map((data) => itemTileL(
+              refresh, data, data.reference, crStatus, mainScaffoldContext))
           .toList(),
       Divider(
         color: Colors.grey[800],
@@ -417,7 +359,8 @@ Widget schedulesColumn(
         ),
       ),
       ...documents
-          .map((data) => itemTileS(refresh, data, data.reference, crStatus))
+          .map((data) => itemTileS(
+              refresh, data, data.reference, crStatus, mainScaffoldContext))
           .toList(),
       Divider(
         color: Colors.grey[800],
@@ -427,7 +370,8 @@ Widget schedulesColumn(
         child: Text("Completed", style: TextStyle(color: Colors.grey)),
       ),
       ...documents
-          .map((data) => itemTileC(refresh, data, data.reference, crStatus))
+          .map((data) => itemTileC(
+              refresh, data, data.reference, crStatus, mainScaffoldContext))
           .toList(),
       Divider(
         color: Colors.grey[800],

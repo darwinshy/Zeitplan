@@ -15,7 +15,7 @@ Widget buildSchedulesBody(
       future: retriveScheduleURL(),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.hasData) {
-          return streamBuildSschedules(
+          return streamBuildSchedules(
               refresh, snapshot, retriveProfileDetails, formatted, crStatus);
         } else {
           return Center(
@@ -26,7 +26,7 @@ Widget buildSchedulesBody(
       });
 }
 
-Widget streamBuildSschedules(
+Widget streamBuildSchedules(
     void Function() refresh,
     AsyncSnapshot<String> snapshot,
     Future<List<String>> Function() retriveProfileDetails,

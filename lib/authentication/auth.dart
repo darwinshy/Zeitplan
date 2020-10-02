@@ -6,52 +6,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseAuth {
   Future<String> signInWithEmailAndPassword(String email, String password);
-  Future<String> createUserWithEmailAndPassword(String email, String password,
-      String fullName, String scholarId, String section, String phoneNumber);
+  Future<String> createUserWithEmailAndPassword(
+      String email,
+      String password,
+      String fullName,
+      String scholarId,
+      String section,
+      String phoneNumber,
+      String branch,
+      String batchYear);
   Future<String> signInWithGoogle();
   Future<String> currentUser();
   Future<void> signOut();
 }
 
 class Auth extends BaseAuth with ChangeNotifier {
-  Future<String> signInWithGoogle() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
-    final snapShot =
-        await Firestore.instance.collection('users').document(user.uid).get();
-    if (!snapShot.exists) {
-      Firestore.instance.collection("users").document(user.uid).setData({
-        "uid": user.uid,
-        "name": user.displayName,
-        "email": user.email,
-        "phone": user.phoneNumber,
-        "address": null,
-      });
-    } else {
-      print("User Exists");
-    }
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    print("Saving User to Storage : " + user.uid);
-    prefs.setString("userTYPE", "client");
-    prefs.setString("userUID", user.uid);
-
-    notifyListeners();
-
-    return user.uid;
-  }
-
   Future<String> signInWithEmailAndPassword(
       String email, String password) async {
     String dbUrlSchedules;
@@ -117,9 +86,10 @@ class Auth extends BaseAuth with ChangeNotifier {
         return user.uid;
       }
       await user.sendEmailVerification();
-      return "#Please complete the email verification process before logging in. Check you email once.";
+      return "#Please complete the email verification process before logging in. We have sent you an email. If not recieved contact administrator.";
     } catch (e) {
-      return "#" + e.toString();
+      print(e);
+      return "#" + e.message.toString();
     }
   }
 
@@ -129,62 +99,13 @@ class Auth extends BaseAuth with ChangeNotifier {
       String fullName,
       String scholarId,
       String section,
-      String phoneNumber) async {
-    String batchYear;
-    String branch;
+      String phoneNumber,
+      String branch,
+      String batchYear) async {
     String dbUrlProfile;
     String dbUrlSchedules;
     String dbUrlAssignment;
     SharedPreferences cacheData = await SharedPreferences.getInstance();
-    batchYear = "20" + scholarId.substring(0, 2);
-
-    if (batchYear == "2018" || batchYear == "2017") {
-      switch (scholarId.substring(3, 4)) {
-        case "1":
-          branch = "CE";
-          break;
-        case "2":
-          branch = "ME";
-          break;
-        case "3":
-          branch = "EE";
-          break;
-        case "4":
-          branch = "ECE";
-          break;
-        case "5":
-          branch = "CSE";
-          break;
-        case "6":
-          branch = "E&I";
-          break;
-        default:
-      }
-    } else {
-      switch (scholarId.substring(3, 4)) {
-        case "1":
-          branch = "CE";
-          break;
-        case "2":
-          branch = "CSE";
-          break;
-        case "3":
-          branch = "EE";
-          break;
-        case "4":
-          branch = "ECE";
-          break;
-        case "5":
-          branch = "E&I";
-          break;
-        case "6":
-          branch = "ME";
-          break;
-        default:
-      }
-    }
-
-    print(branch);
 
     try {
       AuthResult authResult = await FirebaseAuth.instance
@@ -192,7 +113,6 @@ class Auth extends BaseAuth with ChangeNotifier {
       FirebaseUser user = authResult.user;
       try {
         await user.sendEmailVerification();
-
         final snapShot = await Firestore.instance
             .collection('users')
             .document(user.uid)
@@ -210,7 +130,7 @@ class Auth extends BaseAuth with ChangeNotifier {
             "CR": false,
             "verified": false
           });
-//
+          // dbUrlAssignment for getting documents
           dbUrlAssignment = "assignment/" +
               batchYear.substring(2) +
               "/" +
@@ -228,11 +148,10 @@ class Auth extends BaseAuth with ChangeNotifier {
               "/section/" +
               section.toUpperCase() +
               "_SX";
-
+          //
           cacheData.setString("userUID", user.uid);
           cacheData.setString("fullname", fullName);
           cacheData.setString("email", email);
-          cacheData.setBool("CR", false);
           cacheData.setString("phone", phoneNumber);
           cacheData.setString("scholarId", scholarId);
           cacheData.setString("section", section);
@@ -241,16 +160,15 @@ class Auth extends BaseAuth with ChangeNotifier {
           cacheData.setString("dbUrlSchedules", dbUrlSchedules);
           cacheData.setString("dbUrlAssignment", dbUrlAssignment);
           cacheData.setString("dbUrlProfile", dbUrlProfile);
+          cacheData.setBool("CR", false);
         }
-
         notifyListeners();
-        return "#Notice: An email verification link has been sent to your email. Please follow the link to verify your account";
+        return "#A verification link has been sent to your email. Please follow the link to verify your account";
       } catch (e) {
-        print(e.message);
-        return "#" + e.toString();
+        return "#" + e.message.toString();
       }
     } catch (e) {
-      return "#" + e.toString();
+      return "#" + e.message.toString();
     }
   }
 
@@ -261,28 +179,25 @@ class Auth extends BaseAuth with ChangeNotifier {
 
       return user.uid;
     } catch (e) {
-      return null;
+      return e.message.toString();
     }
   }
 
   Future<String> getEmail() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     notifyListeners();
-
     return user.email;
   }
 
   Future<String> getName() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     notifyListeners();
-
     return user.displayName;
   }
 
   Future<String> getPhoto() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     notifyListeners();
-
     return user.photoUrl;
   }
 
@@ -293,5 +208,43 @@ class Auth extends BaseAuth with ChangeNotifier {
     } catch (e) {
       return null;
     }
+  }
+
+  Future<String> signInWithGoogle() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
+    final snapShot =
+        await Firestore.instance.collection('users').document(user.uid).get();
+    if (!snapShot.exists) {
+      Firestore.instance.collection("users").document(user.uid).setData({
+        "uid": user.uid,
+        "name": user.displayName,
+        "email": user.email,
+        "phone": user.phoneNumber,
+        "address": null,
+      });
+    } else {
+      print("User Exists");
+    }
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("Saving User to Storage : " + user.uid);
+    prefs.setString("userTYPE", "client");
+    prefs.setString("userUID", user.uid);
+
+    notifyListeners();
+
+    return user.uid;
   }
 }

@@ -1,4 +1,3 @@
-import 'package:Zeitplan/components/versionInfoDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -120,21 +119,22 @@ Drawer mainDrawer(
               children: <Widget>[
                 Icon(Icons.adb),
                 FlatButton(
-                    onPressed: () {
-                      infoDrawer(context);
-                    },
+                    onPressed: goToAboutScreen,
+                    // onPressed: () {
+                    //   infoDrawer(context);
+                    // },
                     child: Text("Version Info")),
               ],
             ),
           ),
-          ListTile(
-            title: Row(
-              children: <Widget>[
-                Icon(Icons.info),
-                FlatButton(onPressed: goToAboutScreen, child: Text("About")),
-              ],
-            ),
-          ),
+          // ListTile(
+          //   title: Row(
+          //     children: <Widget>[
+          //       Icon(Icons.info),
+          //       FlatButton(onPressed: goToAboutScreen, child: Text("About")),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     ),

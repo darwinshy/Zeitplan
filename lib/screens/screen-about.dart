@@ -81,14 +81,6 @@ class AboutScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Change your Profile Picture by long pressing on your picture.",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(fontSize: 12, height: 1.25),
-                  ),
-                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -112,7 +104,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact",
+                    "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact.",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
@@ -177,7 +169,7 @@ class AboutScreen extends StatelessWidget {
                             icon: Icon(AntDesign.instagram),
                             onPressed: () async {
                               const url =
-                                  'https://www.instagram.com/shashu_shashwat';
+                                  'https://www.instagram.com/i_am_the_darwin';
 
                               try {
                                 bool launched =

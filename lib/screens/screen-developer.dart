@@ -144,7 +144,7 @@ class DeveloperScreen extends StatelessWidget {
                                 icon: Icon(AntDesign.instagram),
                                 onPressed: () async {
                                   const url =
-                                      'https://www.instagram.com/shashu_shashwat';
+                                      'https://www.instagram.com/i_am_the_darwin';
 
                                   try {
                                     bool launched =

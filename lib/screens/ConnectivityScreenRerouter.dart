@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screen-mainScaffold.dart';
 
-BuildContext globalContext;
+// BuildContext globalContext;
 
 class MainScreen extends StatefulWidget {
   @override
@@ -16,7 +16,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    globalContext = context;
+    // globalContext = context;
     Future<List<String>> canIaccess() async {
       try {
         SharedPreferences cacheData = await SharedPreferences.getInstance();

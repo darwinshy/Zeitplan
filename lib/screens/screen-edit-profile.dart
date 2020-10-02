@@ -1,4 +1,3 @@
-import 'package:Zeitplan/components/reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -41,54 +40,59 @@ class _EditProfileState extends State<EditProfile> {
   bool checkTheScholarID() {
     if (scholarId.length == 7) {
       batchYear = "20" + scholarId.substring(0, 2);
-      if (batchYear == "2018" || batchYear == "2017") {
-        switch (scholarId.substring(3, 4)) {
-          case "1":
-            branch = "CE";
-            break;
-          case "2":
-            branch = "ME";
-            break;
-          case "3":
-            branch = "EE";
-            break;
-          case "4":
-            branch = "ECE";
-            break;
-          case "5":
-            branch = "CSE";
-            break;
-          case "6":
-            branch = "E&I";
-            break;
-          default:
+      if (int.parse(batchYear) > 2017) {
+        if (batchYear == "2018" || batchYear == "2017") {
+          switch (scholarId.substring(3, 4)) {
+            case "1":
+              branch = "CE";
+              break;
+            case "2":
+              branch = "ME";
+              break;
+            case "3":
+              branch = "EE";
+              break;
+            case "4":
+              branch = "ECE";
+              break;
+            case "5":
+              branch = "CSE";
+              break;
+            case "6":
+              branch = "E&I";
+              break;
+            default:
+              return false;
+          }
+        } else {
+          switch (scholarId.substring(3, 4)) {
+            case "1":
+              branch = "CE";
+              break;
+            case "2":
+              branch = "CSE";
+              break;
+            case "3":
+              branch = "EE";
+              break;
+            case "4":
+              branch = "ECE";
+              break;
+            case "5":
+              branch = "E&I";
+              break;
+            case "6":
+              branch = "ME";
+              break;
+            default:
+              return false;
+          }
         }
       } else {
-        switch (scholarId.substring(3, 4)) {
-          case "1":
-            branch = "CE";
-            break;
-          case "2":
-            branch = "CSE";
-            break;
-          case "3":
-            branch = "EE";
-            break;
-          case "4":
-            branch = "ECE";
-            break;
-          case "5":
-            branch = "E&I";
-            break;
-          case "6":
-            branch = "ME";
-            break;
-          default:
-        }
+        return false;
       }
       return true;
     } else {
-      showSomeAlerts("Scholar ID is not valid", context);
       return false;
     }
   }
@@ -290,7 +294,7 @@ class _EditProfileState extends State<EditProfile> {
                             validator: (value) => value.isEmpty
                                 ? "Scholar ID cannot be empty."
                                 : null,
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.number,
                             onSaved: (value) => scholarId = value,
                           )
                         ],

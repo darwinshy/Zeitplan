@@ -3,13 +3,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../screens/screen-edit-meeting.dart';
-import '../../screens/connectivityScreenRerouter.dart';
 import '../../classes/classes.dart';
 
 bool isEmptyL = true, isEmptyS = true, isEmptyC = true;
 
-Widget itemTileL(void Function() refresh, DocumentSnapshot data,
-    DocumentReference reference, String crStatus) {
+Widget itemTileL(
+    void Function() refresh,
+    DocumentSnapshot data,
+    DocumentReference reference,
+    String crStatus,
+    BuildContext mainScaffoldContext) {
   final record = Schedule.fromSnapshot(data);
   if (record.meetingStatus == "0") {
     return Container(
@@ -55,7 +58,7 @@ Widget itemTileL(void Function() refresh, DocumentSnapshot data,
                               icon: Icon(Icons.surround_sound),
                               onPressed: () => {
                                     showDialog(
-                                      context: globalContext,
+                                      context: mainScaffoldContext,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           actions: <Widget>[
@@ -114,16 +117,17 @@ Widget itemTileL(void Function() refresh, DocumentSnapshot data,
                               Icons.edit,
                             ),
                             onPressed: () => {
-                              Navigator.of(globalContext).push(PageTransition(
-                                  child: EditAMeeting(
-                                      record.subjectName,
-                                      record.subjectCode,
-                                      record.startTime,
-                                      record.endTime,
-                                      record.link,
-                                      record.about,
-                                      reference.path),
-                                  type: PageTransitionType.fade))
+                              Navigator.of(mainScaffoldContext).push(
+                                  PageTransition(
+                                      child: EditAMeeting(
+                                          record.subjectName,
+                                          record.subjectCode,
+                                          record.startTime,
+                                          record.endTime,
+                                          record.link,
+                                          record.about,
+                                          reference.path),
+                                      type: PageTransitionType.fade))
                             },
                           ),
                           IconButton(
@@ -159,7 +163,7 @@ Widget itemTileL(void Function() refresh, DocumentSnapshot data,
                               }
                             } catch (e) {
                               showDialog(
-                                  context: globalContext,
+                                  context: mainScaffoldContext,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       content: Text(
@@ -193,7 +197,7 @@ Widget itemTileL(void Function() refresh, DocumentSnapshot data,
                         }
                       } catch (e) {
                         showDialog(
-                            context: globalContext,
+                            context: mainScaffoldContext,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 content:
@@ -212,8 +216,12 @@ Widget itemTileL(void Function() refresh, DocumentSnapshot data,
   }
 }
 
-Widget itemTileS(void Function() refresh, DocumentSnapshot data,
-    DocumentReference reference, String crStatus) {
+Widget itemTileS(
+    void Function() refresh,
+    DocumentSnapshot data,
+    DocumentReference reference,
+    String crStatus,
+    BuildContext mainScaffoldContext) {
   final record = Schedule.fromSnapshot(data);
 
   if (record.meetingStatus == "1") {
@@ -256,7 +264,7 @@ Widget itemTileS(void Function() refresh, DocumentSnapshot data,
                               icon: Icon(Icons.surround_sound),
                               onPressed: () => {
                                     showDialog(
-                                      context: globalContext,
+                                      context: mainScaffoldContext,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
                                           actions: <Widget>[
@@ -315,16 +323,17 @@ Widget itemTileS(void Function() refresh, DocumentSnapshot data,
                               Icons.edit,
                             ),
                             onPressed: () => {
-                              Navigator.of(globalContext).push(PageTransition(
-                                  child: EditAMeeting(
-                                      record.subjectName,
-                                      record.subjectCode,
-                                      record.startTime,
-                                      record.endTime,
-                                      record.link,
-                                      record.about,
-                                      reference.path),
-                                  type: PageTransitionType.fade))
+                              Navigator.of(mainScaffoldContext).push(
+                                  PageTransition(
+                                      child: EditAMeeting(
+                                          record.subjectName,
+                                          record.subjectCode,
+                                          record.startTime,
+                                          record.endTime,
+                                          record.link,
+                                          record.about,
+                                          reference.path),
+                                      type: PageTransitionType.fade))
                             },
                           ),
                           IconButton(
@@ -360,7 +369,7 @@ Widget itemTileS(void Function() refresh, DocumentSnapshot data,
                               }
                             } catch (e) {
                               showDialog(
-                                  context: globalContext,
+                                  context: mainScaffoldContext,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       content: Text(
@@ -394,7 +403,7 @@ Widget itemTileS(void Function() refresh, DocumentSnapshot data,
                         }
                       } catch (e) {
                         showDialog(
-                            context: globalContext,
+                            context: mainScaffoldContext,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 content:
@@ -413,8 +422,12 @@ Widget itemTileS(void Function() refresh, DocumentSnapshot data,
   }
 }
 
-Widget itemTileC(void Function() refresh, DocumentSnapshot data,
-    DocumentReference reference, String crStatus) {
+Widget itemTileC(
+    void Function() refresh,
+    DocumentSnapshot data,
+    DocumentReference reference,
+    String crStatus,
+    BuildContext mainScaffoldContext) {
   final record = Schedule.fromSnapshot(data);
 
   if (record.meetingStatus == "2") {
@@ -455,7 +468,7 @@ Widget itemTileC(void Function() refresh, DocumentSnapshot data,
                           icon: Icon(Icons.surround_sound),
                           onPressed: () => {
                                 showDialog(
-                                  context: globalContext,
+                                  context: mainScaffoldContext,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       actions: <Widget>[
@@ -511,7 +524,7 @@ Widget itemTileC(void Function() refresh, DocumentSnapshot data,
                           Icons.edit,
                         ),
                         onPressed: () => {
-                          Navigator.of(globalContext).push(PageTransition(
+                          Navigator.of(mainScaffoldContext).push(PageTransition(
                               child: EditAMeeting(
                                   record.subjectName,
                                   record.subjectCode,

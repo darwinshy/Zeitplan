@@ -1,11 +1,11 @@
-import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/screens/connectivityScreenRerouter.dart';
+import 'dart:async';
+import 'components/reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/screen-login-register-screen.dart';
+import 'screens/screen-UserChoosePage.dart';
+import 'screens/screen-mainScaffold.dart';
 
 class Root extends StatefulWidget {
   @override
@@ -16,11 +16,13 @@ enum AuthStatus { notSignedIn, signedIn }
 
 class _RootState extends State<Root> {
   AuthStatus signStatus = AuthStatus.notSignedIn;
+  ConnectivityResult connectivityResult = ConnectivityResult.none;
+  String firstTime;
 
   void areYouLoggedIn() async {
     SharedPreferences cacheData = await SharedPreferences.getInstance();
-
     setState(() {
+      firstTime = cacheData.getString("welcomeScreenShow");
       if (cacheData.getBool('loggedInStatus') == null) {
         signStatus = AuthStatus.notSignedIn;
       }
@@ -33,10 +35,15 @@ class _RootState extends State<Root> {
     });
   }
 
+  void refresh() {
+    setState(() async {
+      connectivityResult = await Connectivity().checkConnectivity();
+    });
+  }
+
   Future<List<String>> canIaccess() async {
     try {
-      ConnectivityResult connectivityResult =
-          await Connectivity().checkConnectivity();
+      connectivityResult = await Connectivity().checkConnectivity();
       final snapShot = await Firestore.instance
           .collection('superadmin')
           .document("access")
@@ -45,27 +52,31 @@ class _RootState extends State<Root> {
       return [
         snapShot.data["access"],
         snapShot.data["message"],
-        connectivityResult.toString()
+        connectivityResult.toString(),
+        firstTime
       ];
     } catch (e) {
       print(e);
       return [
         e.toString(),
         "Couldn't connect to the Internet",
-        "ConnectivityResult.none"
+        "ConnectivityResult.none",
+        firstTime
       ];
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    areYouLoggedIn();
     try {
+      areYouLoggedIn();
+
       return FutureBuilder<List<String>>(
-        initialData: ["true", "Internet Issues", "null"],
+        initialData: ["true", "Unexpected Error", "null"],
         future: canIaccess(),
         builder: (context, snapshots) {
           // print(snapshots.data);
+
           if (snapshots.data[2] == "null") {
             return Scaffold(
               backgroundColor: Colors.black,
@@ -74,32 +85,28 @@ class _RootState extends State<Root> {
                     child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text("Connecting to Server"),
-                    CircularProgressIndicator(
-                      backgroundColor: Colors.yellow,
-                    ),
+                    animatedLoader(),
+                    Text(
+                      "Connecting to services, This may take a while.",
+                      softWrap: true,
+                      style: TextStyle(color: Colors.grey[100]),
+                    )
                   ],
                 )),
               ),
             );
-          }
-          if (snapshots.data[2] == "ConnectivityResult.none") {
+          } else if (snapshots.data[2] == "ConnectivityResult.none") {
             return Scaffold(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.grey[100],
                 body: Container(
                   padding: EdgeInsets.all(30),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Text(
-                          "Err..",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w800)),
+                        child: Image.asset(
+                          "asset/img/error.png",
+                          width: 200,
                         ),
                       ),
                       SizedBox(
@@ -107,40 +114,36 @@ class _RootState extends State<Root> {
                       ),
                       Center(
                           child: Text(
-                        "No internet connection",
+                        "No internet connection, \nConnect to Internet and try again.",
                         textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.grey[900]),
                       )),
                     ],
                   ),
                 ));
-          }
-          if (snapshots.data[0] == "true") {
+          } else if (snapshots.data[0] == "true") {
             switch (signStatus) {
               case AuthStatus.notSignedIn:
-                return LoginPage(Auth());
+                return UserChoosePage();
                 break;
               case AuthStatus.signedIn:
-                return MainScreen();
+                return MainScreenScaffold(snapshots);
               default:
-                return LoginPage(Auth());
+                return UserChoosePage();
             }
           } else {
+            // If Admin Access is revoked
             return Scaffold(
-                backgroundColor: Colors.black,
+                backgroundColor: Colors.grey[100],
                 body: Container(
                   padding: EdgeInsets.all(30),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Center(
-                        child: Text(
-                          "Err..",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 60,
-                                  fontWeight: FontWeight.w800)),
+                        child: Image.asset(
+                          "asset/img/error.png",
+                          width: 200,
                         ),
                       ),
                       SizedBox(
@@ -149,6 +152,7 @@ class _RootState extends State<Root> {
                       Center(
                           child: Text(
                         snapshots.data[1].toString(),
+                        style: TextStyle(color: Colors.grey[900]),
                         textAlign: TextAlign.center,
                       )),
                     ],
@@ -166,14 +170,9 @@ class _RootState extends State<Root> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Text(
-                    "Err..",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 60,
-                            fontWeight: FontWeight.w800)),
+                  child: Image.asset(
+                    "asset/img/error.png",
+                    width: 200,
                   ),
                 ),
                 SizedBox(
@@ -181,7 +180,7 @@ class _RootState extends State<Root> {
                 ),
                 Center(
                     child: Text(
-                  "Unknown Error",
+                  "Unknown Error, Contact Administrator",
                   textAlign: TextAlign.center,
                 )),
               ],
