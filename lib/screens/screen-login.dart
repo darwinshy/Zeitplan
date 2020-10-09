@@ -15,6 +15,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   String password;
   String uid;
   BuildContext globalContext;
+  bool stateOfLoading = false;
+
   final formKeyLogin = new GlobalKey<FormState>();
 
   @override
@@ -25,16 +27,23 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
 
   // Functions
 
+  void changeStateOfLoading() {
+    setState(() {
+      stateOfLoading = !stateOfLoading;
+    });
+  }
+
   void validateForLogin() async {
     // Loader starts
-    showProgressBar(context);
+    changeStateOfLoading();
     SharedPreferences cacheData = await SharedPreferences.getInstance();
     final formLogin = formKeyLogin.currentState;
     formLogin.save();
     Auth auth = Auth();
 
     if (isEmail(email) != true) {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop(),
+      changeStateOfLoading();
       return showSomeAlerts("Enter a valid email address.", context);
     }
 
@@ -60,18 +69,21 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 print("email       : " + email),
                 print("UID         : " + uid),
                 print("######################################################"),
-                Navigator.of(context).pop(),
+                // Navigator.of(context).pop(),
+                changeStateOfLoading(),
                 Navigator.of(context).pop(),
               }
             // If error is recieved from the API
             else
               {
-                Navigator.of(context).pop(),
+                // Navigator.of(context).pop(),
+                changeStateOfLoading(),
                 showSomeAlerts(result.substring(1), context),
               }
           });
     } else {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop(),
+      changeStateOfLoading();
     }
   }
 
@@ -94,7 +106,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +115,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                           color: Colors.white,
-                          fontSize: 40,
+                          fontSize: 50,
                           fontWeight: FontWeight.w800)),
                 ),
                 SizedBox(
@@ -115,7 +126,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 12,
                   )),
                 ),
               ],
@@ -130,7 +141,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     children: <Widget>[
                       Text(
                         "Email",
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
+                        style: TextStyle(color: Colors.white70, fontSize: 15),
                       ),
                       TextFormField(
                         decoration:
@@ -169,8 +180,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 SizedBox(
                   height: 20,
                 ),
-                genericFlatButtonWithRoundedBorders(
-                    '           Login           ', validateForLogin)
+                stateOfLoading == false
+                    ? genericFlatButtonWithRoundedBorders(
+                        '           Login           ', validateForLogin)
+                    : genericFlatButtonWithLoader()
               ],
             ),
             Center(

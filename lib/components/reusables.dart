@@ -51,26 +51,37 @@ FlatButton genericFlatButtonWithRoundedBorders(
   );
 }
 
+Widget genericFlatButtonWithLoader() {
+  return Padding(
+    padding: const EdgeInsets.all(6.0),
+    child: CircularProgressIndicator(
+      backgroundColor: Colors.transparent,
+      strokeWidth: 3,
+      valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),
+    ),
+  );
+}
+
 FlatButton flatButtonWithRoundedShape(String text, void Function() function) {
   return FlatButton(
     minWidth: double.infinity,
     height: 60,
     padding: EdgeInsets.all(10),
-    color: Colors.grey[900],
+    color: Colors.grey[200],
     onPressed: function,
     child: Text(text,
         style: TextStyle(
-            color: Colors.grey[100],
-            fontSize: 18,
+            color: Colors.grey[900],
+            fontSize: 15,
             fontWeight: FontWeight.w500)),
     textColor: Colors.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
   );
 }
-// Themed
 
 InputDecoration inputDecoration(String hint) {
   return InputDecoration(
+    counterStyle: TextStyle(color: Colors.transparent),
     hintText: hint,
     hintStyle: TextStyle(color: Colors.grey[800], fontSize: 15),
     focusedBorder: UnderlineInputBorder(
@@ -89,23 +100,38 @@ InputDecoration inputDecoration(String hint) {
 }
 
 void showSomeAlerts(String text, BuildContext context) {
-  showDialog(
+  showModalBottomSheet(
+      enableDrag: true,
       context: context,
       builder: (BuildContext ctx) {
-        return AlertDialog(
-          backgroundColor: Colors.grey[100],
-          titleTextStyle: TextStyle(color: Colors.grey[900]),
-          contentTextStyle: TextStyle(color: Colors.grey[900]),
-          title: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 12,
-              ),
-            ),
-          ),
-        );
+        return BottomSheet(
+            backgroundColor: Colors.grey[100],
+            onClosing: () {},
+            builder: (ctx) {
+              return Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(text, style: TextStyle(color: Colors.grey[900])),
+              );
+            });
       });
+
+  // showDialog(
+  //     context: context,
+  //     builder: (BuildContext ctx) {
+  //       return AlertDialog(
+  //         backgroundColor: Colors.grey[100],
+  //         titleTextStyle: TextStyle(color: Colors.grey[900]),
+  //         contentTextStyle: TextStyle(color: Colors.grey[900]),
+  //         title: Center(
+  //           child: Text(
+  //             text,
+  //             style: TextStyle(
+  //               fontSize: 12,
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     });
 }
 
 void showProgressBar(BuildContext context) {

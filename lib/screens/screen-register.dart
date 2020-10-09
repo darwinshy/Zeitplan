@@ -23,6 +23,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
   String branch;
   String uid;
   BuildContext globalContext;
+  bool stateOfLoading = false;
   final formKeySignUp = new GlobalKey<FormState>();
   final _signuppagecontroller = new PageController();
 
@@ -30,6 +31,12 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
   void initState() {
     globalContext = context;
     super.initState();
+  }
+
+  void changeStateOfLoading() {
+    setState(() {
+      stateOfLoading = !stateOfLoading;
+    });
   }
 
   void openAppNow() async {
@@ -177,18 +184,21 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
 
   void validateForSignUp() async {
     // Loader starts
-    showProgressBar(context);
+    // showProgressBar(context);
+    changeStateOfLoading();
     SharedPreferences cacheData = await SharedPreferences.getInstance();
     final formSignUp = formKeySignUp.currentState;
     formSignUp.save();
     Auth auth = Auth();
 
     if (isEmail(email) != true) {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop(),
+      changeStateOfLoading();
       return showSomeAlerts("Enter a valid email address.", context);
     }
     if (password.length < 5) {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop(),
+      changeStateOfLoading();
       return showSomeAlerts("Password too short.", context);
     }
 
@@ -244,13 +254,15 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                   }
                 else
                   {
-                    Navigator.of(context).pop(),
+                    // Navigator.of(context).pop(),
+                    changeStateOfLoading(),
                     showSomeAlerts(result.substring(1), context),
                   }
               }
           });
     } else {
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop(),
+      changeStateOfLoading();
       showSomeAlerts("Your details are not valid.", context);
     }
   }
@@ -322,6 +334,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                       color: Colors.white70, fontSize: 12),
                                 ),
                                 TextFormField(
+                                  maxLengthEnforced: true,
                                   initialValue: fullname,
                                   decoration:
                                       inputDecoration("What's your name ?"),

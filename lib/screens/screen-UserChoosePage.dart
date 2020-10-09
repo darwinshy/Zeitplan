@@ -47,11 +47,11 @@ class _UserChoosePageState extends State<UserChoosePage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  "\" Making online classes easy \"",
+                  "Classes Made Easy",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Colors.grey[900],
-                      fontSize: 18,
+                      color: Colors.grey[800],
+                      fontSize: 15,
                       fontWeight: FontWeight.w300),
                 ),
               ),
@@ -60,22 +60,31 @@ class _UserChoosePageState extends State<UserChoosePage> {
           Center(
               child: Image.asset(
             "asset/img/welcome.png",
-            // width: 200,
+            width: 200,
           )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
               children: [
-                flatButtonWithRoundedShape(
-                    '            Login            ', goToLoginSceen),
+                flatButtonWithRoundedShape('Login', goToLoginSceen),
                 SizedBox(
                   height: 20,
                 ),
-                flatButtonWithRoundedShape(
-                    '           Sign Up           ', goToSignUpSceen)
+                flatButtonWithRoundedShape('Sign Up', goToSignUpSceen),
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "By continuing, you agree to the terms and conditions.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.grey[800],
+                      fontSize: 10,
+                      fontWeight: FontWeight.w300),
+                ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

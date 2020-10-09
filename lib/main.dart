@@ -29,11 +29,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Zeitplan',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        backgroundColor: Colors.white,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: ThemeData.dark(),
       home: MyHomePage(),
     );
   }

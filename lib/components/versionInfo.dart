@@ -1,4 +1,4 @@
-import '../screens/ConnectivityScreenRerouter.dart';
+import '../screens/connectivityScreenRerouter.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
