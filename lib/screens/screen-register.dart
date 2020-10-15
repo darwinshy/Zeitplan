@@ -1,4 +1,5 @@
 import 'package:Zeitplan/authentication/auth.dart';
+import 'package:Zeitplan/components/animations.dart';
 import 'package:Zeitplan/components/reusables.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -293,144 +294,150 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Get Started",
-                            style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w800)),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Fill up your basic details",
-                            style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            )),
-                          ),
-                        ],
+                      child: FadeInLTR(
+                        1,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Get Started",
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w800)),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Fill up your basic details",
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              )),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Full Name",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  maxLengthEnforced: true,
-                                  initialValue: fullname,
-                                  decoration:
-                                      inputDecoration("What's your name ?"),
-                                  style: TextStyle(color: Colors.white),
-                                  validator: (value) => value.isEmpty
-                                      ? "Name cannot be empty."
-                                      : null,
-                                  keyboardType: TextInputType.emailAddress,
-                                  onSaved: (value) => fullname = value,
-                                  maxLength: 30,
-                                )
-                              ],
+                    FadeInLTR(
+                      1.5,
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Full Name",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    maxLengthEnforced: true,
+                                    initialValue: fullname,
+                                    decoration:
+                                        inputDecoration("What's your name ?"),
+                                    style: TextStyle(color: Colors.white),
+                                    validator: (value) => value.isEmpty
+                                        ? "Name cannot be empty."
+                                        : null,
+                                    keyboardType: TextInputType.emailAddress,
+                                    onSaved: (value) => fullname = value,
+                                    maxLength: 30,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Scholar ID",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  initialValue: scholarId,
-                                  decoration: inputDecoration(
-                                      "Your 7 digits, college scholar ID."),
-                                  style: TextStyle(color: Colors.white),
-                                  validator: (value) => value.isEmpty
-                                      ? "Scholar ID cannot be empty."
-                                      : null,
-                                  keyboardType: TextInputType.number,
-                                  onSaved: (value) => scholarId = value,
-                                )
-                              ],
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Scholar ID",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    initialValue: scholarId,
+                                    decoration: inputDecoration(
+                                        "Your 7 digits, college scholar ID."),
+                                    style: TextStyle(color: Colors.white),
+                                    validator: (value) => value.isEmpty
+                                        ? "Scholar ID cannot be empty."
+                                        : null,
+                                    keyboardType: TextInputType.number,
+                                    onSaved: (value) => scholarId = value,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Section",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  initialValue: section,
-                                  // initialValue: "eg. BranchCode-BatchYear-Section",
-                                  decoration: inputDecoration("A or B ?"),
-                                  style: TextStyle(color: Colors.white),
-                                  validator: (value) => value.isEmpty
-                                      ? "Section cannot be empty."
-                                      : null,
-                                  keyboardType: TextInputType.text,
-                                  onSaved: (value) => section = value,
-                                  maxLength: 1,
-                                )
-                              ],
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Section",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    initialValue: section,
+                                    // initialValue: "eg. BranchCode-BatchYear-Section",
+                                    decoration: inputDecoration("A or B ?"),
+                                    style: TextStyle(color: Colors.white),
+                                    validator: (value) => value.isEmpty
+                                        ? "Section cannot be empty."
+                                        : null,
+                                    keyboardType: TextInputType.text,
+                                    onSaved: (value) => section = value,
+                                    maxLength: 1,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Phone Number",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  initialValue: phoneNumber,
-                                  // initialValue: "eg. BranchCode-BatchYear-Section",
-                                  decoration: inputDecoration(
-                                      "Your phone number along with country code."),
-                                  style: TextStyle(color: Colors.white),
-                                  validator: (value) => value.isEmpty
-                                      ? "Section cannot be empty."
-                                      : null,
-                                  keyboardType: TextInputType.number,
-                                  onSaved: (value) => phoneNumber = value,
-                                  maxLength: 13,
-                                )
-                              ],
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Phone Number",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    initialValue: phoneNumber,
+                                    // initialValue: "eg. BranchCode-BatchYear-Section",
+                                    decoration: inputDecoration(
+                                        "Your phone number along with country code."),
+                                    style: TextStyle(color: Colors.white),
+                                    validator: (value) => value.isEmpty
+                                        ? "Section cannot be empty."
+                                        : null,
+                                    keyboardType: TextInputType.number,
+                                    onSaved: (value) => phoneNumber = value,
+                                    maxLength: 13,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          genericFlatButtonWithRoundedBorders(
-                              '           Next           ',
-                              finalSignUpStepPageSwitcherAndValidator)
-                        ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            genericFlatButtonWithRoundedBorders(
+                                '           Next           ',
+                                finalSignUpStepPageSwitcherAndValidator)
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -439,93 +446,99 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Finish Sign Up",
-                            style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w800)),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "See you on the other side !",
-                            style: GoogleFonts.montserrat(
-                                textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            )),
-                          ),
-                        ],
+                      child: FadeInLTR(
+                        1,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Finish Sign Up",
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w800)),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "See you on the other side !",
+                              style: GoogleFonts.montserrat(
+                                  textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              )),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Email",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  initialValue: email,
-                                  decoration: inputDecoration(
-                                      "Your email address goes here."),
-                                  style: TextStyle(color: Colors.white),
-                                  validator: (value) => value.isEmpty
-                                      ? "Email cannot be empty."
-                                      : null,
-                                  keyboardType: TextInputType.emailAddress,
-                                  onSaved: (value) => email = value,
-                                )
-                              ],
+                    FadeInLTR(
+                      1.5,
+                      Container(
+                        margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Email",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    initialValue: email,
+                                    decoration: inputDecoration(
+                                        "Your email address goes here."),
+                                    style: TextStyle(color: Colors.white),
+                                    validator: (value) => value.isEmpty
+                                        ? "Email cannot be empty."
+                                        : null,
+                                    keyboardType: TextInputType.emailAddress,
+                                    onSaved: (value) => email = value,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  "Password",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 12),
-                                ),
-                                TextFormField(
-                                  initialValue: password,
-                                  decoration: inputDecoration(
-                                      "Your secret password goes here."),
-                                  style: TextStyle(color: Colors.white),
-                                  validator: (value) => value.isEmpty
-                                      ? "Password cannot be empty."
-                                      : null,
-                                  keyboardType: TextInputType.visiblePassword,
-                                  obscureText: true,
-                                  onSaved: (value) => password = value,
-                                )
-                              ],
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Password",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    initialValue: password,
+                                    decoration: inputDecoration(
+                                        "Your secret password goes here."),
+                                    style: TextStyle(color: Colors.white),
+                                    validator: (value) => value.isEmpty
+                                        ? "Password cannot be empty."
+                                        : null,
+                                    keyboardType: TextInputType.visiblePassword,
+                                    obscureText: true,
+                                    onSaved: (value) => password = value,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          genericFlatButtonWithRoundedBorders(
-                              '           Register           ',
-                              validateForSignUp)
-                        ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            genericFlatButtonWithRoundedBorders(
+                                '           Register           ',
+                                validateForSignUp)
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -536,10 +549,3 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
     );
   }
 }
-
-// if (isEmail(email) != true) {
-//   return showSomeAlerts("Enter a valid email address.", context);
-// }
-// if (password.length < 5) {
-//   return showSomeAlerts("Password too short.", context);
-// }

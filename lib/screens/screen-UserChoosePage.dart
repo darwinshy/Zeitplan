@@ -1,3 +1,4 @@
+import 'package:Zeitplan/components/animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/reusables.dart';
@@ -13,79 +14,93 @@ class UserChoosePage extends StatefulWidget {
 }
 
 class _UserChoosePageState extends State<UserChoosePage> {
+  // Constants;
+
   void goToLoginSceen() {
     Navigator.of(context).push(PageTransition(
-        child: LoginPageScreen(), type: PageTransitionType.downToUp));
+        child: LoginPageScreen(), type: PageTransitionType.fade));
   }
 
   void goToSignUpSceen() {
     Navigator.of(context).push(PageTransition(
-        child: SignUpPageScreen(), type: PageTransitionType.downToUp));
+        child: SignUpPageScreen(), type: PageTransitionType.fade));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              Text(
-                "Zeitplan",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                        color: Colors.grey[900],
-                        fontSize: 40,
-                        fontWeight: FontWeight.w800)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "Classes Made Easy",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey[800],
-                      fontSize: 15,
-                      fontWeight: FontWeight.w300),
-                ),
-              ),
-            ],
-          ),
-          Center(
-              child: Image.asset(
-            "asset/img/welcome.png",
-            width: 200,
-          )),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: Column(
+      body: Padding(
+        padding: const EdgeInsets.only(left: 20, right: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                flatButtonWithRoundedShape('Login', goToLoginSceen),
-                SizedBox(
-                  height: 20,
+                FadeIn(
+                  1,
+                  Text(
+                    "Zeitplan",
+                    style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                            color: Colors.grey[900],
+                            fontSize: 35,
+                            fontWeight: FontWeight.w800)),
+                  ),
                 ),
-                flatButtonWithRoundedShape('Sign Up', goToSignUpSceen),
                 SizedBox(
-                  height: 50,
+                  height: 10,
                 ),
-                Text(
-                  "By continuing, you agree to the terms and conditions.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey[800],
-                      fontSize: 10,
-                      fontWeight: FontWeight.w300),
+                FadeIn(
+                  1.5,
+                  Text(
+                    "Classes Made Easy",
+                    style: TextStyle(
+                        color: Colors.grey[800],
+                        fontSize: 12,
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            FadeIn(
+              2,
+              Center(
+                  child: Image.asset(
+                "asset/img/welcome.png",
+                width: 400,
+              )),
+            ),
+            FadeIn(
+              2.5,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  children: [
+                    flatButtonWithRoundedShape('Login', goToLoginSceen),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    flatButtonWithRoundedShape('Sign Up', goToSignUpSceen),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Text(
+                      "By continuing, you agree to the terms and conditions.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.grey[800],
+                          fontSize: 10,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

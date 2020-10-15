@@ -1,8 +1,8 @@
+import 'components/splashScreen.dart';
 import 'root.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'streamproviders.dart';
 
 void main() {
@@ -46,11 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SplashScreen(
       navigateAfterSeconds: Root(),
-      seconds: 4,
-      image: Image.asset(
-        "asset/icon/splash.png",
-        width: 100,
-      ),
+      seconds: 2,
+      // image: Image.asset(
+      //   "asset/icon/splash.png",
+      //   width: 100,
+      // ),
       title: Text(
         "Zeitplan",
         style: GoogleFonts.montserrat(
@@ -60,10 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontWeight: FontWeight.w800)),
       ),
       backgroundColor: Colors.black,
-      loadingText: Text(
-        "",
-        style: TextStyle(fontFamily: "QuickSand", color: Colors.white),
-      ),
+      loaderColor: Colors.yellow,
       photoSize: 100.0,
     );
   }

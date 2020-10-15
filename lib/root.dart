@@ -35,12 +35,6 @@ class _RootState extends State<Root> {
     });
   }
 
-  void refresh() {
-    setState(() async {
-      connectivityResult = await Connectivity().checkConnectivity();
-    });
-  }
-
   Future<List<String>> canIaccess() async {
     try {
       connectivityResult = await Connectivity().checkConnectivity();
@@ -95,7 +89,8 @@ class _RootState extends State<Root> {
                 )),
               ),
             );
-          } else if (snapshots.data[2] == "ConnectivityResult.none") {
+          }
+          if (snapshots.data[2] == "ConnectivityResult.none") {
             return Scaffold(
                 backgroundColor: Colors.grey[100],
                 body: Container(
@@ -121,7 +116,8 @@ class _RootState extends State<Root> {
                     ],
                   ),
                 ));
-          } else if (snapshots.data[0] == "true") {
+          }
+          if (snapshots.data[0] == "true") {
             switch (signStatus) {
               case AuthStatus.notSignedIn:
                 return UserChoosePage();
@@ -131,34 +127,34 @@ class _RootState extends State<Root> {
               default:
                 return UserChoosePage();
             }
-          } else {
-            // If Admin Access is revoked
-            return Scaffold(
-                backgroundColor: Colors.grey[100],
-                body: Container(
-                  padding: EdgeInsets.all(30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Image.asset(
-                          "asset/img/error.png",
-                          width: 200,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 60,
-                      ),
-                      Center(
-                          child: Text(
-                        snapshots.data[1].toString(),
-                        style: TextStyle(color: Colors.grey[900]),
-                        textAlign: TextAlign.center,
-                      )),
-                    ],
-                  ),
-                ));
           }
+
+          // If Admin Access is revoked
+          return Scaffold(
+              backgroundColor: Colors.grey[100],
+              body: Container(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        "asset/img/error.png",
+                        width: 200,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 60,
+                    ),
+                    Center(
+                        child: Text(
+                      snapshots.data[1].toString(),
+                      style: TextStyle(color: Colors.grey[900]),
+                      textAlign: TextAlign.center,
+                    )),
+                  ],
+                ),
+              ));
         },
       );
     } catch (e) {

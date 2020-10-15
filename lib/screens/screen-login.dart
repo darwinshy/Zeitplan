@@ -1,4 +1,5 @@
 import 'package:Zeitplan/authentication/auth.dart';
+import 'package:Zeitplan/components/animations.dart';
 import 'package:Zeitplan/components/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -107,90 +108,100 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "LOGIN",
-                  style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 50,
-                          fontWeight: FontWeight.w800)),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Did you miss me ?",
-                  style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                  )),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Email",
-                        style: TextStyle(color: Colors.white70, fontSize: 15),
-                      ),
-                      TextFormField(
-                        decoration:
-                            inputDecoration("Your email address goes here."),
-                        style: TextStyle(color: Colors.white),
-                        validator: (value) =>
-                            value.isEmpty ? "Email cannot be empty." : null,
-                        keyboardType: TextInputType.text,
-                        onSaved: (value) => email = value,
-                      )
-                    ],
+            FadeInLTR(
+              1,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "LOGIN",
+                    style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 50,
+                            fontWeight: FontWeight.w800)),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Password",
-                        style: TextStyle(color: Colors.white70, fontSize: 12),
-                      ),
-                      TextFormField(
-                        decoration:
-                            inputDecoration("Your secret password goes here."),
-                        style: TextStyle(color: Colors.white),
-                        validator: (value) =>
-                            value.isEmpty ? "Password cannot be empty." : null,
-                        keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        onSaved: (value) => password = value,
-                      ),
-                    ],
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                stateOfLoading == false
-                    ? genericFlatButtonWithRoundedBorders(
-                        '           Login           ', validateForLogin)
-                    : genericFlatButtonWithLoader()
-              ],
+                  Text(
+                    "Did you miss me ?",
+                    style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                    )),
+                  ),
+                ],
+              ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('New here ? Register now.',
-                    style: TextStyle(color: Colors.white38, fontSize: 12)),
+            FadeInLTR(
+              1.5,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Email",
+                          style: TextStyle(color: Colors.white70, fontSize: 15),
+                        ),
+                        TextFormField(
+                          decoration:
+                              inputDecoration("Your email address goes here."),
+                          style: TextStyle(color: Colors.white),
+                          validator: (value) =>
+                              value.isEmpty ? "Email cannot be empty." : null,
+                          keyboardType: TextInputType.text,
+                          onSaved: (value) => email = value,
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Password",
+                          style: TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                        TextFormField(
+                          decoration: inputDecoration(
+                              "Your secret password goes here."),
+                          style: TextStyle(color: Colors.white),
+                          validator: (value) => value.isEmpty
+                              ? "Password cannot be empty."
+                              : null,
+                          keyboardType: TextInputType.visiblePassword,
+                          obscureText: true,
+                          onSaved: (value) => password = value,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  stateOfLoading == false
+                      ? genericFlatButtonWithRoundedBorders(
+                          '           Login           ', validateForLogin)
+                      : genericFlatButtonWithLoader()
+                ],
+              ),
+            ),
+            FadeInLTR(
+              2,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('New here ? Register now.',
+                      style: TextStyle(color: Colors.white38, fontSize: 12)),
+                ),
               ),
             )
           ],

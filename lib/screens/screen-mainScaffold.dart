@@ -1,3 +1,5 @@
+import 'package:Zeitplan/components/animations.dart';
+
 import '../components/versionInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -278,19 +280,17 @@ Widget buildListofSchedules(
               }
 
               if (snapshot.hasData) {
-                return dashboardTile(snapshot, context, refresh);
+                return FadeIn(1, dashboardTile(snapshot, context, refresh));
               } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
+                return Center();
               }
             }),
         SizedBox(
           height: 30,
         ),
         (documents.length != 0)
-            ? schedulesColumn(documents, refresh, crStatus)
-            : noMeetings()
+            ? FadeIn(1.5, schedulesColumn(documents, refresh, crStatus))
+            : FadeIn(1.5, noMeetings())
       ],
     );
   } catch (e) {
@@ -324,7 +324,7 @@ Widget noMeetings() {
           child: Text(
             "No classes scheduled today.\n Ask your Class Representative to add one.",
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+            style: TextStyle(fontSize: 12, color: Colors.grey[700]),
           ),
         )
       ],
