@@ -58,6 +58,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         .snapshots();
 
     userDocumentFromDatabase.forEach((element) {
+      print(element.documents.elementAt(0).data["CR"]);
       dbUrlAssignment = "assignment/" +
           element.documents.elementAt(0).data["batch"].substring(2) +
           "/" +

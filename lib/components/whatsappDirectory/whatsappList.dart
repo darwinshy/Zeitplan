@@ -61,7 +61,7 @@ Widget _buildListofNames(
       ),
     ),
     ...documents
-        .map((data) => FadeInLTR(0.5, whatsappItemTile(data, context)))
+        .map((data) => FadeInLTR(1, whatsappItemTile(data, context)))
         .toList()
   ]);
 }

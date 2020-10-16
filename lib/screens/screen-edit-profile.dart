@@ -1,3 +1,4 @@
+import 'package:Zeitplan/components/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -197,31 +198,34 @@ class _EditProfileState extends State<EditProfile> {
         child: Center(
           child: ListView(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Edit Profile",
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                              fontWeight: FontWeight.w800)),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Enter your Details",
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      )),
-                    ),
-                  ],
+              FadeInLTR(
+                0.5,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Edit Profile",
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w800)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Enter your Details",
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        )),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -229,164 +233,181 @@ class _EditProfileState extends State<EditProfile> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Full Name",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            initialValue: snapshot.data.elementAt(0),
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Full Name",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) =>
-                                value.isEmpty ? "Name cannot be empty." : null,
-                            keyboardType: TextInputType.emailAddress,
-                            onSaved: (value) => fullname = value,
-                          )
-                        ],
+                            TextFormField(
+                              initialValue: snapshot.data.elementAt(0),
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Name cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.emailAddress,
+                              onSaved: (value) => fullname = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Scholar ID",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            initialValue: snapshot.data.elementAt(1),
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.5,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Scholar ID",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Scholar ID cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.number,
-                            onSaved: (value) => scholarId = value,
-                          )
-                        ],
+                            TextFormField(
+                              initialValue: snapshot.data.elementAt(1),
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Scholar ID cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.number,
+                              onSaved: (value) => scholarId = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Section",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            initialValue: snapshot.data.elementAt(2),
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.5,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Section",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Section cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => section = value,
-                          )
-                        ],
+                            TextFormField(
+                              initialValue: snapshot.data.elementAt(2),
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Section cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) => section = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Phone Number (with Country Code)",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            initialValue: snapshot.data.elementAt(3),
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      2,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Phone Number (with Country Code)",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Section cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => phoneNumber = value,
-                          )
-                        ],
+                            TextFormField(
+                              initialValue: snapshot.data.elementAt(3),
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Section cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) => phoneNumber = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    FlatButton(
-                      padding: EdgeInsets.all(10),
-                      onPressed: validateAndEditProfile,
-                      child: Text('           Edit Changes           ',
-                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.yellow,
-                              width: 0.8,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(20)),
+                    FadeInLTR(
+                      2.5,
+                      FlatButton(
+                        padding: EdgeInsets.all(10),
+                        onPressed: validateAndEditProfile,
+                        child: Text('           Edit Changes           ',
+                            style:
+                                TextStyle(color: Colors.yellow, fontSize: 18)),
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Colors.yellow,
+                                width: 0.8,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
                     )
                   ],
                 ),

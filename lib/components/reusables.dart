@@ -114,24 +114,6 @@ void showSomeAlerts(String text, BuildContext context) {
               );
             });
       });
-
-  // showDialog(
-  //     context: context,
-  //     builder: (BuildContext ctx) {
-  //       return AlertDialog(
-  //         backgroundColor: Colors.grey[100],
-  //         titleTextStyle: TextStyle(color: Colors.grey[900]),
-  //         contentTextStyle: TextStyle(color: Colors.grey[900]),
-  //         title: Center(
-  //           child: Text(
-  //             text,
-  //             style: TextStyle(
-  //               fontSize: 12,
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //     });
 }
 
 void showProgressBar(BuildContext context) {
