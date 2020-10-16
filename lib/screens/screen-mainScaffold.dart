@@ -1,18 +1,10 @@
-import 'package:Zeitplan/components/animations.dart';
-
-import '../components/versionInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screens/screen-mySubmission.dart';
-import '../authentication/auth.dart';
-import '../components/dashboard/dashboardTile.dart';
-import '../components/drawer.dart';
-import '../components/schedules/schedulesItem.dart';
-import '../components/schedules/schedulesList.dart';
 import 'screen-about.dart';
 import 'screen-adding-admin.dart';
 import 'screen-assigmentlist.dart';
@@ -20,50 +12,52 @@ import 'screen-developer.dart';
 import 'screen-edit-profile.dart';
 import 'screen-whatsappdirectory.dart';
 import '../root.dart';
+import '../screens/screen-mySubmission.dart';
+import '../authentication/auth.dart';
+import '../components/drawer.dart';
+import '../components/schedules/schedulesList.dart';
+import '../streamproviders.dart';
 
 BuildContext mainScaffoldContext;
 
 class MainScreenScaffold extends StatefulWidget {
-  final AsyncSnapshot<List<String>> snapshotOfInternetAccessibility;
-  MainScreenScaffold(this.snapshotOfInternetAccessibility);
-
   @override
   _MainScreenScaffoldState createState() => _MainScreenScaffoldState();
 }
 
 class _MainScreenScaffoldState extends State<MainScreenScaffold> {
-  String crStatus = "false";
+  @override
+  void initState() {
+    refresh();
+    mainScaffoldContext = context;
+    super.initState();
+  }
 
   // ###################################################################
-  // Date Formatting for AppBar and URL
+  String crStatus = "false";
+  // ###################################################################
+  // Date Formatting for AppBar
   DateTime now = DateTime.now();
   DateFormat formatter = DateFormat('ddMMyyyy');
   DateFormat formatterAppbar = DateFormat('dd MMM');
   String formattedAppBar = DateFormat('dd MMM ').format(DateTime.now());
   String formatted = DateFormat('ddMMyyyy').format(DateTime.now());
   // ###################################################################
-  @override
-  void initState() {
-    mainScaffoldContext = context;
-    super.initState();
-  }
-
+  // Refresh
   void refresh() async {
+    print("Refresh was called");
     String dbUrlSchedules;
     String dbUrlAssignment;
     SharedPreferences cacheData = await SharedPreferences.getInstance();
-    final snapShot = Firestore.instance
+    final userDocumentFromDatabase = Firestore.instance
         .collection('users')
         .where(
           "uid",
           isEqualTo: cacheData.getString("userUID").toString(),
         )
         .snapshots();
-    setState(() {
-      crStatus = cacheData.getBool("CR").toString();
-    });
 
-    snapShot.forEach((element) {
+    userDocumentFromDatabase.forEach((element) {
       dbUrlAssignment = "assignment/" +
           element.documents.elementAt(0).data["batch"].substring(2) +
           "/" +
@@ -92,30 +86,14 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
           "photoURL", element.documents.elementAt(0).data["url"]);
       cacheData.setString("dbUrlAssignment", dbUrlAssignment);
     });
+
+    setState(() {
+      print("setstatecalled");
+      crStatus = cacheData.getBool("CR").toString();
+      print("crStatus " + crStatus);
+    });
   }
 
-  // ###################################################################
-  // Fetching Cache Data
-  Future<String> retriveScheduleURL() async {
-    SharedPreferences cacheData = await SharedPreferences.getInstance();
-    return cacheData.getString("dbUrlSchedules").toString();
-  }
-
-  Future<List<String>> retriveProfileDetails() async {
-    SharedPreferences cacheData = await SharedPreferences.getInstance();
-    return [
-      cacheData.getString("fullname").toString(),
-      cacheData.getString("email").toString(),
-      cacheData.getString("phone").toString(),
-      cacheData.getString("scholarId").toString(),
-      cacheData.getString("section").toString(),
-      cacheData.getString("batchYear").toString(),
-      cacheData.getString("branch").toString(),
-      cacheData.getBool("CR").toString(),
-      cacheData.getString("userUID").toString(),
-      cacheData.getString("photoURL").toString()
-    ];
-  }
   // ###################################################################
   // Navigational Function
 
@@ -193,6 +171,8 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
 // ###################################################################
   @override
   Widget build(BuildContext context) {
+    final retriveProfileDetails =
+        Provider.of<SharedPreferencesProviders>(context);
     return Scaffold(
         drawer: mainDrawer(
             gotoAddScreen,
@@ -246,136 +226,11 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
               )
             : null,
         backgroundColor: Colors.grey[900],
-        body: widget.snapshotOfInternetAccessibility.data[3] != "true" ||
-                widget.snapshotOfInternetAccessibility.data[3] == "null"
-            ? info(context)
-            : buildSchedulesBody(refresh, context, retriveScheduleURL,
-                retriveProfileDetails, formatted, crStatus));
+        body: buildSchedulesBody(
+            refresh,
+            context,
+            retriveProfileDetails.getAllSharedPreferenceData(),
+            formatted,
+            crStatus));
   }
-}
-
-Widget buildListofSchedules(
-  void Function() refresh,
-  List<DocumentSnapshot> documents,
-  Future<List<String>> Function() retriveProfileDetails,
-  String crStatus,
-) {
-  try {
-    return ListView(
-      padding: const EdgeInsets.only(top: 20.0),
-      children: <Widget>[
-        FutureBuilder(
-            future: retriveProfileDetails(),
-            builder: (context, AsyncSnapshot<List<String>> snapshot) {
-              try {
-                if (snapshot.data.elementAt(7) == "true") {
-                  crStatus = "true";
-                  refresh();
-                } else {
-                  crStatus = "false";
-                  refresh();
-                }
-              } catch (e) {
-                print(e);
-              }
-
-              if (snapshot.hasData) {
-                return FadeIn(1, dashboardTile(snapshot, context, refresh));
-              } else {
-                return Center();
-              }
-            }),
-        SizedBox(
-          height: 30,
-        ),
-        (documents.length != 0)
-            ? FadeIn(1.5, schedulesColumn(documents, refresh, crStatus))
-            : FadeIn(1.5, noMeetings())
-      ],
-    );
-  } catch (e) {
-    print(e);
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          "Sorry, there must a technical error !",
-          style: TextStyle(color: Colors.white),
-        ),
-      ],
-    ));
-  }
-}
-
-Widget noMeetings() {
-  return Container(
-    margin: EdgeInsets.only(top: 100),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-            child: Image.asset(
-          "asset/img/nomeeting.png",
-          height: 150,
-        )),
-        Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Text(
-            "No classes scheduled today.\n Ask your Class Representative to add one.",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12, color: Colors.grey[700]),
-          ),
-        )
-      ],
-    ),
-  );
-}
-
-Widget schedulesColumn(
-    List<DocumentSnapshot> documents, void refresh(), String crStatus) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          "Ongoing",
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-      ...documents
-          .map((data) => itemTileL(
-              refresh, data, data.reference, crStatus, mainScaffoldContext))
-          .toList(),
-      Divider(
-        color: Colors.grey[800],
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          "Scheduled",
-          style: TextStyle(color: Colors.grey),
-        ),
-      ),
-      ...documents
-          .map((data) => itemTileS(
-              refresh, data, data.reference, crStatus, mainScaffoldContext))
-          .toList(),
-      Divider(
-        color: Colors.grey[800],
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text("Completed", style: TextStyle(color: Colors.grey)),
-      ),
-      ...documents
-          .map((data) => itemTileC(
-              refresh, data, data.reference, crStatus, mainScaffoldContext))
-          .toList(),
-      Divider(
-        color: Colors.grey[800],
-      ),
-    ],
-  );
 }

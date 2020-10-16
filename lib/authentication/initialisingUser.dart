@@ -6,7 +6,7 @@ Future<void> updateUserDocuments(FirebaseUser user) async {
   String dbUrlSchedules;
   String dbUrlAssignment;
 
-  final userDocumentSnapshots = Firestore.instance
+  final userDocumentFromDatabase = Firestore.instance
       .collection('users')
       .where("uid", isEqualTo: user.uid)
       .snapshots();
@@ -17,7 +17,7 @@ Future<void> updateUserDocuments(FirebaseUser user) async {
   //
   SharedPreferences cacheData = await SharedPreferences.getInstance();
 
-  userDocumentSnapshots.forEach((element) {
+  userDocumentFromDatabase.forEach((element) {
     // ###############################################
     //  Database Path for Getting Schedules
     dbUrlSchedules = "schedules/" +
