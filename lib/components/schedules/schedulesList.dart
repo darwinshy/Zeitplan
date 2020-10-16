@@ -15,9 +15,13 @@ Widget buildSchedulesBody(
   return FutureBuilder<List<String>>(
       future: retriveProfileDetails,
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return streamBuildSchedules(refresh, snapshot, formatted, crStatus);
-        } else {
+        try {
+          if (snapshot.hasData) {
+            return streamBuildSchedules(refresh, snapshot, formatted, crStatus);
+          } else {
+            return Center();
+          }
+        } catch (e) {
           return Center();
         }
       });
@@ -54,7 +58,7 @@ Widget buildListofSchedules(
 ) {
   try {
     return ListView(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 10.0),
       children: <Widget>[
         FadeIn(1, dashboardTile(retriveProfileDetails, context, refresh)),
         SizedBox(

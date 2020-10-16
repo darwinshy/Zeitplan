@@ -188,6 +188,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         appBar: AppBar(
           backgroundColor: Colors.grey[900],
           centerTitle: true,
+          elevation: 0,
           title: Text(
             "Dashboard",
             textAlign: TextAlign.center,

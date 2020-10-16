@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../animations.dart';
+
 Widget dashboardTile(List<String> profileCacheData, BuildContext context,
     void Function() refresh) {
   Color badgeBg = Colors.grey[800];
@@ -13,37 +15,45 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
   Color badgeTx = Colors.grey[100];
   Color badgeTxGold = Colors.grey[800];
   String isCr = profileCacheData.elementAt(10);
+  String firstName = profileCacheData.elementAt(0).split(' ').first;
   return Container(
     decoration: BoxDecoration(
         color: (isCr == "false") ? badgeBg : badgeBgGold,
         borderRadius: BorderRadius.circular(20)),
     margin: EdgeInsets.all(20),
-    padding: EdgeInsets.fromLTRB(20, 30, 30, 30),
+    padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
-                child: Text(
-                  profileCacheData.elementAt(0),
-                  style: TextStyle(
-                      color: (isCr == "false") ? badgeTx : badgeTxGold,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400),
+              FadeInLTR(
+                1,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                  child: Text(
+                    "Hello",
+                    style: TextStyle(
+                        color: (isCr == "false") ? badgeTx : badgeTxGold,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
-                child: Text(
-                  profileCacheData.elementAt(1),
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: (isCr == "false") ? badgeTx : badgeTxGold,
+              FadeInLTR(
+                1.2,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                  child: Text(
+                    firstName,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 30,
+                      color: (isCr == "false") ? badgeTx : badgeTxGold,
+                    ),
                   ),
                 ),
               ),
@@ -148,8 +158,8 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
             },
             child: (profileCacheData.elementAt(8) != 'null')
                 ? Container(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 70.0,
+                    height: 70.0,
                     decoration: new BoxDecoration(
                       shape: BoxShape.circle,
                     ),
@@ -172,7 +182,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                   )
                 : Icon(
                     Icons.account_circle,
-                    size: 40,
+                    size: 70,
                   ))
       ],
     ),

@@ -1,3 +1,4 @@
+import '../animations.dart';
 import '../reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,7 +59,8 @@ Widget itemListAssignement(List<DocumentSnapshot> documents, String isCR) {
       height: 20,
     ),
     ...documents
-        .map((data) => itemTileAssignement(data, globalContenxt, isCR))
+        .map((data) =>
+            FadeInLTR(0.7, itemTileAssignement(data, globalContenxt, isCR)))
         .toList(),
   ]);
 }

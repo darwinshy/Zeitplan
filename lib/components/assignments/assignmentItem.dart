@@ -60,8 +60,6 @@ Widget itemTileAssignement(
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ToggleSwitch(
-                    minWidth: 90.0,
-                    cornerRadius: 50.0,
                     activeBgColor: Colors.grey[900],
                     activeFgColor: Colors.grey[100],
                     inactiveBgColor: Colors.grey[100],
@@ -84,8 +82,8 @@ Widget itemTileAssignement(
         trailing: InkWell(
           onTap: detailedAssignmentView,
           child: Icon(
-            AntDesign.info,
-            color: Colors.grey[600],
+            AntDesign.infocirlce,
+            color: Colors.grey[900],
           ),
         ),
       ));

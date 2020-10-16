@@ -1,3 +1,5 @@
+import 'package:Zeitplan/components/animations.dart';
+
 import '../../components/whatsappDirectory/whatsappItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +60,8 @@ Widget _buildListofNames(
                 fontWeight: FontWeight.w800)),
       ),
     ),
-    ...documents.map((data) => whatsappItemTile(data, context)).toList()
+    ...documents
+        .map((data) => FadeInLTR(0.5, whatsappItemTile(data, context)))
+        .toList()
   ]);
 }
