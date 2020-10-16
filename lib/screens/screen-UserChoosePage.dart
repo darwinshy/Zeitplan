@@ -2,8 +2,8 @@ import 'package:Zeitplan/components/animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../components/reusables.dart';
-import '../screens/screen-login.dart';
-import '../screens/screen-register.dart';
+import 'screen-login.dart';
+import 'screen-register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
