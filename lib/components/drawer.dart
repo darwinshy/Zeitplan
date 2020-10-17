@@ -56,7 +56,7 @@ Drawer mainDrawer(
                 Icon(Icons.note),
                 FlatButton(
                     onPressed: goToAssignmentsScreen,
-                    child: Text("Assignments")),
+                    child: Text("Assignments"))
               ],
             ),
           ),
@@ -66,7 +66,7 @@ Drawer mainDrawer(
                 Icon(Icons.notes),
                 FlatButton(
                     onPressed: goToMySubmissionScreen,
-                    child: Text("My Submissions")),
+                    child: Text("My Submissions"))
               ],
             ),
           ),
@@ -76,7 +76,7 @@ Drawer mainDrawer(
                 Icon(Icons.person_add),
                 FlatButton(
                     onPressed: goToWhatsappDirectoryScreen,
-                    child: Text("Whatsapp Directory")),
+                    child: Text("Whatsapp Directory"))
               ],
             ),
           ),
@@ -88,7 +88,7 @@ Drawer mainDrawer(
               children: <Widget>[
                 Icon(Icons.account_circle),
                 FlatButton(
-                    onPressed: goToEditScreen, child: Text("Edit Profile")),
+                    onPressed: goToEditScreen, child: Text("Edit Profile"))
               ],
             ),
           ),
@@ -98,7 +98,7 @@ Drawer mainDrawer(
               Icon(
                 Icons.exit_to_app,
               ),
-              FlatButton(onPressed: signOut, child: Text("Log Out")),
+              FlatButton(onPressed: signOut, child: Text("Log Out"))
             ],
           )),
           Divider(
@@ -110,7 +110,7 @@ Drawer mainDrawer(
                 Icon(Icons.code),
                 FlatButton(
                     onPressed: goToDeveloperScreen,
-                    child: Text("Know the Developer")),
+                    child: Text("Know the Developer"))
               ],
             ),
           ),
@@ -119,22 +119,10 @@ Drawer mainDrawer(
               children: <Widget>[
                 Icon(Icons.adb),
                 FlatButton(
-                    onPressed: goToAboutScreen,
-                    // onPressed: () {
-                    //   infoDrawer(context);
-                    // },
-                    child: Text("Version Info")),
+                    onPressed: goToAboutScreen, child: Text("Version Info")),
               ],
             ),
           ),
-          // ListTile(
-          //   title: Row(
-          //     children: <Widget>[
-          //       Icon(Icons.info),
-          //       FlatButton(onPressed: goToAboutScreen, child: Text("About")),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     ),

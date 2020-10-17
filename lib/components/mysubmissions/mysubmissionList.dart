@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../streamproviders.dart';
+import '../animations.dart';
 import '../reusables.dart';
 import 'mySubmissionItem.dart';
 
@@ -57,7 +58,7 @@ Widget itemListMySubmission(List<DocumentSnapshot> documents,
       height: 20,
     ),
     ...documents
-        .map((data) => itemTileMySubmission(data, globalContenxt))
+        .map((data) => FadeIn(1, itemTileMySubmission(data, globalContenxt)))
         .toList(),
   ]);
 }

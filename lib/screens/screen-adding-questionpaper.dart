@@ -255,8 +255,8 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                               ),
                               style: TextStyle(color: Colors.white),
                               keyboardType: TextInputType.name,
-                              onSaved: (value) =>
-                                  questionPaperSubjectCode = value,
+                              onSaved: (value) => questionPaperSubjectCode =
+                                  value.toUpperCase(),
                             )
                           ],
                         ),
