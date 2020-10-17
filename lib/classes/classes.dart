@@ -121,3 +121,46 @@ class Submission {
   Submission.fromSnapshot(DocumentSnapshot snapshot)
       : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
+
+class QuestionPaper {
+  String questionPaperSubjectName;
+  String questionPaperSubjectCode;
+  String questionPaperMidEnd;
+  int questionPaperSemester;
+  String questionPaperYear;
+  String questionPaperSubmitterName;
+  String questionPaperSubmitterUID;
+  String questionPaperUploadDateAndTime;
+  String questionPaperLink;
+
+  final DocumentReference reference;
+
+  QuestionPaper(
+    this.reference, {
+    this.questionPaperSubjectName,
+    this.questionPaperSubjectCode,
+    this.questionPaperMidEnd,
+    this.questionPaperSemester,
+    this.questionPaperYear,
+    this.questionPaperSubmitterName,
+    this.questionPaperSubmitterUID,
+    this.questionPaperUploadDateAndTime,
+    this.questionPaperLink,
+  });
+
+  QuestionPaper.fromMap(Map<String, dynamic> map, {this.reference}) {
+    questionPaperSubjectName = map['questionPaperSubjectName'].toString();
+    questionPaperSubjectCode = map['questionPaperSubjectCode'].toString();
+    questionPaperMidEnd = map['questionPaperMidEnd'].toString();
+    questionPaperSemester = map['questionPaperSemester'];
+    questionPaperYear = map['questionPaperYear'].toString();
+    questionPaperSubmitterName = map['questionPaperSubmitterName'].toString();
+    questionPaperSubmitterUID = map['questionPaperSubmitterUID'].toString();
+    questionPaperUploadDateAndTime =
+        map['questionPaperUploadDateAndTime'].toString();
+    questionPaperLink = map['questionPaperLink'].toString();
+  }
+
+  QuestionPaper.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data, reference: snapshot.reference);
+}

@@ -31,6 +31,10 @@ class DatabaseQueries with ChangeNotifier {
         .updateData(data);
   }
 
+  Future<void> addDocument(String path, Map<String, dynamic> data) {
+    return Firestore.instance.collection(path).add(data);
+  }
+
   Future<void> addDocumentWithUniqueID(
       String path, String uniqueDocID, Map<String, dynamic> data) {
     return Firestore.instance

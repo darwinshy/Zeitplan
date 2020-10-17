@@ -1,3 +1,4 @@
+import '../components/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
@@ -69,8 +70,8 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
   // Before Submission Check Starts
 
   bool fieldValidation() {
-    if (subjectName.length > 15 && subjectName.length == 0) return false;
-    if (assignmentDescription.length > 50 && assignmentDescription.length == 0)
+    if (subjectName.length > 15 || subjectName.length == 0) return false;
+    if (assignmentDescription.length > 50 || assignmentDescription.length == 0)
       return false;
     if (isURL(assignmentLink) != true) return false;
     return true;
@@ -100,11 +101,14 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
     final assignmentFormData = assignmentForm.currentState;
     assignmentFormData.save();
 
-    if (checkDateAndTimeNullity() == false)
-      showSomeAlerts("Date and Time cannot be empty", context);
-
-    if (fieldValidation() == false)
+    if (fieldValidation() == false) {
       showSomeAlerts("Assignment Link is not valid", context);
+      return;
+    }
+    if (checkDateAndTimeNullity() == false) {
+      showSomeAlerts("Date and Time cannot be empty", context);
+      return;
+    }
 
     if (fieldValidation() != false &&
         fieldValidation() != false &&
@@ -113,8 +117,10 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
       createUniqueAssignmentID();
       // Fire the storing call
       createAnAssignemnt();
-    } else
+    } else {
       showSomeAlerts("Something is wrong.", context);
+      return;
+    }
   }
 
   //
@@ -189,13 +195,16 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
         child: Center(
           child: ListView(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    screentitleBoldMedium("Add an assignement")
-                  ],
+              FadeInLTR(
+                1,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      screentitleBoldMedium("Add an assignement")
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -203,201 +212,220 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Subject Name",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.3,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Subject Name",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Subject Name cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.emailAddress,
-                            onSaved: (value) => subjectName = value,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Assignment Description",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
-                            ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Subject Code cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => assignmentDescription = value,
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Assigned Date",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              assignmentAssignedDate == null
-                                  ? Text("Date is not selected.")
-                                  : Text("${assignmentAssignedDate.toLocal()}"
-                                      .split(' ')[0]),
-                              RaisedButton(
-                                color: Colors.transparent,
-                                onPressed: () => _selectAssignedDate(context),
-                                child: Text('Select date'),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Due Date",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          SizedBox(
-                            height: 18,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  assignmentDueDate == null
-                                      ? Text("Date is not selected.")
-                                      : Text("${assignmentDueDate.toLocal()}"
-                                          .split(' ')[0]),
-                                  RaisedButton(
-                                    color: Colors.transparent,
-                                    onPressed: () => _selectDueDate(context),
-                                    child: Text('Select date'),
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
                                   ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  assignmentDueTime == null
-                                      ? Text("Time is not selected.")
-                                      : Text(assignmentDueTime
-                                          .toString()
-                                          .substring(10, 15)),
-                                  RaisedButton(
-                                    color: Colors.transparent,
-                                    onPressed: () => _selectDueTime(context),
-                                    child: Text('Select Time'),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
                                   ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Subject Name cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.emailAddress,
+                              onSaved: (value) => subjectName = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Assignment Link",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.6,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Assignment Description",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Assignment Link cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.emailAddress,
-                            onSaved: (value) => assignmentLink = value,
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Subject Code cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) => assignmentDescription = value,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    FadeInLTR(
+                      1.9,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Assigned Date",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                assignmentAssignedDate == null
+                                    ? Text("Date is not selected.")
+                                    : Text("${assignmentAssignedDate.toLocal()}"
+                                        .split(' ')[0]),
+                                RaisedButton(
+                                  color: Colors.transparent,
+                                  onPressed: () => _selectAssignedDate(context),
+                                  child: Text('Select date'),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    FadeInLTR(
+                      2.1,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Due Date",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
+                            ),
+                            SizedBox(
+                              height: 18,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  children: [
+                                    assignmentDueDate == null
+                                        ? Text("Date is not selected.")
+                                        : Text("${assignmentDueDate.toLocal()}"
+                                            .split(' ')[0]),
+                                    RaisedButton(
+                                      color: Colors.transparent,
+                                      onPressed: () => _selectDueDate(context),
+                                      child: Text('Select date'),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    assignmentDueTime == null
+                                        ? Text("Time is not selected.")
+                                        : Text(assignmentDueTime
+                                            .toString()
+                                            .substring(10, 15)),
+                                    RaisedButton(
+                                      color: Colors.transparent,
+                                      onPressed: () => _selectDueTime(context),
+                                      child: Text('Select Time'),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    FadeInLTR(
+                      2.4,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Assignment Link",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
+                            ),
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Assignment Link cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.emailAddress,
+                              onSaved: (value) => assignmentLink = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    FlatButton(
-                      padding: EdgeInsets.all(10),
-                      onPressed: validateTheForm,
-                      child: Text('           Add           ',
-                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.yellow,
-                              width: 0.8,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(20)),
+                    FadeInLTR(
+                      2.7,
+                      FlatButton(
+                        padding: EdgeInsets.all(10),
+                        onPressed: validateTheForm,
+                        child: Text('           Add           ',
+                            style:
+                                TextStyle(color: Colors.yellow, fontSize: 18)),
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Colors.yellow,
+                                width: 0.8,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
                     )
                   ],
                 ),

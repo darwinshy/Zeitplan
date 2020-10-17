@@ -1,3 +1,4 @@
+import '../components/animations.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
 
@@ -143,11 +144,14 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
         child: Center(
           child: ListView(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[screentitleBoldMedium("Add submission")],
+              FadeInLTR(
+                1,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[screentitleBoldMedium("Add submission")],
+                  ),
                 ),
               ),
               Container(
@@ -155,91 +159,101 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Submission Description",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.3,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Submission Description",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Submission Description cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => submitterDescription = value,
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Submission Description cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) => submitterDescription = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Submission Sharable Link",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.6,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Submission Sharable Link",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Submission Sharable cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.url,
-                            onSaved: (value) => submitterFileLink = value,
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Submission Sharable cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.url,
+                              onSaved: (value) => submitterFileLink = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    FlatButton(
-                      padding: EdgeInsets.all(10),
-                      onPressed: validateTheSubmissionForm,
-                      child: Text('           Submit           ',
-                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.yellow,
-                              width: 0.8,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(20)),
+                    FadeInLTR(
+                      1.9,
+                      FlatButton(
+                        padding: EdgeInsets.all(10),
+                        onPressed: validateTheSubmissionForm,
+                        child: Text('           Submit           ',
+                            style:
+                                TextStyle(color: Colors.yellow, fontSize: 18)),
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Colors.yellow,
+                                width: 0.8,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
                     )
                   ],
                 ),

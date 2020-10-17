@@ -50,7 +50,7 @@ class FadeInLTR extends StatelessWidget {
       ..add(AniProps.translateX, 30.0.tweenTo(0.0), 500.milliseconds, curve);
 
     return CustomAnimation(
-        delay: Duration(milliseconds: (400 * delay).round()),
+        delay: Duration(milliseconds: (300 * delay).round()),
         duration: tween.duration,
         tween: tween,
         child: child,

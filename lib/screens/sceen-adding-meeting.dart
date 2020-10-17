@@ -1,3 +1,4 @@
+import '../components/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -88,24 +89,27 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
             // crossAxisAlignment: CrossAxisAlignment.start,
             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    screentitleBoldMedium("Add a meeting"),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "You cannot add meeting prior of Today",
-                      style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 12,
-                      )),
-                    ),
-                  ],
+              FadeInLTR(
+                1,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      screentitleBoldMedium("Add a meeting"),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "You cannot add meeting prior of Today",
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        )),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Container(
@@ -113,230 +117,255 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Subject Name",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.3,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Subject Name",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Subject Name cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.emailAddress,
-                            onSaved: (value) => sName = value,
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Subject Name cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.emailAddress,
+                              onSaved: (value) => sName = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Subject Code",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.6,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Subject Code",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Subject Code cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => sCode = value.toUpperCase(),
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Subject Code cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) => sCode = value.toUpperCase(),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Start Time",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      1.9,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Start Time",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "Start Time cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => startTime = value.toUpperCase(),
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Start Time cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) =>
+                                  startTime = value.toUpperCase(),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "End Time",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      2.1,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "End Time",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) => value.isEmpty
-                                ? "End Time cannot be empty."
-                                : null,
-                            keyboardType: TextInputType.text,
-                            onSaved: (value) => endTime = value.toUpperCase(),
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "End Time cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.text,
+                              onSaved: (value) => endTime = value.toUpperCase(),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "Link",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      2.4,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Link",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) =>
-                                value.isEmpty ? "Link cannot be empty." : null,
-                            keyboardType: TextInputType.url,
-                            onSaved: (value) => mLink = value,
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Link cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.url,
+                              onSaved: (value) => mLink = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "About",
-                            style:
-                                TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.4,
-                                ),
-                              ),
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.2,
-                                ),
-                              ),
+                    FadeInLTR(
+                      2.7,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "About",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
                             ),
-                            style: TextStyle(color: Colors.white),
-                            validator: (value) =>
-                                value.isEmpty ? "About cannot be empty." : null,
-                            keyboardType: TextInputType.visiblePassword,
-                            // obscureText: true,
-                            onSaved: (value) => about = value,
-                          )
-                        ],
+                            TextFormField(
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "About cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.visiblePassword,
+                              // obscureText: true,
+                              onSaved: (value) => about = value,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    FlatButton(
-                      padding: EdgeInsets.all(10),
-                      onPressed: validateAndSaveToDb,
-                      child: Text('           Add           ',
-                          style: TextStyle(color: Colors.yellow, fontSize: 18)),
-                      textColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          side: BorderSide(
-                              color: Colors.yellow,
-                              width: 0.8,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(20)),
+                    FadeInLTR(
+                      3.2,
+                      FlatButton(
+                        padding: EdgeInsets.all(10),
+                        onPressed: validateAndSaveToDb,
+                        child: Text('           Add           ',
+                            style:
+                                TextStyle(color: Colors.yellow, fontSize: 18)),
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                                color: Colors.yellow,
+                                width: 0.8,
+                                style: BorderStyle.solid),
+                            borderRadius: BorderRadius.circular(20)),
+                      ),
                     )
                   ],
                 ),
