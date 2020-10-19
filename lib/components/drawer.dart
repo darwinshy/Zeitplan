@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Drawer mainDrawer(
@@ -9,6 +10,7 @@ Drawer mainDrawer(
   void Function() goToWhatsappDirectoryScreen,
   void Function() goToMySubmissionScreen,
   void Function() goToDeveloperScreen,
+  void Function() goToQuestionScreen,
   void Function() refresh,
   BuildContext context,
   void Function() signOut,
@@ -57,6 +59,17 @@ Drawer mainDrawer(
                 FlatButton(
                     onPressed: goToAssignmentsScreen,
                     child: Text("Assignments"))
+              ],
+            ),
+          ),
+          ListTile(
+            title: Row(
+              children: <Widget>[
+                Icon(
+                  MaterialCommunityIcons.file_question,
+                ),
+                FlatButton(
+                    onPressed: goToQuestionScreen, child: Text("Question Bank"))
               ],
             ),
           ),

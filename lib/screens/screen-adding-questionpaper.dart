@@ -1,4 +1,5 @@
 import 'package:Zeitplan/components/animations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
@@ -28,6 +29,27 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
   String questionPaperUploadDateAndTime;
   String questionPaperLink;
 
+  bool combined = false;
+
+  void switchToCombined(bool value) {
+    setState(() {
+      combined = value;
+      if (value == true) {
+        questionPaperSubjectName = "Combined Papers";
+        questionPaperSubjectCode = "COMBI";
+      } else {
+        questionPaperSubjectName = null;
+        questionPaperSubjectCode = null;
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    globalContext = context;
+    super.initState();
+  }
+
   // Functions Starts
 
   void setIndexOfThisSemester(int index) {
@@ -43,7 +65,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
   }
 
   bool fieldValidation() {
-    if (questionPaperSubjectName.length > 15 ||
+    if (questionPaperSubjectName.length > 50 ||
         questionPaperSubjectName.length == 0) {
       showSomeAlerts("Subject Name is not valid or is too long", globalContext);
       return false;
@@ -100,6 +122,25 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
   //
 
   //Database Work CRUD operation
+  Future<void> setSubjectCodeInTheArray(
+      String key, String subject, int sem) async {
+    final subjectCodesSnapShot =
+        Firestore.instance.document("questionbank/bank").get();
+    final dbqueries =
+        Provider.of<DatabaseQueries>(globalContext, listen: false);
+    Map<String, dynamic> codes;
+    var valuesForCodes = {"semesterNumber": sem, "subjectName": subject};
+
+    subjectCodesSnapShot.then((value) => {
+          codes = value.data["codes"],
+          if (codes.containsKey(key) == false)
+            {
+              codes.putIfAbsent(key, () => valuesForCodes),
+              dbqueries.updateDocument("questionbank", "bank", {"codes": codes})
+            }
+        });
+  }
+
   void createAnQuestionPaper() {
     String uid;
     String fullname;
@@ -109,7 +150,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
     cacheData.then((cacheItem) => {
           uid = cacheItem.elementAt(7),
           fullname = cacheItem.elementAt(0),
-          writeToDatabase(uid, fullname, "questionbank"),
+          writeToDatabase(uid, fullname, "questionbank/bank/papers"),
         });
   }
 
@@ -120,6 +161,8 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
     questionPaperSubmitterName = fullname;
     final dbqueries =
         Provider.of<DatabaseQueries>(globalContext, listen: false);
+    await setSubjectCodeInTheArray(questionPaperSubjectCode,
+        questionPaperSubjectName, questionPaperSemester);
     Map<String, dynamic> data = {
       "questionPaperSubjectName": questionPaperSubjectName,
       "questionPaperSubjectCode": questionPaperSubjectCode,
@@ -172,96 +215,124 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
           child: ListView(
             children: <Widget>[
               FadeInLTR(
-                1,
+                0.7,
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      screentitleBoldMedium("Add a Question Paper")
+                      screentitleBoldMedium("Add a Question Paper"),
                     ],
                   ),
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 55, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FadeInLTR(
-                      1.3,
+                      1,
                       Container(
+                        width: double.infinity,
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Subject Name",
+                              "Combined Paper ?",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: "Enter Subject Name",
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.4,
-                                  ),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.2,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              keyboardType: TextInputType.name,
-                              onSaved: (value) =>
-                                  questionPaperSubjectName = value,
-                            )
+                            Checkbox(
+                                checkColor: Colors.grey[900],
+                                value: combined,
+                                onChanged: (value) => switchToCombined(value))
                           ],
                         ),
                       ),
                     ),
-                    FadeInLTR(
-                      1.6,
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Subject Code",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 12),
-                            ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                hintText: "Enter 5 character Subject Code",
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.4,
+                    !combined
+                        ? FadeInLTR(
+                            1.3,
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Subject Name",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
                                   ),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.2,
-                                  ),
-                                ),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      hintText: "Enter Subject Name",
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
+                                          width: 0.4,
+                                        ),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
+                                          width: 0.2,
+                                        ),
+                                      ),
+                                    ),
+                                    style: TextStyle(color: Colors.white),
+                                    keyboardType: TextInputType.name,
+                                    onSaved: (value) =>
+                                        questionPaperSubjectName = value,
+                                  )
+                                ],
                               ),
-                              style: TextStyle(color: Colors.white),
-                              keyboardType: TextInputType.name,
-                              onSaved: (value) => questionPaperSubjectCode =
-                                  value.toUpperCase(),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                            ),
+                          )
+                        : Container(),
+                    !combined
+                        ? FadeInLTR(
+                            1.6,
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    "Subject Code",
+                                    style: TextStyle(
+                                        color: Colors.white70, fontSize: 12),
+                                  ),
+                                  TextFormField(
+                                    decoration: InputDecoration(
+                                      hintText:
+                                          "Enter 5 character Subject Code",
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
+                                          width: 0.4,
+                                        ),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
+                                          width: 0.2,
+                                        ),
+                                      ),
+                                    ),
+                                    style: TextStyle(color: Colors.white),
+                                    keyboardType: TextInputType.name,
+                                    onSaved: (value) =>
+                                        questionPaperSubjectCode =
+                                            value.toUpperCase(),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        : Container(),
                     FadeInLTR(
                       1.9,
                       Container(

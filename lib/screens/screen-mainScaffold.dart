@@ -10,6 +10,7 @@ import 'screen-adding-admin.dart';
 import 'screen-assigmentlist.dart';
 import 'screen-developer.dart';
 import 'screen-edit-profile.dart';
+import 'screen-question-paper-select.dart';
 import 'screen-whatsappdirectory.dart';
 import '../root.dart';
 import '../screens/screen-mySubmission.dart';
@@ -132,6 +133,10 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         PageTransition(child: AboutScreen(), type: PageTransitionType.fade));
   }
 
+  void goToQuestionScreen() {
+    Navigator.of(context).push(PageTransition(
+        child: QuestionPaperScreenSelect(), type: PageTransitionType.fade));
+  }
   // ###################################################################
   // Functions
 
@@ -182,6 +187,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             goToWhatsappDirectoryScreen,
             goToMySubmissionScreen,
             goToDeveloperScreen,
+            goToQuestionScreen,
             refresh,
             context,
             signOut),
