@@ -21,11 +21,13 @@ Widget itemTileL(
       color: Colors.grey[900],
       child: ExpansionTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Colors.grey[200],
           child: Text(
             record.subjectCode.toString().substring(0, 2),
             style: TextStyle(
-                color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
+                color: Colors.grey[900],
+                fontSize: 12,
+                fontWeight: FontWeight.w700),
           ),
         ),
         subtitle: Text(
@@ -231,11 +233,13 @@ Widget itemTileS(
       color: Colors.grey[900],
       child: ExpansionTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Colors.grey[200],
           child: Text(
             record.subjectCode.toString().substring(0, 2),
             style: TextStyle(
-                color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
+                color: Colors.grey[900],
+                fontSize: 12,
+                fontWeight: FontWeight.w700),
           ),
         ),
         subtitle: Text(
@@ -437,11 +441,13 @@ Widget itemTileC(
       color: Colors.grey[900],
       child: ExpansionTile(
         leading: CircleAvatar(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: Colors.grey[200],
           child: Text(
             record.subjectCode.toString().substring(0, 2),
             style: TextStyle(
-                color: Colors.white, fontSize: 12, fontWeight: FontWeight.w700),
+                color: Colors.grey[900],
+                fontSize: 12,
+                fontWeight: FontWeight.w700),
           ),
         ),
         subtitle: Text(

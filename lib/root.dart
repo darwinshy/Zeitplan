@@ -111,7 +111,7 @@ class _RootState extends State<Root> {
               children: [
                 Center(
                   child: Image.asset(
-                    "asset/img/error.png",
+                    "asset/img/developererror.png",
                     width: 200,
                   ),
                 ),

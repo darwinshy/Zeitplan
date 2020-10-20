@@ -70,7 +70,7 @@ class _UserChoosePageState extends State<UserChoosePage> {
               Center(
                   child: Image.asset(
                 "asset/img/welcome.png",
-                width: 400,
+                // width: 500,
               )),
             ),
             FadeIn(
