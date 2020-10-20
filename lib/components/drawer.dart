@@ -8,7 +8,7 @@ Drawer mainDrawer(
   void Function() goToEditScreen,
   void Function() goToAboutScreen,
   void Function() goToWhatsappDirectoryScreen,
-  void Function() goToMySubmissionScreen,
+  // void Function() goToMySubmissionScreen,
   void Function() goToDeveloperScreen,
   void Function() goToQuestionScreen,
   void Function() refresh,
@@ -73,23 +73,23 @@ Drawer mainDrawer(
               ],
             ),
           ),
+          // ListTile(
+          //   title: Row(
+          //     children: <Widget>[
+          //       Icon(Icons.notes),
+          //       FlatButton(
+          //           onPressed: goToMySubmissionScreen,
+          //           child: Text("My Submissions"))
+          //     ],
+          //   ),
+          // ),
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.notes),
-                FlatButton(
-                    onPressed: goToMySubmissionScreen,
-                    child: Text("My Submissions"))
-              ],
-            ),
-          ),
-          ListTile(
-            title: Row(
-              children: <Widget>[
-                Icon(Icons.person_add),
+                Icon(Icons.person_outline),
                 FlatButton(
                     onPressed: goToWhatsappDirectoryScreen,
-                    child: Text("Whatsapp Directory"))
+                    child: Text("Batchmates"))
               ],
             ),
           ),

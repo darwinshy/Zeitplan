@@ -1,14 +1,33 @@
+import 'dart:ui';
+
+import '../components/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:fluttericon/typicons_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
 class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Future<void> reportBug() async {
+      const url =
+          'mailto:shatish123123@gmail.com?subject=Reporting a Bug&body=Note : Bug description must be brief. \n';
+
+      try {
+        bool launched = await launch(url, forceWebView: false);
+
+        if (!launched) {
+          await launch(url, forceWebView: false);
+        }
+      } catch (e) {
+        SnackBar(
+          content: Text("Something went wrong"),
+        );
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -21,31 +40,23 @@ class AboutScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "About",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.montserrat(
-                  textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w800)),
-            ),
+            screentitleBoldBig("About"),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                      "Zeitplan is Class Management Service (CMS) that aims to manage online classes efficiently.",
+                      "Zeitplan is Class Management Service (CMS) that aims to manage classes efficiently.",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                           height: 1.5,
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 13,
                           fontWeight: FontWeight.w300)),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 5,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -68,7 +79,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Check what assignments you have to complete.",
+                    "1. Share and get assigments with your batchmates.",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
@@ -76,14 +87,15 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Share your assignment with everyone.",
+                    "2. Share and get Question Paper from the Question Bank.",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 3,
                 ),
+                Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
@@ -96,7 +108,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "You can join the Class Meetings easily.",
+                    "1. Join the Class meetings easily.",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
@@ -104,7 +116,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "You can see your batchmates basic details and Whatsapp them directly, without saving his/her contact.",
+                    "2. See batchmates basic details and Whatsapp them directly, without saving his/her contact.",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
@@ -112,7 +124,7 @@ class AboutScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Change your Profile Picture by long pressing on your picture.",
+                    "3. Change your Profile Picture by long pressing on your picture.",
                     textAlign: TextAlign.start,
                     style: TextStyle(fontSize: 12, height: 1.25),
                   ),
@@ -203,6 +215,16 @@ class AboutScreen extends StatelessWidget {
                 ),
               ),
             ),
+            InkWell(
+              onTap: reportBug,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Report a bug",
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
+            )
           ],
         ),
       ),

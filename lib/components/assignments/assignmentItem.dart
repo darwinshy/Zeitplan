@@ -57,32 +57,34 @@ Widget itemTileAssignement(
             )),
         children: [
           isCR == "true"
-              ? Padding(
+              ? Container(
+                  width: double.infinity,
                   padding: const EdgeInsets.all(8.0),
-                  child: ToggleSwitch(
-                    activeBgColor: Colors.grey[900],
-                    activeFgColor: Colors.grey[100],
-                    inactiveBgColor: Colors.grey[100],
-                    inactiveFgColor: Colors.grey[900],
-                    initialLabelIndex: active ? 0 : 1,
-                    labels: ['Due', 'Done'],
-                    onToggle: (index) => updateStatusOfAssignment(index),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        "Assignment Status :",
+                        style: TextStyle(color: Colors.grey[900]),
+                      ),
+                      ToggleSwitch(
+                        activeBgColor: Colors.grey[900],
+                        activeFgColor: Colors.grey[100],
+                        inactiveBgColor: Colors.grey[100],
+                        inactiveFgColor: Colors.grey[900],
+                        initialLabelIndex: active ? 0 : 1,
+                        labels: ['Due', 'Done'],
+                        onToggle: (index) => updateStatusOfAssignment(index),
+                      ),
+                    ],
                   ),
                 )
-              : Container(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Click the i button for more information",
-                      style: TextStyle(color: Colors.grey[500], fontSize: 12),
-                    ),
-                  ),
-                ),
+              : Container(),
         ],
         trailing: InkWell(
           onTap: detailedAssignmentView,
           child: Icon(
-            AntDesign.infocirlce,
+            AntDesign.rightcircleo,
             color: Colors.grey[900],
           ),
         ),

@@ -113,11 +113,6 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         PageTransition(child: Assignments(), type: PageTransitionType.fade));
   }
 
-  void goToMySubmissionScreen() {
-    Navigator.of(context).push(PageTransition(
-        child: MySubmssionScreen(), type: PageTransitionType.fade));
-  }
-
   void goToWhatsappDirectoryScreen() {
     Navigator.of(context).push(
         PageTransition(child: WhatsappScreen(), type: PageTransitionType.fade));
@@ -185,7 +180,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             goToEditScreen,
             goToAboutScreen,
             goToWhatsappDirectoryScreen,
-            goToMySubmissionScreen,
+            // goToMySubmissionScreen,
             goToDeveloperScreen,
             goToQuestionScreen,
             refresh,
