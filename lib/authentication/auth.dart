@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'initialisingUser.dart';
 
 abstract class BaseAuth {
+  Future<String> resetPassword(String email);
   Future<String> signInWithEmailAndPassword(String email, String password);
   Future<String> createUserWithEmailAndPassword(
       String email,
@@ -22,6 +23,15 @@ abstract class BaseAuth {
 }
 
 class Auth extends BaseAuth with ChangeNotifier {
+  Future<String> resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return "We have sent you an email with the password reset link. Please follow the link to reset your password.";
+    } catch (e) {
+      return "#" + e.message.toString();
+    }
+  }
+
   Future<String> signInWithEmailAndPassword(
       String email, String password) async {
     try {

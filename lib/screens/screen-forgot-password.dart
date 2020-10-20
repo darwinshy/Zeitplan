@@ -3,24 +3,19 @@ import 'package:Zeitplan/components/animations.dart';
 import 'package:Zeitplan/components/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validators/validators.dart';
-import 'screen-forgot-password.dart';
 
-class LoginPageScreen extends StatefulWidget {
+class ForgotPageScreen extends StatefulWidget {
   @override
-  _LoginPageScreenState createState() => _LoginPageScreenState();
+  _ForgotPageScreenState createState() => _ForgotPageScreenState();
 }
 
-class _LoginPageScreenState extends State<LoginPageScreen> {
+class _ForgotPageScreenState extends State<ForgotPageScreen> {
   String email;
-  String password;
-  String uid;
   BuildContext globalContext;
   bool stateOfLoading = false;
 
-  final formKeyLogin = new GlobalKey<FormState>();
+  final formKeyReset = new GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -29,10 +24,6 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   }
 
   // Functions
-  void goToForgotScreen() {
-    Navigator.of(context).push(PageTransition(
-        child: ForgotPageScreen(), type: PageTransitionType.fade));
-  }
 
   void changeStateOfLoading() {
     setState(() {
@@ -40,11 +31,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     });
   }
 
-  void validateForLogin() async {
+  void validateForReset() async {
     // Loader starts
     changeStateOfLoading();
-    SharedPreferences cacheData = await SharedPreferences.getInstance();
-    final formLogin = formKeyLogin.currentState;
+    final formLogin = formKeyReset.currentState;
     formLogin.save();
     Auth auth = Auth();
 
@@ -57,28 +47,24 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
     if (formLogin.validate()) {
       formLogin.save();
       print("######################################################");
-      print("##### Login Initialised for credentials #####");
+      print("##### Reset Initialised for credentials #####");
       print("email       : " + email);
-      print("password    : " + password);
       print("######################################################");
 
-      Future<String> authResult =
-          auth.signInWithEmailAndPassword(email, password);
+      Future<String> authResult = auth.resetPassword(email);
 
       authResult.then((result) => {
             // If no error is recieved from the API
             if (result.substring(0, 1) != "#")
               {
-                uid = result,
-                cacheData.setBool("loggedInStatus", true),
                 print("######################################################"),
-                print("##### Login Successfull #####"),
+                print("##### Reset Email Sent Successfull #####"),
                 print("email       : " + email),
-                print("UID         : " + uid),
                 print("######################################################"),
                 // Navigator.of(context).pop(),
                 changeStateOfLoading(),
-                Navigator.of(context).pop(),
+                showPromisedSomeAlerts(result, context)
+                    .then((value) => {Navigator.of(context).pop()})
               }
             // If error is recieved from the API
             else
@@ -100,16 +86,16 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
       backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: loginForm(),
+        child: resetForm(),
       ),
     );
   }
 
-  Widget loginForm() {
+  Widget resetForm() {
     return Container(
       padding: const EdgeInsets.all(20),
       child: Form(
-        key: formKeyLogin,
+        key: formKeyReset,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,7 +106,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "LOGIN",
+                    "Forgot Password ?",
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
                             color: Colors.white,
@@ -131,7 +117,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     height: 20,
                   ),
                   Text(
-                    "Did you miss me ?",
+                    "We'll send you an email with a reset link.",
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
                       color: Colors.white,
@@ -156,8 +142,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                           style: TextStyle(color: Colors.white70, fontSize: 15),
                         ),
                         TextFormField(
-                          decoration:
-                              inputDecoration("Your email address goes here."),
+                          decoration: inputDecoration(
+                              "Thank God, we have this feature !"),
                           style: TextStyle(color: Colors.white),
                           validator: (value) =>
                               value.isEmpty ? "Email cannot be empty." : null,
@@ -167,52 +153,17 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       ],
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          "Password",
-                          style: TextStyle(color: Colors.white70, fontSize: 12),
-                        ),
-                        TextFormField(
-                          decoration: inputDecoration(
-                              "Your secret password goes here."),
-                          style: TextStyle(color: Colors.white),
-                          validator: (value) => value.isEmpty
-                              ? "Password cannot be empty."
-                              : null,
-                          keyboardType: TextInputType.visiblePassword,
-                          obscureText: true,
-                          onSaved: (value) => password = value,
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(
                     height: 20,
                   ),
                   stateOfLoading == false
                       ? genericFlatButtonWithRoundedBorders(
-                          '           Login           ', validateForLogin)
+                          '           Send Reset Link           ',
+                          validateForReset)
                       : genericFlatButtonWithLoader()
                 ],
               ),
             ),
-            FadeInLTR(
-              2,
-              Center(
-                child: InkWell(
-                  onTap: goToForgotScreen,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Forgot Password ?',
-                        style: TextStyle(color: Colors.white38, fontSize: 12)),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),

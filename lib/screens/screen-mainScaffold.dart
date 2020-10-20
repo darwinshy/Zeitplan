@@ -13,7 +13,6 @@ import 'screen-edit-profile.dart';
 import 'screen-question-paper-select.dart';
 import 'screen-whatsappdirectory.dart';
 import '../root.dart';
-import '../screens/screen-mySubmission.dart';
 import '../authentication/auth.dart';
 import '../components/drawer.dart';
 import '../components/schedules/schedulesList.dart';
