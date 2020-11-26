@@ -1,7 +1,6 @@
 import 'components/splashScreen.dart';
 import 'root.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'streamproviders.dart';
 
@@ -46,19 +45,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return SplashScreen(
       navigateAfterSeconds: Root(),
-      seconds: 2,
-      // image: Image.asset(
-      //   "asset/icon/splash.png",
-      //   width: 100,
-      // ),
-      title: Text(
-        "Zeitplan",
-        style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-                fontWeight: FontWeight.w800)),
+      seconds: 3,
+      image: Image.asset(
+        "asset/icon/logotext.png",
+        width: 200,
       ),
+      // title: Text(
+      //   "Zeitplan",
+      //   style: GoogleFonts.montserrat(
+      //       textStyle: TextStyle(
+      //           color: Colors.white,
+      //           fontSize: 40,
+      //           fontWeight: FontWeight.w800)),
+      // ),
       backgroundColor: Colors.black,
       loaderColor: Colors.yellow,
       photoSize: 100.0,

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../dashboard/dashboardTile.dart';
 import '../schedules/schedulesItem.dart';
-import '../../screens/screen-mainScaffold.dart';
+import '../../screens/meetingsScreen/screen-mainScaffold.dart';
 import '../animations.dart';
 import '../reusables.dart';
 

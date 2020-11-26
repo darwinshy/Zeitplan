@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validators/validators.dart';
-import 'screen-forgot-password.dart';
+import '../forgotPasswordScreen/screen-forgot-password.dart';
 
 class LoginPageScreen extends StatefulWidget {
   @override
@@ -131,7 +131,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     height: 20,
                   ),
                   Text(
-                    "Did you miss me ?",
+                    "Welcome back !",
                     style: GoogleFonts.montserrat(
                         textStyle: TextStyle(
                       color: Colors.white,

@@ -4,7 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import '../../classes/classes.dart';
-import '../../screens/screen-assignmentDetailView.dart';
+import '../../screens/assignmentsScreen/screen-assignmentListDetailView.dart';
 
 Widget itemTileAssignement(
     DocumentSnapshot data, BuildContext context, String isCR) {

@@ -145,7 +145,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                   });
 
                   final snackBar = SnackBar(content: Text('Yay! Success'));
-                  Scaffold.of(context).showSnackBar(snackBar);
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
                   print('Error from image repo ${snapshotx.error.toString()}');
                   throw ('This file is not an image');
@@ -153,7 +153,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
               } catch (e) {
                 final snackBar =
                     SnackBar(content: Text('Image selection failed.'));
-                Scaffold.of(context).showSnackBar(snackBar);
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             },
             child: (profileCacheData.elementAt(8) != 'null')

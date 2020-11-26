@@ -1,9 +1,9 @@
-import '../components/animations.dart';
+import '../../components/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
-import '../streamproviders.dart';
-import '../components/reusables.dart';
+import '../../streamproviders.dart';
+import '../../components/reusables.dart';
 
 BuildContext globalContext;
 

@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
-import '../streamproviders.dart';
-import '../components/reusables.dart';
+import '../../streamproviders.dart';
+import '../../components/reusables.dart';
 
 BuildContext globalContext;
 
@@ -70,7 +70,8 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
       showSomeAlerts("Subject Name is not valid or is too long", globalContext);
       return false;
     }
-    if (questionPaperSubjectCode.length != 5) {
+    if (questionPaperSubjectCode.length != 5 &&
+        questionPaperSubjectCode.length != 6) {
       showSomeAlerts("Subject Code is not valid", globalContext);
       return false;
     }
@@ -124,6 +125,11 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
   //Database Work CRUD operation
   Future<void> setSubjectCodeInTheArray(
       String key, String subject, int sem) async {
+    if (questionPaperSubjectCode == "COMBI") {
+      key = key + questionPaperSemester.toString();
+      questionPaperSubjectCode = "COMBI" + questionPaperSemester.toString();
+    }
+
     final subjectCodesSnapShot =
         Firestore.instance.document("questionbank/bank").get();
     final dbqueries =
@@ -136,6 +142,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
           if (codes.containsKey(key) == false)
             {
               codes.putIfAbsent(key, () => valuesForCodes),
+              print(codes),
               dbqueries.updateDocument("questionbank", "bank", {"codes": codes})
             }
         });
@@ -161,6 +168,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
     questionPaperSubmitterName = fullname;
     final dbqueries =
         Provider.of<DatabaseQueries>(globalContext, listen: false);
+
     await setSubjectCodeInTheArray(questionPaperSubjectCode,
         questionPaperSubjectName, questionPaperSemester);
     Map<String, dynamic> data = {

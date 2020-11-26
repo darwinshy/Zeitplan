@@ -2,10 +2,10 @@ import 'package:Zeitplan/components/questionBank/selectSemester.dart';
 import 'package:Zeitplan/components/reusables.dart';
 import 'package:page_transition/page_transition.dart';
 
-import '../components/questionBank/selectSubject.dart';
+import '../../components/questionBank/selectSubject.dart';
 import 'package:flutter/material.dart';
 
-import 'screen-adding-questionpaper.dart';
+import '../addingScreens/screen-adding-questionpaper.dart';
 import 'screen-question-paper.dart';
 
 class QuestionPaperScreenSelect extends StatefulWidget {

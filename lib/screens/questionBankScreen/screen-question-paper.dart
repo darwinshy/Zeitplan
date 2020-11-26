@@ -1,10 +1,10 @@
 import 'package:page_transition/page_transition.dart';
-import '../components/reusables.dart';
-import '../components/questionBank/questionPaperList.dart';
+import '../../components/reusables.dart';
+import '../../components/questionBank/questionPaperList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'screen-adding-questionpaper.dart';
+import '../addingScreens/screen-adding-questionpaper.dart';
 
 class QuestionPaperScreen extends StatefulWidget {
   final int semesterNumber;

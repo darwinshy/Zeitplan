@@ -5,7 +5,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:validators/validators.dart';
 
 class SignUpPageScreen extends StatefulWidget {
@@ -40,27 +39,27 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
     });
   }
 
-  void openAppNow() async {
-    const url = 'mailto:';
+  // void openAppNow() async {
+  //   const url = 'mailto:';
 
-    try {
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      bool launched = await launch(url, forceWebView: false);
+  //   try {
+  //     Navigator.pop(context);
+  //     Navigator.pop(context);
+  //     Navigator.pop(context);
+  //     bool launched = await launch(url, forceWebView: false);
 
-      if (!launched) {
-        await launch(url, forceWebView: false);
-      }
-    } catch (e) {
-      Navigator.pop(context);
-      Navigator.pop(context);
-      Navigator.pop(context);
-      SnackBar(
-        content: Text("Something went wrong"),
-      );
-    }
-  }
+  //     if (!launched) {
+  //       await launch(url, forceWebView: false);
+  //     }
+  //   } catch (e) {
+  //     Navigator.pop(context);
+  //     Navigator.pop(context);
+  //     Navigator.pop(context);
+  //     SnackBar(
+  //       content: Text("Something went wrong"),
+  //     );
+  //   }
+  // }
 
   void wantToOpenGmailApp(BuildContext context) async {
     showDialog(
@@ -71,25 +70,17 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
             titleTextStyle: TextStyle(color: Colors.grey[900]),
             contentTextStyle: TextStyle(color: Colors.grey[900]),
             title: Text(
-                "A verification link has been sent to your email. Please follow the link to verify your account. Do you want to open you G-Mail app ? "),
+                "A verification link has been sent to your email. Please follow the link to verify your account."),
             actions: [
               FlatButton(
                   onPressed: () => {
                         Navigator.of(context).pop(),
                         Navigator.of(context).pop(),
-                        Navigator.of(context).pop()
                       },
                   child: Text(
-                    "Cancel",
+                    "OK",
                     style: TextStyle(color: Colors.grey[900]),
                   )),
-              FlatButton(
-                onPressed: () => openAppNow(),
-                child: Text(
-                  "Open",
-                  style: TextStyle(color: Colors.grey[900]),
-                ),
-              )
             ],
           );
         });
@@ -167,8 +158,18 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
       return showSomeAlerts("Scholar ID is not valid", context);
     }
 
-    if (section != "A" && section != "B") {
-      return showSomeAlerts("Section can only be A or B.", context);
+    if (section != "A" &&
+        section != "B" &&
+        section != "C" &&
+        section != "D" &&
+        section != "E" &&
+        section != "F" &&
+        section != "G" &&
+        section != "H" &&
+        section != "I" &&
+        section != "J" &&
+        section != "K") {
+      return showSomeAlerts("Section can only be from A to K.", context);
     }
 
     if (phoneNumber.length == 0) {
@@ -251,6 +252,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                   {
                     print(
                         "####################################################################"),
+                    changeStateOfLoading(),
                     wantToOpenGmailApp(context)
                   }
                 else
@@ -392,7 +394,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                   TextFormField(
                                     initialValue: section,
                                     // initialValue: "eg. BranchCode-BatchYear-Section",
-                                    decoration: inputDecoration("A or B ?"),
+                                    decoration: inputDecoration("A - K ?"),
                                     style: TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Section cannot be empty."
@@ -534,9 +536,11 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                             SizedBox(
                               height: 20,
                             ),
-                            genericFlatButtonWithRoundedBorders(
-                                '           Register           ',
-                                validateForSignUp)
+                            stateOfLoading == false
+                                ? genericFlatButtonWithRoundedBorders(
+                                    '           Register           ',
+                                    validateForSignUp)
+                                : genericFlatButtonWithLoader()
                           ],
                         ),
                       ),

@@ -1,13 +1,13 @@
-import '../components/animations.dart';
+import '../../components/animations.dart';
 import 'package:provider/provider.dart';
 import 'package:validators/validators.dart';
 
-import '../components/reusables.dart';
+import '../../components/reusables.dart';
 import 'package:intl/intl.dart';
-import '../classes/classes.dart';
+import '../../classes/classes.dart';
 import 'package:flutter/material.dart';
 
-import '../streamproviders.dart';
+import '../../streamproviders.dart';
 
 BuildContext uploadAssignmentScreenGlobalContext;
 

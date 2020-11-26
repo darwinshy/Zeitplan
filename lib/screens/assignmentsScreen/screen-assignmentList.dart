@@ -1,9 +1,9 @@
 import 'package:page_transition/page_transition.dart';
 
-import '../components/assignments/assignmentList.dart';
+import '../../components/assignments/assignmentList.dart';
 import 'package:flutter/material.dart';
 
-import 'screen-mySubmission.dart';
+import 'screen-assignment-mySubmission.dart';
 
 class Assignments extends StatelessWidget {
   @override

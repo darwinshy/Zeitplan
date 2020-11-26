@@ -1,111 +1,244 @@
-import '../components/animations.dart';
+import 'package:Zeitplan/components/animations.dart';
+import 'package:Zeitplan/components/reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/reusables.dart';
+class EditProfile extends StatefulWidget {
+  final void Function() refresh;
 
-BuildContext globalContext;
+  const EditProfile(this.refresh);
 
-class AddMeetingScreen extends StatefulWidget {
   @override
-  _AddMeetingScreenState createState() => _AddMeetingScreenState();
+  _EditProfileState createState() => _EditProfileState();
 }
 
-class _AddMeetingScreenState extends State<AddMeetingScreen> {
-  final meetingForm = new GlobalKey<FormState>();
+class _EditProfileState extends State<EditProfile> {
+  String fullname;
+  String scholarId;
+  String phoneNumber;
+  String section;
+  String branch;
+  String batchYear;
+  String dbUrlSchedules;
+  final editProfileFormKey = new GlobalKey<FormState>();
 
-  String sName;
-  String sCode;
-  String about;
-  String startTime;
-  String endTime;
-  String mStatus = "1";
-  String mLink;
+  Future<SharedPreferences> getSharedPreferenceInstance() {
+    return SharedPreferences.getInstance();
+  }
 
-  void validateAndSaveToDb() async {
-    showProgressBar(globalContext);
-    SharedPreferences cacheData = await SharedPreferences.getInstance();
-    String dbUrl = cacheData.getString("dbUrlSchedules").toString();
-    final meetingFormData = meetingForm.currentState;
-    if (meetingFormData.validate()) {
-      meetingFormData.save();
+  Future<List<String>> retriveBasicProfileDetails() async {
+    SharedPreferences cacheData = await getSharedPreferenceInstance();
+    return [
+      cacheData.getString("fullname").toString(),
+      cacheData.getString("scholarId").toString(),
+      cacheData.getString("section").toString(),
+      cacheData.getString("phone").toString(),
+      cacheData.getString("userUID").toString(),
+    ];
+  }
 
-      final DateTime now = DateTime.now();
-      final DateFormat formatter = DateFormat('ddMMyyyy');
-      final String formatted = formatter.format(now);
+  bool checkTheScholarID() {
+    if (scholarId.length == 7) {
+      batchYear = "20" + scholarId.substring(0, 2);
+      if (int.parse(batchYear) > 2017) {
+        if (batchYear == "2018" || batchYear == "2017") {
+          switch (scholarId.substring(3, 4)) {
+            case "1":
+              branch = "CE";
+              break;
+            case "2":
+              branch = "ME";
+              break;
+            case "3":
+              branch = "EE";
+              break;
+            case "4":
+              branch = "ECE";
+              break;
+            case "5":
+              branch = "CSE";
+              break;
+            case "6":
+              branch = "E&I";
+              break;
+            default:
+              return false;
+          }
+        } else {
+          switch (scholarId.substring(3, 4)) {
+            case "1":
+              branch = "CE";
+              break;
+            case "2":
+              branch = "CSE";
+              break;
+            case "3":
+              branch = "EE";
+              break;
+            case "4":
+              branch = "ECE";
+              break;
+            case "5":
+              branch = "E&I";
+              break;
+            case "6":
+              branch = "ME";
+              break;
+            default:
+              return false;
+          }
+        }
+      } else {
+        return false;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-      Firestore.instance
-          .collection(dbUrl)
-          .document(formatted)
-          .collection("meetings")
-          .add({
-        "sName": sName,
-        "sCode": sCode,
-        "about": about,
-        "startTime": startTime,
-        "endTime": endTime,
-        "mStatus": mStatus,
-        "link": mLink
-      }).then((_) => {
-                print("######################################################"),
-                print("##### Meeting Data Added to Database #####"),
-                print("sName       : " + sName),
-                print("sCode       : " + sCode),
-                print("about       : " + about),
-                print("startTime   : " + startTime),
-                print("endTime     : " + endTime),
-                print("link        : " + mLink),
-                print("######################################################"),
-                showPromisedSomeAlerts(
-                        "You have successfully added a meeting. You can join the meeting from the meetings section.",
-                        globalContext)
-                    .then((_) => {
-                          Navigator.of(context).pop(),
-                          Navigator.of(context).pop()
-                        }),
-              });
+  Future<void> updateProfileOnDatabase() async {
+    SharedPreferences cacheData = await getSharedPreferenceInstance();
+
+    String uid = cacheData.getString("userUID").toString();
+    final snapShot =
+        await Firestore.instance.collection('users').document(uid).get();
+    if (snapShot.exists) {
+      Firestore.instance.collection('users').document(uid).updateData({
+        "name": fullname,
+        "phone": phoneNumber,
+        "scholarId": scholarId,
+        "section": section.toUpperCase(),
+        "batch": batchYear,
+        "branch": branch,
+      });
+      print("######################################################");
+      print("##### Profile Data Updated to Database #####");
+      print("name       : " + fullname);
+      print("phone      : " + phoneNumber);
+      print("scholarId  : " + scholarId);
+      print("section    : " + section.toUpperCase());
+      print("batch      : " + batchYear);
+      print("branch     : " + branch);
+      print("######################################################");
+    }
+  }
+
+  void updateProfileDataInSharedPreferences() async {
+    SharedPreferences cacheData = await getSharedPreferenceInstance();
+    dbUrlSchedules = "schedules/" +
+        batchYear.substring(2) +
+        "/" +
+        branch +
+        "/section/" +
+        section.toUpperCase() +
+        "_SX";
+
+    cacheData.setString("fullname", fullname);
+    cacheData.setString("phone", phoneNumber);
+    cacheData.setString("scholarId", scholarId);
+    cacheData.setString("section", section);
+    cacheData.setString("batchYear", batchYear);
+    cacheData.setString("branch", branch);
+    cacheData.setString("dbUrlSchedules", dbUrlSchedules);
+    print("######################################################");
+    print("##### Profile Data Updated to Shared Preferences #####");
+    print("name               : " + fullname);
+    print("phone              : " + phoneNumber);
+    print("scholarId          : " + scholarId);
+    print("section            : " + section.toUpperCase());
+    print("batch              : " + batchYear);
+    print("branch             : " + branch);
+    print("dbUrlSchedules     : " + dbUrlSchedules);
+    print("######################################################");
+  }
+
+  void validateAndEditProfile() async {
+    final formLogin = editProfileFormKey.currentState;
+    if (formLogin.validate()) {
+      formLogin.save();
+      if (checkTheScholarID()) {
+        if (section != "A" &&
+            section != "B" &&
+            section != "C" &&
+            section != "D" &&
+            section != "E" &&
+            section != "F" &&
+            section != "G" &&
+            section != "H" &&
+            section != "I" &&
+            section != "J" &&
+            section != "K") {
+          return showSomeAlerts("Section can only be from A to K.", context);
+        }
+        //
+        updateProfileOnDatabase().then((value) => {
+              //
+              updateProfileDataInSharedPreferences(),
+              //
+              widget.refresh(),
+              //
+              Navigator.pop(context)
+            });
+      } else {
+        showSomeAlerts(
+            "The entered details are not valid please recheck.", context);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    globalContext = context;
     return Scaffold(
-      body: formElement(),
+      body: FutureBuilder(
+          future: retriveBasicProfileDetails(),
+          builder: (context, AsyncSnapshot<List<String>> snapshot) {
+            if (snapshot.hasData) {
+              return editProfile(snapshot);
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 
-  Widget formElement() {
+  Widget editProfile(AsyncSnapshot<List<String>> snapshot) {
     return Container(
       padding: EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
-        key: meetingForm,
+        key: editProfileFormKey,
         child: Center(
           child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               FadeInLTR(
-                1,
+                0.5,
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      screentitleBoldMedium("Add a meeting"),
+                      Text(
+                        "Edit Profile",
+                        style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w800)),
+                      ),
                       SizedBox(
                         height: 20,
                       ),
                       Text(
-                        "You cannot add meeting prior of Today",
+                        "Enter your Details",
                         style: GoogleFonts.montserrat(
                             textStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
+                          color: Colors.white,
+                          fontSize: 15,
                         )),
                       ),
                     ],
@@ -118,18 +251,19 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FadeInLTR(
-                      1.3,
+                      1,
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Subject Name",
+                              "Full Name",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
+                              initialValue: snapshot.data.elementAt(0),
                               decoration: InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -146,28 +280,29 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                               ),
                               style: TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
-                                  ? "Subject Name cannot be empty."
+                                  ? "Name cannot be empty."
                                   : null,
                               keyboardType: TextInputType.emailAddress,
-                              onSaved: (value) => sName = value,
+                              onSaved: (value) => fullname = value,
                             )
                           ],
                         ),
                       ),
                     ),
                     FadeInLTR(
-                      1.6,
+                      1.5,
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Subject Code",
+                              "Scholar ID",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
+                              initialValue: snapshot.data.elementAt(1),
                               decoration: InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -184,28 +319,68 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                               ),
                               style: TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
-                                  ? "Subject Code cannot be empty."
+                                  ? "Scholar ID cannot be empty."
+                                  : null,
+                              keyboardType: TextInputType.number,
+                              onSaved: (value) => scholarId = value,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    FadeInLTR(
+                      1.5,
+                      Container(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Section",
+                              style: TextStyle(
+                                  color: Colors.white70, fontSize: 12),
+                            ),
+                            TextFormField(
+                              initialValue: snapshot.data.elementAt(2),
+                              decoration: InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.4,
+                                  ),
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.white,
+                                    width: 0.2,
+                                  ),
+                                ),
+                              ),
+                              style: TextStyle(color: Colors.white),
+                              validator: (value) => value.isEmpty
+                                  ? "Section cannot be empty."
                                   : null,
                               keyboardType: TextInputType.text,
-                              onSaved: (value) => sCode = value.toUpperCase(),
+                              onSaved: (value) => section = value,
                             )
                           ],
                         ),
                       ),
                     ),
                     FadeInLTR(
-                      1.9,
+                      2,
                       Container(
                         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              "Start Time",
+                              "Phone Number (with Country Code)",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
+                              initialValue: snapshot.data.elementAt(3),
                               decoration: InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -222,126 +397,10 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                               ),
                               style: TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
-                                  ? "Start Time cannot be empty."
+                                  ? "Section cannot be empty."
                                   : null,
                               keyboardType: TextInputType.text,
-                              onSaved: (value) =>
-                                  startTime = value.toUpperCase(),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    FadeInLTR(
-                      2.1,
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "End Time",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 12),
-                            ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.4,
-                                  ),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.2,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              validator: (value) => value.isEmpty
-                                  ? "End Time cannot be empty."
-                                  : null,
-                              keyboardType: TextInputType.text,
-                              onSaved: (value) => endTime = value.toUpperCase(),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    FadeInLTR(
-                      2.4,
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Link",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 12),
-                            ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.4,
-                                  ),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.2,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              validator: (value) => value.isEmpty
-                                  ? "Link cannot be empty."
-                                  : null,
-                              keyboardType: TextInputType.url,
-                              onSaved: (value) => mLink = value,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    FadeInLTR(
-                      2.7,
-                      Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "About",
-                              style: TextStyle(
-                                  color: Colors.white70, fontSize: 12),
-                            ),
-                            TextFormField(
-                              decoration: InputDecoration(
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.4,
-                                  ),
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.white,
-                                    width: 0.2,
-                                  ),
-                                ),
-                              ),
-                              style: TextStyle(color: Colors.white),
-                              validator: (value) => value.isEmpty
-                                  ? "About cannot be empty."
-                                  : null,
-                              keyboardType: TextInputType.visiblePassword,
-                              // obscureText: true,
-                              onSaved: (value) => about = value,
+                              onSaved: (value) => phoneNumber = value,
                             )
                           ],
                         ),
@@ -351,11 +410,11 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                       height: 20,
                     ),
                     FadeInLTR(
-                      3.2,
+                      2.5,
                       FlatButton(
                         padding: EdgeInsets.all(10),
-                        onPressed: validateAndSaveToDb,
-                        child: Text('           Add           ',
+                        onPressed: validateAndEditProfile,
+                        child: Text('           Edit Changes           ',
                             style:
                                 TextStyle(color: Colors.yellow, fontSize: 18)),
                         textColor: Colors.white,

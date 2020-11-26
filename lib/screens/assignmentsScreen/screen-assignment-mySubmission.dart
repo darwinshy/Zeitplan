@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/mysubmissions/mysubmissionList.dart';
+import '../../components/mysubmissions/mysubmissionList.dart';
 
 class MySubmssionScreen extends StatefulWidget {
   @override

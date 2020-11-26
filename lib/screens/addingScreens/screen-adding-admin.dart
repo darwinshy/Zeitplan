@@ -1,11 +1,11 @@
-import '../components/animations.dart';
+import '../../components/animations.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'screen-adding-assignment.dart';
-import 'sceen-adding-meeting.dart';
+import 'screen-adding-meeting.dart';
 import 'package:flutter/material.dart';
-import '../components/adminTools/adminTile.dart';
-import '../components/reusables.dart';
+import '../../components/adminTools/adminTile.dart';
+import '../../components/reusables.dart';
 import 'screen-adding-questionpaper.dart';
 
 class AddingScreen extends StatefulWidget {

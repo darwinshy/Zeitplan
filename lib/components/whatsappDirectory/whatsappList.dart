@@ -47,7 +47,7 @@ Widget streamBuildWhatsappDirectoryList(
 
 Widget _buildListofNames(
     List<DocumentSnapshot> documents, BuildContext context) {
-  return ListView(children: <Widget>[
+  return ListView(addAutomaticKeepAlives: true, children: <Widget>[
     Padding(
       padding: const EdgeInsets.all(20.0),
       child: Text(

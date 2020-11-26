@@ -5,7 +5,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/screen-userChoosePage.dart';
-import 'screens/screen-mainScaffold.dart';
+import 'screens/meetingsScreen/screen-mainScaffold.dart';
 
 enum AuthStatus { notSignedIn, signedIn }
 

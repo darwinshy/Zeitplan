@@ -1,3 +1,4 @@
+import 'package:Zeitplan/screens/aboutScreen/screen-about.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,18 +6,17 @@ import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screen-about.dart';
-import 'screen-adding-admin.dart';
-import 'screen-assigmentlist.dart';
-import 'screen-developer.dart';
-import 'screen-edit-profile.dart';
-import 'screen-question-paper-select.dart';
-import 'screen-whatsappdirectory.dart';
-import '../root.dart';
-import '../authentication/auth.dart';
-import '../components/drawer.dart';
-import '../components/schedules/schedulesList.dart';
-import '../streamproviders.dart';
+import '../addingScreens/screen-adding-admin.dart';
+import '../assignmentsScreen/screen-assignmentList.dart';
+import '../aboutScreen/screen-developer.dart';
+import '../editingScreens/screen-edit-profile.dart';
+import '../questionBankScreen/screen-question-paper-select.dart';
+import '../batchMatesScreen/screen-whatsappdirectory.dart';
+import '../../root.dart';
+import '../../authentication/auth.dart';
+import '../../components/drawer.dart';
+import '../../components/schedules/schedulesList.dart';
+import '../../streamproviders.dart';
 
 BuildContext mainScaffoldContext;
 

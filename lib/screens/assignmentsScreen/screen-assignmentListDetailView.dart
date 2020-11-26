@@ -1,9 +1,9 @@
-import '../components/submissions/submissionList.dart';
-import '../classes/classes.dart';
+import '../../components/submissions/submissionList.dart';
+import '../../classes/classes.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'screen-adding-uploadSubmission.dart';
-import '../components/reusables.dart';
+import '../addingScreens/screen-adding-uploadSubmission.dart';
+import '../../components/reusables.dart';
 
 BuildContext assignmentDetailViewglobalContext;
 
