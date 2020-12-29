@@ -15,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "632663256462-kkbdrah50d16tr0d529jtv96qnbj7lk7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.Zeitplan",
+            "certificate_hash": "cf648fda184d1ed49c4eed004ba11dc6a30813da"
+          }
+        },
+        {
           "client_id": "632663256462-cu6mr7rrru9envb30kr19bqiu7jd4niv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD-5ttV1UyHERQAC3wsaBok2t57E8x9adk"
+          "current_key": "AIzaSyBWouFPWbCFWFp6-AnUJYKbpiusIZg0qXg"
         }
       ],
       "services": {
@@ -44,13 +52,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "632663256462-qq6qb2v8bo3ddns9q3e8g70bnq71h59e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Zeitplan",
+            "certificate_hash": "cf648fda184d1ed49c4eed004ba11dc6a30813da"
+          }
+        },
+        {
           "client_id": "632663256462-cu6mr7rrru9envb30kr19bqiu7jd4niv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD-5ttV1UyHERQAC3wsaBok2t57E8x9adk"
+          "current_key": "AIzaSyBWouFPWbCFWFp6-AnUJYKbpiusIZg0qXg"
         }
       ],
       "services": {
@@ -79,7 +95,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD-5ttV1UyHERQAC3wsaBok2t57E8x9adk"
+          "current_key": "AIzaSyBWouFPWbCFWFp6-AnUJYKbpiusIZg0qXg"
         }
       ],
       "services": {

@@ -3,6 +3,7 @@ import 'package:Zeitplan/components/animations.dart';
 import 'package:Zeitplan/components/reusables.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validators/validators.dart';
@@ -342,7 +343,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                         color: Colors.white70, fontSize: 12),
                                   ),
                                   TextFormField(
-                                    maxLengthEnforced: true,
+                                    maxLengthEnforcement:
+                                        MaxLengthEnforcement.enforced,
                                     initialValue: fullname,
                                     decoration:
                                         inputDecoration("What's your name ?"),
