@@ -33,7 +33,7 @@ class _RootState extends State<Root> {
   }
 
   Stream<QuerySnapshot> getAdminAccessStatus() {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection("superadmin")
         .where("type", isEqualTo: "access")
         .snapshots();
@@ -55,15 +55,15 @@ class _RootState extends State<Root> {
                 if (snapshotOfConnectivity.hasData &&
                     snapshotOfSuperAdmin.hasData) {
                   // ###########################################################
-                  bool superAccess = snapshotOfSuperAdmin.data.documents
+                  bool superAccess = (snapshotOfSuperAdmin.data.docs
                               .elementAt(0)
-                              .data["access"] ==
+                              .data() as Map)['access'] ==
                           "true"
                       ? true
                       : false;
-                  String superMessage = snapshotOfSuperAdmin.data.documents
+                  String superMessage = (snapshotOfSuperAdmin.data.docs
                       .elementAt(0)
-                      .data["message"];
+                      .data() as Map)["message"];
                   // ###########################################################
                   switch (snapshotOfConnectivity.data) {
                     case ConnectivityResult.none:

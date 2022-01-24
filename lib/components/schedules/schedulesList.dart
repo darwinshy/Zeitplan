@@ -30,9 +30,9 @@ Widget buildSchedulesBody(
 Widget streamBuildSchedules(void Function() refresh,
     AsyncSnapshot<List<String>> cacheData, String formatted, String crStatus) {
   return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection(cacheData.data.elementAt(11))
-          .document(formatted)
+          .doc(formatted)
           .collection("meetings")
           .orderBy(
             "mStatus",
@@ -41,9 +41,11 @@ Widget streamBuildSchedules(void Function() refresh,
           .snapshots(),
       builder: (context, snapshots) {
         try {
-          return buildListofSchedules(context, refresh,
-              snapshots.data.documents, cacheData.data, crStatus);
+          print(snapshots.data);
+          return buildListofSchedules(
+              context, refresh, snapshots.data.docs, cacheData.data, crStatus);
         } catch (e) {
+          print("streamBuildSchedules" + e.toString());
           return centerLoading();
         }
       });
@@ -70,7 +72,7 @@ Widget buildListofSchedules(
       ],
     );
   } catch (e) {
-    print(e);
+    print("buildListofSchedules" + e.toString());
     return Center();
   }
 }

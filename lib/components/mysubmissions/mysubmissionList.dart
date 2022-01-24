@@ -33,9 +33,9 @@ Widget _streamBuildList(
     builder: (context, assignmentDataSnapshot) {
       try {
         // print(assignmentDataSnapshot.data.documents);
-        if (assignmentDataSnapshot.data.documents.length != 0) {
+        if (assignmentDataSnapshot.data.docs.length != 0) {
           return itemListMySubmission(
-              assignmentDataSnapshot.data.documents, sharedPrefsData);
+              assignmentDataSnapshot.data.docs, sharedPrefsData);
         } else {
           return _noAssignmentScreen();
         }

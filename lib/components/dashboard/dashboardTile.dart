@@ -122,22 +122,22 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                 var storage = FirebaseStorage.instance;
                 String url = "images/" + profileCacheData.elementAt(8);
 
-                StorageTaskSnapshot snapshotx =
-                    await storage.ref().child(url).putFile(_image).onComplete;
+                TaskSnapshot snapshotx =
+                    storage.ref().child(url).putFile(_image).snapshot;
 
-                if (snapshotx.error == null) {
+                if (snapshotx == null) {
                   final String downloadUrl =
                       await snapshotx.ref.getDownloadURL();
                   SharedPreferences cacheData =
                       await SharedPreferences.getInstance();
-                  final snapShot = Firestore.instance
+                  final snapShot = FirebaseFirestore.instance
                       .collection('users')
                       .where("uid", isEqualTo: profileCacheData.elementAt(8))
                       .snapshots();
-                  await Firestore.instance
+                  await FirebaseFirestore.instance
                       .collection("users")
-                      .document(profileCacheData.elementAt(8))
-                      .updateData({
+                      .doc(profileCacheData.elementAt(8))
+                      .update({
                     "url": downloadUrl,
                   }).whenComplete(() => refresh());
                   snapShot.forEach((element) {
@@ -147,7 +147,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                   final snackBar = SnackBar(content: Text('Yay! Success'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
-                  print('Error from image repo ${snapshotx.error.toString()}');
+                  print('Error from image repo ${snapshotx.toString()}');
                   throw ('This file is not an image');
                 }
               } catch (e) {

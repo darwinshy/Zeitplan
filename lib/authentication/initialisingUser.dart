@@ -2,18 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> updateUserDocuments(FirebaseUser user) async {
+Future<void> updateUserDocuments(User user) async {
   String dbUrlSchedules;
   String dbUrlAssignment;
 
-  final userDocumentFromDatabase = Firestore.instance
+  final userDocumentFromDatabase = FirebaseFirestore.instance
       .collection('users')
       .where("uid", isEqualTo: user.uid)
       .snapshots();
-  await Firestore.instance
+  await FirebaseFirestore.instance
       .collection('users')
-      .document(user.uid)
-      .updateData({"verified": true});
+      .doc(user.uid)
+      .update({"verified": true});
   //
   SharedPreferences cacheData = await SharedPreferences.getInstance();
 
@@ -21,38 +21,34 @@ Future<void> updateUserDocuments(FirebaseUser user) async {
     // ###############################################
     //  Database Path for Getting Schedules
     dbUrlSchedules = "schedules/" +
-        element.documents.elementAt(0).data["batch"].substring(2) +
+        element.docs.elementAt(0).data()["batch"].substring(2) +
         "/" +
-        element.documents.elementAt(0).data["branch"] +
+        element.docs.elementAt(0).data()["branch"] +
         "/section/" +
-        element.documents.elementAt(0).data["section"].toUpperCase() +
+        element.docs.elementAt(0).data()["section"].toUpperCase() +
         "_SX";
     // Database Path for Getting Assignments
     dbUrlAssignment = "assignment/" +
-        element.documents.elementAt(0).data["batch"].substring(2) +
+        element.docs.elementAt(0).data()["batch"].substring(2) +
         "/" +
-        element.documents.elementAt(0).data["branch"] +
+        element.docs.elementAt(0).data()["branch"] +
         "/section/" +
-        element.documents.elementAt(0).data["section"].toUpperCase() +
+        element.docs.elementAt(0).data()["section"].toUpperCase() +
         "_SX";
     // ###############################################
     cacheData.setString("userUID", user.uid);
+    cacheData.setString("fullname", element.docs.elementAt(0).data()["name"]);
+    cacheData.setString("email", element.docs.elementAt(0).data()["email"]);
+    cacheData.setString("phone", element.docs.elementAt(0).data()["phone"]);
     cacheData.setString(
-        "fullname", element.documents.elementAt(0).data["name"]);
-    cacheData.setString("email", element.documents.elementAt(0).data["email"]);
-    cacheData.setString("phone", element.documents.elementAt(0).data["phone"]);
-    cacheData.setString(
-        "scholarId", element.documents.elementAt(0).data["scholarId"]);
-    cacheData.setString(
-        "section", element.documents.elementAt(0).data["section"]);
-    cacheData.setString(
-        "batchYear", element.documents.elementAt(0).data["batch"]);
-    cacheData.setString(
-        "branch", element.documents.elementAt(0).data["branch"]);
-    cacheData.setBool("CR", element.documents.elementAt(0).data["CR"]);
+        "scholarId", element.docs.elementAt(0).data()["scholarId"]);
+    cacheData.setString("section", element.docs.elementAt(0).data()["section"]);
+    cacheData.setString("batchYear", element.docs.elementAt(0).data()["batch"]);
+    cacheData.setString("branch", element.docs.elementAt(0).data()["branch"]);
+    cacheData.setBool("CR", element.docs.elementAt(0).data()["CR"]);
     cacheData.setString("dbUrlSchedules", dbUrlSchedules);
     cacheData.setString("dbUrlAssignment", dbUrlAssignment);
-    cacheData.setString("photoURL", element.documents.elementAt(0).data["url"]);
+    cacheData.setString("photoURL", element.docs.elementAt(0).data()["url"]);
   });
 }
 
@@ -65,19 +61,19 @@ Future<void> creatingUserDocuments(
     String phoneNumber,
     String branch,
     String batchYear,
-    FirebaseUser user) async {
+    User user) async {
   String dbUrlProfile;
   String dbUrlSchedules;
   String dbUrlAssignment;
   SharedPreferences cacheData = await SharedPreferences.getInstance();
 
   final userSnapshotOfCurrentUID =
-      await Firestore.instance.collection('users').document(user.uid).get();
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
 
   if (!userSnapshotOfCurrentUID.exists) {
 // ###############################################
     // Saving the user data to database
-    Firestore.instance.collection('users').document(user.uid).setData({
+    FirebaseFirestore.instance.collection('users').doc(user.uid).set({
       "uid": user.uid,
       "name": fullName,
       "email": user.email,

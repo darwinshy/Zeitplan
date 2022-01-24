@@ -1,10 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
+
 import 'components/splashScreen.dart';
 import 'root.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'streamproviders.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
@@ -50,14 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
         "asset/icon/logotext.png",
         width: 200,
       ),
-      // title: Text(
-      //   "Zeitplan",
-      //   style: GoogleFonts.montserrat(
-      //       textStyle: TextStyle(
-      //           color: Colors.white,
-      //           fontSize: 40,
-      //           fontWeight: FontWeight.w800)),
-      // ),
       backgroundColor: Colors.black,
       loaderColor: Colors.yellow,
       photoSize: 100.0,

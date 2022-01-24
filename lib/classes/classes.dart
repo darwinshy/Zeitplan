@@ -20,7 +20,7 @@ class Schedule {
         meetingStatus = map["mStatus"];
 
   Schedule.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 }
 
 class Classmate {
@@ -47,7 +47,7 @@ class Classmate {
         verified = map['verified'].toString();
 
   Classmate.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 }
 
 class Assignment {
@@ -86,7 +86,7 @@ class Assignment {
   }
 
   Assignment.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 }
 
 class Submission {
@@ -119,7 +119,7 @@ class Submission {
   }
 
   Submission.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 }
 
 class QuestionPaper {
@@ -162,5 +162,5 @@ class QuestionPaper {
   }
 
   QuestionPaper.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data, reference: snapshot.reference);
+      : this.fromMap(snapshot.data(), reference: snapshot.reference);
 }

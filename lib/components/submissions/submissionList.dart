@@ -21,9 +21,9 @@ Widget streamBuildUploadedAssignmentList(
                 uploadsPath, "submitterDateAndTime"),
             builder: (context, uploadDataSnapshot) {
               try {
-                if (uploadDataSnapshot.data.documents.length != 0) {
+                if (uploadDataSnapshot.data.docs.length != 0) {
                   return submissionList(sharedPrefsDataSnapshot,
-                      uploadDataSnapshot.data.documents, context);
+                      uploadDataSnapshot.data.docs, context);
                 } else {
                   return noSubmissionScreen();
                 }

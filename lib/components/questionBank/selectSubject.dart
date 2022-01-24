@@ -8,10 +8,10 @@ import '../reusables.dart';
 Widget selectSubject(int semesterNumber, BuildContext context,
     void Function(String code) setSubjectCode) {
   return StreamBuilder<DocumentSnapshot>(
-    stream: Firestore.instance.document("questionbank/bank").snapshots(),
+    stream: FirebaseFirestore.instance.doc("questionbank/bank").snapshots(),
     builder: (context, subjectCodesDataSnapshot) {
       try {
-        return questionCodesList(context, subjectCodesDataSnapshot.data.data,
+        return questionCodesList(context, subjectCodesDataSnapshot.data.data(),
             semesterNumber, setSubjectCode);
       } catch (e) {
         print(e);

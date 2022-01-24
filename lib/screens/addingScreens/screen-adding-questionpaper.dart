@@ -131,14 +131,14 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
     }
 
     final subjectCodesSnapShot =
-        Firestore.instance.document("questionbank/bank").get();
+        FirebaseFirestore.instance.doc("questionbank/bank").get();
     final dbqueries =
         Provider.of<DatabaseQueries>(globalContext, listen: false);
     Map<String, dynamic> codes;
     var valuesForCodes = {"semesterNumber": sem, "subjectName": subject};
 
     subjectCodesSnapShot.then((value) => {
-          codes = value.data["codes"],
+          codes = value.data()["codes"],
           if (codes.containsKey(key) == false)
             {
               codes.putIfAbsent(key, () => valuesForCodes),

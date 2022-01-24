@@ -13,7 +13,7 @@ Widget streamBuildWhatsappDirectoryList(
   var batchBranch = snapshot.data.elementAt(6);
   print(batchYear);
   return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
+      stream: FirebaseFirestore.instance
           .collection("users")
           .orderBy("scholarId")
           .where(
@@ -24,7 +24,7 @@ Widget streamBuildWhatsappDirectoryList(
           .snapshots(),
       builder: (context, snapshot) {
         try {
-          return _buildListofNames(snapshot.data.documents, context);
+          return _buildListofNames(snapshot.data.docs, context);
         } catch (e) {
           print(e);
           return Center(

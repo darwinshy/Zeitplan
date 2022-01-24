@@ -4,12 +4,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DatabaseQueries with ChangeNotifier {
   Stream<QuerySnapshot> providestreams(String path, String orderBy) {
-    return Firestore.instance.collection(path).orderBy(orderBy).snapshots();
+    return FirebaseFirestore.instance
+        .collection(path)
+        .orderBy(orderBy)
+        .snapshots();
   }
 
   Stream<QuerySnapshot> providestreamsOrderMinusOne(
       String path, String orderBy) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection(path)
         .orderBy(orderBy, descending: true)
         .snapshots();
@@ -17,7 +20,7 @@ class DatabaseQueries with ChangeNotifier {
 
   Stream<QuerySnapshot> provideSubCollectionstreams(
       String collectionName, String unique) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collectionGroup(collectionName)
         .where("submitterUID", isEqualTo: unique)
         .snapshots();
@@ -25,31 +28,31 @@ class DatabaseQueries with ChangeNotifier {
 
   Future<void> updateDocument(
       String path, String uniqueDocID, Map<String, dynamic> data) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection(path)
-        .document(uniqueDocID)
-        .updateData(data);
+        .doc(uniqueDocID)
+        .update(data);
   }
 
   Future<void> addDocument(String path, Map<String, dynamic> data) {
-    return Firestore.instance.collection(path).add(data);
+    return FirebaseFirestore.instance.collection(path).add(data);
   }
 
   Future<void> addDocumentWithUniqueID(
       String path, String uniqueDocID, Map<String, dynamic> data) {
-    return Firestore.instance
+    return FirebaseFirestore.instance
         .collection(path)
-        .document(uniqueDocID)
-        .setData(data);
+        .doc(uniqueDocID)
+        .set(data);
   }
 
   Future<void> deleteDocumentWithpath(String path) {
-    return Firestore.instance.collection(path).document().delete();
+    return FirebaseFirestore.instance.collection(path).doc().delete();
   }
 
   Future<void> setDocumentWithUniqueID(
       String path, String uniqueID, Map<String, dynamic> data) {
-    return Firestore.instance.collection(path).document(uniqueID).setData(data);
+    return FirebaseFirestore.instance.collection(path).doc(uniqueID).set(data);
   }
 }
 

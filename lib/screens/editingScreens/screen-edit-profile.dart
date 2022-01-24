@@ -103,10 +103,12 @@ class _EditProfileState extends State<EditProfile> {
     SharedPreferences cacheData = await getSharedPreferenceInstance();
 
     String uid = cacheData.getString("userUID").toString();
-    final snapShot =
-        await Firestore.instance.collection('users').document(uid).get();
+    final snapShot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get();
     if (snapShot.exists) {
-      Firestore.instance.collection('users').document(uid).updateData({
+      FirebaseFirestore.instance.collection('users').doc(uid).update({
         "name": fullname,
         "phone": phoneNumber,
         "scholarId": scholarId,

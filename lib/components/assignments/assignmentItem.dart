@@ -17,9 +17,9 @@ Widget itemTileAssignement(
   }
 
   void updateStatusOfAssignment(int index) {
-    Firestore.instance
-        .document(record.reference.path)
-        .updateData({"active": index == 0 ? true : false}).then((value) => {
+    FirebaseFirestore.instance
+        .doc(record.reference.path)
+        .update({"active": index == 0 ? true : false}).then((value) => {
               print("######################################################"),
               print("##### Assignement Status Updated to Database #####"),
               print("assignmentRef    : " + record.reference.path),
@@ -68,13 +68,14 @@ Widget itemTileAssignement(
                         style: TextStyle(color: Colors.grey[900]),
                       ),
                       ToggleSwitch(
-                        activeBgColor: Colors.grey[900],
+                        activeBgColor: List.of([Colors.grey[300]]),
                         activeFgColor: Colors.grey[100],
                         inactiveBgColor: Colors.grey[100],
                         inactiveFgColor: Colors.grey[900],
                         initialLabelIndex: active ? 0 : 1,
                         labels: ['Due', 'Done'],
                         onToggle: (index) => updateStatusOfAssignment(index),
+                        totalSwitches: 2,
                       ),
                     ],
                   ),

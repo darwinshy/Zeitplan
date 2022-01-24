@@ -36,9 +36,9 @@ Widget _streamBuildList(
     stream: databaseQuery.providestreamsOrderMinusOne(path, "active"),
     builder: (context, assignmentDataSnapshot) {
       try {
-        if (assignmentDataSnapshot.data.documents.length != 0) {
+        if (assignmentDataSnapshot.data.docs.length != 0) {
           return itemListAssignement(
-              assignmentDataSnapshot.data.documents, sharedPrefsData.data[10]);
+              assignmentDataSnapshot.data.docs, sharedPrefsData.data[10]);
         } else {
           return _noAssignmentScreen();
         }

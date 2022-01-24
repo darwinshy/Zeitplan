@@ -37,9 +37,9 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
       final DateFormat formatter = DateFormat('ddMMyyyy');
       final String formatted = formatter.format(now);
 
-      Firestore.instance
+      FirebaseFirestore.instance
           .collection(dbUrl)
-          .document(formatted)
+          .doc(formatted)
           .collection("meetings")
           .add({
         "sName": sName,

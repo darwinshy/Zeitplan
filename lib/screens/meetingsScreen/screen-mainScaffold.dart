@@ -49,7 +49,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
     String dbUrlSchedules;
     String dbUrlAssignment;
     SharedPreferences cacheData = await SharedPreferences.getInstance();
-    final userDocumentFromDatabase = Firestore.instance
+    final userDocumentFromDatabase = FirebaseFirestore.instance
         .collection('users')
         .where(
           "uid",
@@ -59,31 +59,26 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
 
     userDocumentFromDatabase.forEach((element) {
       dbUrlAssignment = "assignment/" +
-          element.documents.elementAt(0).data["batch"].substring(2) +
+          element.docs[0].data()["batch"].substring(2) +
           "/" +
-          element.documents.elementAt(0).data["branch"] +
+          element.docs[0].data()["branch"] +
           "/section/" +
-          element.documents.elementAt(0).data["section"].toUpperCase() +
+          element.docs[0].data()["section"].toUpperCase() +
           "_SX";
       dbUrlSchedules = "schedules/" +
-          element.documents.elementAt(0).data["batch"].substring(2) +
+          element.docs[0].data()["batch"].substring(2) +
           "/" +
-          element.documents.elementAt(0).data["branch"] +
+          element.docs[0].data()["branch"] +
           "/section/" +
-          element.documents.elementAt(0).data["section"].toUpperCase() +
+          element.docs[0].data()["section"].toUpperCase() +
           "_SX";
-      cacheData.setString(
-          "fullname", element.documents.elementAt(0).data["name"]);
-      cacheData.setString(
-          "phone", element.documents.elementAt(0).data["phone"]);
-      cacheData.setString(
-          "section", element.documents.elementAt(0).data["section"]);
-      cacheData.setString(
-          "branch", element.documents.elementAt(0).data["branch"]);
-      cacheData.setBool("CR", element.documents.elementAt(0).data["CR"]);
+      cacheData.setString("fullname", element.docs[0].data()["name"]);
+      cacheData.setString("phone", element.docs[0].data()["phone"]);
+      cacheData.setString("section", element.docs[0].data()["section"]);
+      cacheData.setString("branch", element.docs[0].data()["branch"]);
+      cacheData.setBool("CR", element.docs[0].data()["CR"]);
       cacheData.setString("dbUrlSchedules", dbUrlSchedules);
-      cacheData.setString(
-          "photoURL", element.documents.elementAt(0).data["url"]);
+      cacheData.setString("photoURL", element.docs[0].data()["url"]);
       cacheData.setString("dbUrlAssignment", dbUrlAssignment);
     });
 

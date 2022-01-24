@@ -73,9 +73,8 @@ Widget itemTileL(
                                                 ),
                                                 onPressed: () => {
                                                       reference.firestore
-                                                          .document(
-                                                              reference.path)
-                                                          .updateData(
+                                                          .doc(reference.path)
+                                                          .update(
                                                               {"mStatus": "0"})
                                                     },
                                                 child: Text("Live")),
@@ -88,9 +87,8 @@ Widget itemTileL(
                                                 ),
                                                 onPressed: () => {
                                                       reference.firestore
-                                                          .document(
-                                                              reference.path)
-                                                          .updateData(
+                                                          .doc(reference.path)
+                                                          .update(
                                                               {"mStatus": "2"})
                                                     },
                                                 child: Text("Completed")),
@@ -103,9 +101,8 @@ Widget itemTileL(
                                                 ),
                                                 onPressed: () => {
                                                       reference.firestore
-                                                          .document(
-                                                              reference.path)
-                                                          .updateData(
+                                                          .doc(reference.path)
+                                                          .update(
                                                               {"mStatus": "1"})
                                                     },
                                                 child: Text("Sceduled"))
@@ -138,9 +135,7 @@ Widget itemTileL(
                               color: Colors.red,
                             ),
                             onPressed: () => {
-                              reference.firestore
-                                  .document(reference.path)
-                                  .delete()
+                              reference.firestore.doc(reference.path).delete()
                             },
                           ),
                         ],
@@ -281,9 +276,8 @@ Widget itemTileS(
                                                 ),
                                                 onPressed: () => {
                                                       reference.firestore
-                                                          .document(
-                                                              reference.path)
-                                                          .updateData(
+                                                          .doc(reference.path)
+                                                          .update(
                                                               {"mStatus": "0"})
                                                     },
                                                 child: Text("Live")),
@@ -296,9 +290,8 @@ Widget itemTileS(
                                                 ),
                                                 onPressed: () => {
                                                       reference.firestore
-                                                          .document(
-                                                              reference.path)
-                                                          .updateData(
+                                                          .doc(reference.path)
+                                                          .update(
                                                               {"mStatus": "2"})
                                                     },
                                                 child: Text("Completed")),
@@ -311,9 +304,8 @@ Widget itemTileS(
                                                 ),
                                                 onPressed: () => {
                                                       reference.firestore
-                                                          .document(
-                                                              reference.path)
-                                                          .updateData(
+                                                          .doc(reference.path)
+                                                          .update(
                                                               {"mStatus": "1"})
                                                     },
                                                 child: Text("Sceduled"))
@@ -346,9 +338,7 @@ Widget itemTileS(
                               color: Colors.red,
                             ),
                             onPressed: () => {
-                              reference.firestore
-                                  .document(reference.path)
-                                  .delete()
+                              reference.firestore.doc(reference.path).delete()
                             },
                           ),
                         ],
@@ -487,9 +477,8 @@ Widget itemTileC(
                                             ),
                                             onPressed: () => {
                                                   reference.firestore
-                                                      .document(reference.path)
-                                                      .updateData(
-                                                          {"mStatus": "0"})
+                                                      .doc(reference.path)
+                                                      .update({"mStatus": "0"})
                                                 },
                                             child: Text("Live")),
                                         FlatButton(
@@ -501,9 +490,8 @@ Widget itemTileC(
                                             ),
                                             onPressed: () => {
                                                   reference.firestore
-                                                      .document(reference.path)
-                                                      .updateData(
-                                                          {"mStatus": "2"})
+                                                      .doc(reference.path)
+                                                      .update({"mStatus": "2"})
                                                 },
                                             child: Text("Completed")),
                                         FlatButton(
@@ -515,9 +503,8 @@ Widget itemTileC(
                                             ),
                                             onPressed: () => {
                                                   reference.firestore
-                                                      .document(reference.path)
-                                                      .updateData(
-                                                          {"mStatus": "1"})
+                                                      .doc(reference.path)
+                                                      .update({"mStatus": "1"})
                                                 },
                                             child: Text("Sceduled"))
                                       ],
@@ -547,9 +534,8 @@ Widget itemTileC(
                           Icons.delete,
                           color: Colors.red,
                         ),
-                        onPressed: () => {
-                          reference.firestore.document(reference.path).delete()
-                        },
+                        onPressed: () =>
+                            {reference.firestore.doc(reference.path).delete()},
                       ),
                     ],
                   ),

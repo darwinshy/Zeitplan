@@ -35,11 +35,11 @@ class Auth extends BaseAuth with ChangeNotifier {
   Future<String> signInWithEmailAndPassword(
       String email, String password) async {
     try {
-      AuthResult authResult = await FirebaseAuth.instance
+      UserCredential authResult = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = authResult.user;
+      User user = authResult.user;
 
-      if (user.isEmailVerified) {
+      if (user.emailVerified) {
         await updateUserDocuments(user);
         notifyListeners();
         return user.uid;
@@ -62,9 +62,9 @@ class Auth extends BaseAuth with ChangeNotifier {
       String branch,
       String batchYear) async {
     try {
-      AuthResult authResult = await FirebaseAuth.instance
+      UserCredential authResult = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user = authResult.user;
+      User user = authResult.user;
       try {
         await user.sendEmailVerification().then((_) => {
               creatingUserDocuments(email, password, fullName, scholarId,
@@ -83,7 +83,7 @@ class Auth extends BaseAuth with ChangeNotifier {
 
   Future<String> currentUser() async {
     try {
-      FirebaseUser user = await FirebaseAuth.instance.currentUser();
+      User user = FirebaseAuth.instance.currentUser;
       notifyListeners();
 
       return user.uid;
@@ -93,21 +93,21 @@ class Auth extends BaseAuth with ChangeNotifier {
   }
 
   Future<String> getEmail() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     notifyListeners();
     return user.email;
   }
 
   Future<String> getName() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     notifyListeners();
     return user.displayName;
   }
 
   Future<String> getPhoto() async {
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    User user = FirebaseAuth.instance.currentUser;
     notifyListeners();
-    return user.photoUrl;
+    return user.photoURL;
   }
 
   Future<void> signOut() {
@@ -126,17 +126,20 @@ class Auth extends BaseAuth with ChangeNotifier {
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.getCredential(
+    final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
 
-    final AuthResult authResult = await _auth.signInWithCredential(credential);
-    final FirebaseUser user = authResult.user;
-    final snapShot =
-        await Firestore.instance.collection('users').document(user.uid).get();
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+    final snapShot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
     if (!snapShot.exists) {
-      Firestore.instance.collection("users").document(user.uid).setData({
+      FirebaseFirestore.instance.collection("users").doc(user.uid).set({
         "uid": user.uid,
         "name": user.displayName,
         "email": user.email,

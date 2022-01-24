@@ -26,7 +26,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
     if (meetingFormData.validate()) {
       meetingFormData.save();
 
-      Firestore.instance.document(widget.firestore).updateData({
+      FirebaseFirestore.instance.doc(widget.firestore).update({
         "sName": sName,
         "sCode": sCode,
         "about": about,

@@ -33,7 +33,7 @@ class _QuestionPaperScreenState extends State<QuestionPaperScreen> {
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(
-            stream: Firestore.instance
+            stream: FirebaseFirestore.instance
                 .collection("/questionbank/bank/papers")
                 .where("questionPaperSubjectCode",
                     isEqualTo: widget.subjectCode)
@@ -43,8 +43,7 @@ class _QuestionPaperScreenState extends State<QuestionPaperScreen> {
                 .snapshots(),
             builder: (context, snapshot) {
               try {
-                return buildListofQuestionPaper(
-                    snapshot.data.documents, context);
+                return buildListofQuestionPaper(snapshot.data.docs, context);
               } catch (e) {
                 print(e);
                 return centerLoading();
