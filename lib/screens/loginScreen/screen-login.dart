@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:validators/validators.dart';
 import '../forgotPasswordScreen/screen-forgot-password.dart';
+import '../../root.dart';
 
 class LoginPageScreen extends StatefulWidget {
   @override
@@ -79,6 +80,10 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 // Navigator.of(context).pop(),
                 changeStateOfLoading(),
                 Navigator.of(context).pop(),
+                Navigator.of(context).pop(),
+                Navigator.of(context).push(MaterialPageRoute<void>(
+                  builder: (BuildContext context) => Root(),
+                ))
               }
             // If error is recieved from the API
             else

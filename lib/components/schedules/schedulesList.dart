@@ -29,6 +29,7 @@ Widget buildSchedulesBody(
 
 Widget streamBuildSchedules(void Function() refresh,
     AsyncSnapshot<List<String>> cacheData, String formatted, String crStatus) {
+  print(cacheData.data);
   return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance
           .collection(cacheData.data.elementAt(11))

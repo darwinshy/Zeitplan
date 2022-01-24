@@ -32,6 +32,12 @@ class _RootState extends State<Root> {
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    alreadyloggedInStatus();
+  }
+
   Stream<QuerySnapshot> getAdminAccessStatus() {
     return FirebaseFirestore.instance
         .collection("superadmin")
@@ -41,53 +47,33 @@ class _RootState extends State<Root> {
 
   @override
   Widget build(BuildContext context) {
-    alreadyloggedInStatus();
-    // ########################################################################
-    return StreamBuilder<ConnectivityResult>(
-      stream: Connectivity().checkConnectivity().asStream(),
-      builder: (context, snapshotOfConnectivity) {
-        // #####################################################################
-        return StreamBuilder<QuerySnapshot>(
-            stream: getAdminAccessStatus(),
-            builder: (context, snapshotOfSuperAdmin) {
-              // ###############################################################
-              try {
-                if (snapshotOfConnectivity.hasData &&
-                    snapshotOfSuperAdmin.hasData) {
-                  // ###########################################################
-                  bool superAccess = (snapshotOfSuperAdmin.data.docs
-                              .elementAt(0)
-                              .data() as Map)['access'] ==
-                          "true"
-                      ? true
-                      : false;
-                  String superMessage = (snapshotOfSuperAdmin.data.docs
-                      .elementAt(0)
-                      .data() as Map)["message"];
-                  // ###########################################################
-                  switch (snapshotOfConnectivity.data) {
-                    case ConnectivityResult.none:
-                      return noConnectionScreen();
-                      break;
-                    case ConnectivityResult.wifi:
-                      return adminAndAuthRerouter(superAccess, superMessage);
-                      break;
-                    case ConnectivityResult.mobile:
-                      return adminAndAuthRerouter(superAccess, superMessage);
-                      break;
-                    default:
-                      return connectingScreen();
-                  }
-                } else {
-                  return connectingScreen();
-                }
-              } catch (e) {
-                return errorScreen();
-              }
-              // ###############################################################
-            });
-      },
-    );
+    return StreamBuilder<QuerySnapshot>(
+        stream: getAdminAccessStatus(),
+        builder: (context, snapshotOfSuperAdmin) {
+          // ###############################################################
+          try {
+            if (snapshotOfSuperAdmin.hasData) {
+              // ###########################################################
+              bool superAccess = (snapshotOfSuperAdmin.data.docs
+                          .elementAt(0)
+                          .data() as Map)['access'] ==
+                      "true"
+                  ? true
+                  : false;
+              String superMessage = (snapshotOfSuperAdmin.data.docs
+                  .elementAt(0)
+                  .data() as Map)["message"];
+              // ###########################################################
+
+              return adminAndAuthRerouter(superAccess, superMessage);
+            } else {
+              return connectingScreen();
+            }
+          } catch (e) {
+            return errorScreen();
+          }
+          // ###############################################################
+        });
   }
 
   Widget adminAndAuthRerouter(bool superAccess, String superMessage) {
