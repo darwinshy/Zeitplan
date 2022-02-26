@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'components/reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screens/screen-userChoosePage.dart';

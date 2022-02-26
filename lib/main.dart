@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'streamproviders.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
