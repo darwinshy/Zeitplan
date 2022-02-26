@@ -25,7 +25,7 @@ Widget buildListofQuestionPaper(
                     "Question Paper",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             color: Colors.white,
                             fontSize: 40,
                             fontWeight: FontWeight.w800)),
@@ -41,10 +41,11 @@ Widget buildListofQuestionPaper(
             } else {
               return _noQuestionScreen();
             }
-          } else
-            return Center();
+          } else {
+            return const Center();
+          }
         } catch (e) {
-          return Center();
+          return const Center();
         }
       });
 }
@@ -54,7 +55,7 @@ Widget _noQuestionScreen() {
     Padding(
         padding: const EdgeInsets.all(20.0),
         child: screentitleBoldBig("Question Paper")),
-    SizedBox(
+    const SizedBox(
       height: 20,
     ),
     Expanded(

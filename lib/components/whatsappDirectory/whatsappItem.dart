@@ -10,11 +10,11 @@ Widget whatsappItemTile(DocumentSnapshot data, BuildContext ctx) {
       record.cr != "true" ? Colors.grey[100] : Colors.amberAccent[100];
 
   Color badgeTx =
-      record.cr == "true" ? Color.fromRGBO(92, 68, 0, 1) : Colors.grey[900];
-  if (record.verified == "true")
+      record.cr == "true" ? const Color.fromRGBO(92, 68, 0, 1) : Colors.grey[900];
+  if (record.verified == "true") {
     return Container(
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(18),
+      margin: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(18),
       decoration: BoxDecoration(
           color: badgeBg, borderRadius: BorderRadius.circular(10)),
       child: Column(
@@ -37,11 +37,11 @@ Widget whatsappItemTile(DocumentSnapshot data, BuildContext ctx) {
                                 ? Container(
                                     width: 200.0,
                                     height: 200.0,
-                                    decoration: new BoxDecoration(
+                                    decoration: BoxDecoration(
                                         shape: BoxShape.rectangle,
-                                        image: new DecorationImage(
+                                        image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: new NetworkImage(
+                                            image: NetworkImage(
                                                 record.photoURL))))
                                 : Icon(
                                     Icons.account_circle,
@@ -54,7 +54,7 @@ Widget whatsappItemTile(DocumentSnapshot data, BuildContext ctx) {
                     ? Container(
                         width: 50.0,
                         height: 50.0,
-                        decoration: new BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                         ),
                         clipBehavior: Clip.antiAlias,
@@ -92,21 +92,21 @@ Widget whatsappItemTile(DocumentSnapshot data, BuildContext ctx) {
                         record.fullname.toUpperCase(),
                         style: TextStyle(color: badgeTx, fontSize: 15),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
                         record.email,
                         style: TextStyle(color: badgeTx, fontSize: 10),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
                         record.phoneNumber,
                         style: TextStyle(color: badgeTx, fontSize: 10),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 3,
                       ),
                       Text(
@@ -179,8 +179,9 @@ Widget whatsappItemTile(DocumentSnapshot data, BuildContext ctx) {
         ],
       ),
     );
-  else
-    return SizedBox(
+  } else {
+    return const SizedBox(
       height: 0,
     );
+  }
 }

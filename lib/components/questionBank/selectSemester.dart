@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget selectSemester(void Function(int sem) setSemesterNumber) {
@@ -12,7 +10,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
           "Select Semester",
           textAlign: TextAlign.center,
           style: GoogleFonts.montserrat(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                   color: Colors.white,
                   fontSize: 40,
                   fontWeight: FontWeight.w800)),
@@ -35,7 +33,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -58,7 +56,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -81,7 +79,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -109,7 +107,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -132,7 +130,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -155,7 +153,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -183,7 +181,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -206,7 +204,7 @@ Widget selectSemester(void Function(int sem) setSemesterNumber) {
                       decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.all(8),
+                      margin: const EdgeInsets.all(8),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(

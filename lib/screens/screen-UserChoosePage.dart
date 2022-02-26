@@ -1,4 +1,4 @@
-import 'package:Zeitplan/components/animations.dart';
+import 'package:zeitplan/components/animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../components/reusables.dart';
 import 'loginScreen/screen-login.dart';
@@ -48,7 +48,7 @@ class _UserChoosePageState extends State<UserChoosePage> {
                             fontWeight: FontWeight.w800)),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 FadeIn(
@@ -78,11 +78,11 @@ class _UserChoosePageState extends State<UserChoosePage> {
                 child: Column(
                   children: [
                     flatButtonWithRoundedShape('Login', goToLoginSceen),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     flatButtonWithRoundedShape('Sign Up', goToSignUpSceen),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     Text(

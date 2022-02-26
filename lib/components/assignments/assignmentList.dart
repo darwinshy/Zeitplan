@@ -35,7 +35,7 @@ Widget _streamBuildList(
     stream: databaseQuery.providestreamsOrderMinusOne(path, "active"),
     builder: (context, assignmentDataSnapshot) {
       try {
-        if (assignmentDataSnapshot.data.docs.length != 0) {
+        if (assignmentDataSnapshot.data.docs.isNotEmpty) {
           return itemListAssignement(
               assignmentDataSnapshot.data.docs, sharedPrefsData.data[10]);
         } else {
@@ -54,7 +54,7 @@ Widget itemListAssignement(List<DocumentSnapshot> documents, String isCR) {
     Padding(
         padding: const EdgeInsets.all(20.0),
         child: screentitleBoldBig("Assignments")),
-    SizedBox(
+    const SizedBox(
       height: 20,
     ),
     ...documents
@@ -71,7 +71,7 @@ Widget _noAssignmentScreen() {
         Padding(
             padding: const EdgeInsets.all(20.0),
             child: screentitleBoldBig("Assignments")),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Expanded(

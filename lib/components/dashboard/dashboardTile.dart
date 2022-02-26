@@ -20,8 +20,8 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
     decoration: BoxDecoration(
         color: (isCr == "false") ? badgeBg : badgeBgGold,
         borderRadius: BorderRadius.circular(20)),
-    margin: EdgeInsets.all(20),
-    padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+    margin: const EdgeInsets.all(20),
+    padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,7 +69,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                       color: (isCr == "false") ? badgeTx : badgeTxGold,
                       child: Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -98,13 +98,13 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                             ? Container(
                                 width: 200.0,
                                 height: 200.0,
-                                decoration: new BoxDecoration(
+                                decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
-                                    image: new DecorationImage(
+                                    image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: new NetworkImage(
+                                        image: NetworkImage(
                                             profileCacheData.elementAt(9)))))
-                            : Icon(
+                            : const Icon(
                                 Icons.account_circle,
                                 size: 100,
                               ));
@@ -144,14 +144,14 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                     cacheData.setString("photoURL", downloadUrl);
                   });
 
-                  final snackBar = SnackBar(content: Text('Yay! Success'));
+                  const snackBar = SnackBar(content: Text('Yay! Success'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 } else {
                   print('Error from image repo ${snapshotx.toString()}');
                   throw ('This file is not an image');
                 }
               } catch (e) {
-                final snackBar =
+                const snackBar =
                     SnackBar(content: Text('Image selection failed.'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
@@ -160,7 +160,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                 ? Container(
                     width: 70.0,
                     height: 70.0,
-                    decoration: new BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
                     clipBehavior: Clip.antiAlias,
@@ -180,7 +180,7 @@ Widget dashboardTile(List<String> profileCacheData, BuildContext context,
                       },
                     ),
                   )
-                : Icon(
+                : const Icon(
                     Icons.account_circle,
                     size: 70,
                   ))

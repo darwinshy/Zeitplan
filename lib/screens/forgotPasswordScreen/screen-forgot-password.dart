@@ -1,6 +1,6 @@
-import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/components/animations.dart';
-import 'package:Zeitplan/components/reusables.dart';
+import 'package:zeitplan/authentication/auth.dart';
+import 'package:zeitplan/components/animations.dart';
+import 'package:zeitplan/components/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:validators/validators.dart';
@@ -15,7 +15,7 @@ class _ForgotPageScreenState extends State<ForgotPageScreen> {
   BuildContext globalContext;
   bool stateOfLoading = false;
 
-  final formKeyReset = new GlobalKey<FormState>();
+  final formKeyReset = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -108,18 +108,18 @@ class _ForgotPageScreenState extends State<ForgotPageScreen> {
                   Text(
                     "Forgot Password ?",
                     style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             color: Colors.white,
                             fontSize: 50,
                             fontWeight: FontWeight.w800)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
                     "We'll send you an email with a reset link.",
                     style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                     )),
@@ -133,18 +133,18 @@ class _ForgotPageScreenState extends State<ForgotPageScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(color: Colors.white70, fontSize: 15),
                         ),
                         TextFormField(
                           decoration: inputDecoration(
                               "Thank God, we have this feature !"),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) =>
                               value.isEmpty ? "Email cannot be empty." : null,
                           keyboardType: TextInputType.text,
@@ -153,7 +153,7 @@ class _ForgotPageScreenState extends State<ForgotPageScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   stateOfLoading == false

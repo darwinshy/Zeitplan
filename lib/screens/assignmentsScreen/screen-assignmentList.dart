@@ -22,8 +22,8 @@ class Assignments extends StatelessWidget {
           InkWell(
             onTap: goToMySubmissionScreen,
             child: Container(
-                margin: EdgeInsets.only(right: 10, top: 18),
-                child: Text(
+                margin: const EdgeInsets.only(right: 10, top: 18),
+                child: const Text(
                   "My Submissions",
                   style: TextStyle(fontSize: 13),
                 )),

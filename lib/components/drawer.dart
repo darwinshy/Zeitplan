@@ -20,7 +20,7 @@ Drawer mainDrawer(
     child: Container(
       color: Colors.black45,
       // alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(top: 60),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -28,11 +28,11 @@ Drawer mainDrawer(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Text(
                   "More",
                   style: GoogleFonts.montserrat(
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                           color: Colors.white,
                           fontSize: 40,
                           fontWeight: FontWeight.w800)),
@@ -42,34 +42,34 @@ Drawer mainDrawer(
                 padding: const EdgeInsets.all(8.0),
                 child: IconButton(
                     onPressed: refresh,
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.refresh,
                       color: Colors.white60,
                     )),
               )
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.note),
+                const Icon(Icons.note),
                 FlatButton(
                     onPressed: goToAssignmentsScreen,
-                    child: Text("Assignments"))
+                    child: const Text("Assignments"))
               ],
             ),
           ),
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(
+                const Icon(
                   MaterialCommunityIcons.file_question,
                 ),
                 FlatButton(
-                    onPressed: goToQuestionScreen, child: Text("Question Bank"))
+                    onPressed: goToQuestionScreen, child: const Text("Question Bank"))
               ],
             ),
           ),
@@ -86,53 +86,53 @@ Drawer mainDrawer(
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.person_outline),
+                const Icon(Icons.person_outline),
                 FlatButton(
                     onPressed: goToWhatsappDirectoryScreen,
-                    child: Text("Batchmates"))
+                    child: const Text("Batchmates"))
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.white60,
           ),
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.account_circle),
+                const Icon(Icons.account_circle),
                 FlatButton(
-                    onPressed: goToEditScreen, child: Text("Edit Profile"))
+                    onPressed: goToEditScreen, child: const Text("Edit Profile"))
               ],
             ),
           ),
           ListTile(
               title: Row(
             children: <Widget>[
-              Icon(
+              const Icon(
                 Icons.exit_to_app,
               ),
-              FlatButton(onPressed: signOut, child: Text("Log Out"))
+              FlatButton(onPressed: signOut, child: const Text("Log Out"))
             ],
           )),
-          Divider(
+          const Divider(
             color: Colors.white60,
           ),
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.code),
+                const Icon(Icons.code),
                 FlatButton(
                     onPressed: goToDeveloperScreen,
-                    child: Text("Know the Developer"))
+                    child: const Text("Know the Developer"))
               ],
             ),
           ),
           ListTile(
             title: Row(
               children: <Widget>[
-                Icon(Icons.adb),
+                const Icon(Icons.adb),
                 FlatButton(
-                    onPressed: goToAboutScreen, child: Text("Version Info")),
+                    onPressed: goToAboutScreen, child: const Text("Version Info")),
               ],
             ),
           ),

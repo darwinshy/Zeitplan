@@ -31,7 +31,7 @@ Widget itemTileSubmission(
             backgroundColor: Colors.grey[100],
             titleTextStyle: TextStyle(color: Colors.grey[900]),
             contentTextStyle: TextStyle(color: Colors.grey[900]),
-            title: Text("Do you want to delete this submission ? "),
+            title: const Text("Do you want to delete this submission ? "),
             actions: [
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
@@ -56,8 +56,8 @@ Widget itemTileSubmission(
   }
 
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 3),
-    padding: EdgeInsets.all(10),
+    margin: const EdgeInsets.symmetric(vertical: 3),
+    padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
         color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
     child: ExpansionTile(
@@ -81,11 +81,11 @@ Widget itemTileSubmission(
       trailing: canModify
           ? InkWell(
               onTap: deleteThisSubmission,
-              child: Icon(Icons.delete, color: Colors.red),
+              child: const Icon(Icons.delete, color: Colors.red),
             )
-          : Container(width: 0, height: 0),
+          : const SizedBox(width: 0, height: 0),
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +96,7 @@ Widget itemTileSubmission(
                     fontSize: 10,
                     fontFamily: "OpenSans",
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text(record.submitterDescription,
@@ -104,7 +104,7 @@ Widget itemTileSubmission(
                   style: TextStyle(
                     color: Colors.grey[900],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Text("Click here",
@@ -113,18 +113,18 @@ Widget itemTileSubmission(
                     fontSize: 10,
                     fontFamily: "OpenSans",
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               OutlineButton(
                   borderSide: BorderSide(color: Colors.grey[900]),
-                  child: new Text(
+                  child: Text(
                     "Visit",
                     style: TextStyle(color: Colors.grey[900]),
                   ),
                   onPressed: openLink,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(5.0)))
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0)))
             ],
           ),
         ),

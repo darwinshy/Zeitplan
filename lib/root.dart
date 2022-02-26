@@ -9,6 +9,8 @@ import 'screens/meetingsScreen/screen-mainScaffold.dart';
 enum AuthStatus { notSignedIn, signedIn }
 
 class Root extends StatefulWidget {
+  const Root({Key key}) : super(key: key);
+
   @override
   _RootState createState() => _RootState();
 }
@@ -90,7 +92,7 @@ class _RootState extends State<Root> {
       return Scaffold(
           backgroundColor: Colors.grey[100],
           body: Container(
-            padding: EdgeInsets.all(30),
+            padding: const EdgeInsets.all(30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,7 +102,7 @@ class _RootState extends State<Root> {
                     width: 200,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
                 Center(
@@ -119,7 +121,7 @@ class _RootState extends State<Root> {
     return Scaffold(
         backgroundColor: Colors.grey[100],
         body: Container(
-          padding: EdgeInsets.all(30),
+          padding: const EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -129,7 +131,7 @@ class _RootState extends State<Root> {
                   width: 200,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               Center(
@@ -167,7 +169,7 @@ class _RootState extends State<Root> {
     return Scaffold(
         backgroundColor: Colors.black,
         body: Container(
-          padding: EdgeInsets.all(30),
+          padding: const EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -177,10 +179,10 @@ class _RootState extends State<Root> {
                   width: 200,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
-              Center(
+              const Center(
                   child: Text(
                 "Unknown Error, Contact Administrator",
                 textAlign: TextAlign.center,

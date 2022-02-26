@@ -1,5 +1,5 @@
-import 'package:Zeitplan/components/animations.dart';
-import 'package:Zeitplan/components/reusables.dart';
+import 'package:zeitplan/components/animations.dart';
+import 'package:zeitplan/components/reusables.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +22,7 @@ class _EditProfileState extends State<EditProfile> {
   String branch;
   String batchYear;
   String dbUrlSchedules;
-  final editProfileFormKey = new GlobalKey<FormState>();
+  final editProfileFormKey = GlobalKey<FormState>();
 
   Future<SharedPreferences> getSharedPreferenceInstance() {
     return SharedPreferences.getInstance();
@@ -103,10 +103,8 @@ class _EditProfileState extends State<EditProfile> {
     SharedPreferences cacheData = await getSharedPreferenceInstance();
 
     String uid = cacheData.getString("userUID").toString();
-    final snapShot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .get();
+    final snapShot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
     if (snapShot.exists) {
       FirebaseFirestore.instance.collection('users').doc(uid).update({
         "name": fullname,
@@ -200,7 +198,7 @@ class _EditProfileState extends State<EditProfile> {
             if (snapshot.hasData) {
               return editProfile(snapshot);
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -210,7 +208,7 @@ class _EditProfileState extends State<EditProfile> {
 
   Widget editProfile(AsyncSnapshot<List<String>> snapshot) {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
         key: editProfileFormKey,
@@ -227,18 +225,18 @@ class _EditProfileState extends State<EditProfile> {
                       Text(
                         "Edit Profile",
                         style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 40,
                                 fontWeight: FontWeight.w800)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "Enter your Details",
                         style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                         )),
@@ -248,25 +246,25 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FadeInLTR(
                       1,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Full Name",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
                               initialValue: snapshot.data.elementAt(0),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -280,7 +278,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Name cannot be empty."
                                   : null,
@@ -294,18 +292,18 @@ class _EditProfileState extends State<EditProfile> {
                     FadeInLTR(
                       1.5,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Scholar ID",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
                               initialValue: snapshot.data.elementAt(1),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -319,7 +317,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Scholar ID cannot be empty."
                                   : null,
@@ -333,18 +331,18 @@ class _EditProfileState extends State<EditProfile> {
                     FadeInLTR(
                       1.5,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Section",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
                               initialValue: snapshot.data.elementAt(2),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -358,7 +356,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Section cannot be empty."
                                   : null,
@@ -372,18 +370,18 @@ class _EditProfileState extends State<EditProfile> {
                     FadeInLTR(
                       2,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Phone Number (with Country Code)",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
                               initialValue: snapshot.data.elementAt(3),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -397,7 +395,7 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Section cannot be empty."
                                   : null,
@@ -408,20 +406,20 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FadeInLTR(
                       2.5,
                       FlatButton(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         onPressed: validateAndEditProfile,
-                        child: Text('           Edit Changes           ',
+                        child: const Text('           Edit Changes           ',
                             style:
                                 TextStyle(color: Colors.yellow, fontSize: 18)),
                         textColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(
+                            side: const BorderSide(
                                 color: Colors.yellow,
                                 width: 0.8,
                                 style: BorderStyle.solid),

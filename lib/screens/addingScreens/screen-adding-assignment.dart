@@ -14,7 +14,7 @@ class AddAssignmentScreen extends StatefulWidget {
 
 class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
   //
-  final assignmentForm = new GlobalKey<FormState>();
+  final assignmentForm = GlobalKey<FormState>();
 
   //
   String subjectName;
@@ -33,11 +33,12 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
         initialDate: DateTime.now(),
         firstDate: DateTime(2020, 1),
         lastDate: DateTime(2101));
-    if (picked != null && picked != assignmentDueDate)
+    if (picked != null && picked != assignmentDueDate) {
       setState(() {
         assignmentDueDate = picked;
       });
-    FocusScope.of(context).requestFocus(new FocusNode());
+    }
+    FocusScope.of(context).requestFocus(FocusNode());
   }
 
   Future<void> _selectDueTime(BuildContext context) async {
@@ -49,7 +50,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
         // print(assignmentDueTime);
       });
     }
-    FocusScope.of(context).requestFocus(new FocusNode());
+    FocusScope.of(context).requestFocus(FocusNode());
   }
 
   Future<void> _selectAssignedDate(BuildContext context) async {
@@ -58,21 +59,23 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
         initialDate: DateTime.now(),
         firstDate: DateTime(2020, 1),
         lastDate: DateTime(2101));
-    if (picked != null && picked != assignmentAssignedDate)
+    if (picked != null && picked != assignmentAssignedDate) {
       setState(() {
         assignmentAssignedDate = picked;
         // print(assignmentAssignedDate);
       });
-    FocusScope.of(context).requestFocus(new FocusNode());
+    }
+    FocusScope.of(context).requestFocus(FocusNode());
   }
   // Functions Ends
 
   // Before Submission Check Starts
 
   bool fieldValidation() {
-    if (subjectName.length > 15 || subjectName.length == 0) return false;
-    if (assignmentDescription.length > 50 || assignmentDescription.length == 0)
+    if (subjectName.length > 15 || subjectName.isEmpty) return false;
+    if (assignmentDescription.length > 50 || assignmentDescription.isEmpty) {
       return false;
+    }
     if (isURL(assignmentLink) != true) return false;
     return true;
   }
@@ -80,10 +83,11 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
   bool checkDateAndTimeNullity() {
     if (assignmentDueDate != null &&
         assignmentAssignedDate != null &&
-        assignmentDueTime != null)
+        assignmentDueTime != null) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   void createUniqueAssignmentID() {
@@ -163,8 +167,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
           print("assignmentAssignedDate : " +
               assignmentAssignedDate.toString().substring(0, 10)),
           print("assignmentLink         : " + assignmentLink),
-          print("uploads                : " +
-              "/" +
+          print("uploads                : " "/" +
               dbPath +
               "/" +
               assignmentId +
@@ -188,7 +191,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
 
   Widget buildForm() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
         key: assignmentForm,
@@ -208,24 +211,24 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FadeInLTR(
                       1.3,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Subject Name",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -239,7 +242,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Subject Name cannot be empty."
                                   : null,
@@ -253,17 +256,17 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                     FadeInLTR(
                       1.6,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Assignment Description",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -277,7 +280,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Subject Code cannot be empty."
                                   : null,
@@ -291,11 +294,11 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                     FadeInLTR(
                       1.9,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Assigned Date",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
@@ -304,13 +307,13 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 assignmentAssignedDate == null
-                                    ? Text("Date is not selected.")
+                                    ? const Text("Date is not selected.")
                                     : Text("${assignmentAssignedDate.toLocal()}"
                                         .split(' ')[0]),
                                 RaisedButton(
                                   color: Colors.transparent,
                                   onPressed: () => _selectAssignedDate(context),
-                                  child: Text('Select date'),
+                                  child: const Text('Select date'),
                                 ),
                               ],
                             )
@@ -321,16 +324,16 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                     FadeInLTR(
                       2.1,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Due Date",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 18,
                             ),
                             Row(
@@ -339,27 +342,27 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                                 Column(
                                   children: [
                                     assignmentDueDate == null
-                                        ? Text("Date is not selected.")
+                                        ? const Text("Date is not selected.")
                                         : Text("${assignmentDueDate.toLocal()}"
                                             .split(' ')[0]),
                                     RaisedButton(
                                       color: Colors.transparent,
                                       onPressed: () => _selectDueDate(context),
-                                      child: Text('Select date'),
+                                      child: const Text('Select date'),
                                     ),
                                   ],
                                 ),
                                 Column(
                                   children: [
                                     assignmentDueTime == null
-                                        ? Text("Time is not selected.")
+                                        ? const Text("Time is not selected.")
                                         : Text(assignmentDueTime
                                             .toString()
                                             .substring(10, 15)),
                                     RaisedButton(
                                       color: Colors.transparent,
                                       onPressed: () => _selectDueTime(context),
-                                      child: Text('Select Time'),
+                                      child: const Text('Select Time'),
                                     ),
                                   ],
                                 )
@@ -372,17 +375,17 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                     FadeInLTR(
                       2.4,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Assignment Link",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -396,7 +399,7 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Assignment Link cannot be empty."
                                   : null,
@@ -407,20 +410,20 @@ class _AddAssignmentScreenState extends State<AddAssignmentScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FadeInLTR(
                       2.7,
                       FlatButton(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         onPressed: validateTheForm,
-                        child: Text('           Add           ',
+                        child: const Text('           Add           ',
                             style:
                                 TextStyle(color: Colors.yellow, fontSize: 18)),
                         textColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(
+                            side: const BorderSide(
                                 color: Colors.yellow,
                                 width: 0.8,
                                 style: BorderStyle.solid),

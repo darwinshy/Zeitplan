@@ -20,7 +20,7 @@ class AboutScreen extends StatelessWidget {
           await launch(url, forceWebView: false);
         }
       } catch (e) {
-        SnackBar(
+        const SnackBar(
           content: Text("Something went wrong"),
         );
       }
@@ -41,9 +41,9 @@ class AboutScreen extends StatelessWidget {
             screentitleBoldBig("About"),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+              children: const [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                       "Zeitplan is Class Management Service (CMS) that aims to manage classes efficiently.",
                       textAlign: TextAlign.start,
@@ -57,7 +57,7 @@ class AboutScreen extends StatelessWidget {
                   height: 5,
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Current version : v1.1",
                     textAlign: TextAlign.start,
@@ -66,7 +66,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 Divider(),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "New Features",
                     textAlign: TextAlign.start,
@@ -75,7 +75,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 Divider(),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "1. Share and get assigments with your batchmates.",
                     textAlign: TextAlign.start,
@@ -83,7 +83,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "2. Share and get Question Paper from the Question Bank.",
                     textAlign: TextAlign.start,
@@ -95,7 +95,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 Divider(),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Features",
                     textAlign: TextAlign.start,
@@ -104,7 +104,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 Divider(),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "1. Join the Class meetings easily.",
                     textAlign: TextAlign.start,
@@ -112,7 +112,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "2. See batchmates basic details and Whatsapp them directly, without saving his/her contact.",
                     textAlign: TextAlign.start,
@@ -120,7 +120,7 @@ class AboutScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "3. Change your Profile Picture by long pressing on your picture.",
                     textAlign: TextAlign.start,
@@ -134,7 +134,7 @@ class AboutScreen extends StatelessWidget {
                 color: Colors.grey[800],
                 borderRadius: BorderRadius.circular(20),
               ),
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Center(
                 child: Column(
                   children: [
@@ -142,7 +142,7 @@ class AboutScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                            icon: Icon(Typicons.facebook),
+                            icon: const Icon(Typicons.facebook),
                             onPressed: () async {
                               const url = 'fb://profile/100003633027901';
 
@@ -160,7 +160,7 @@ class AboutScreen extends StatelessWidget {
                               }
                             }),
                         IconButton(
-                            icon: Icon(AntDesign.github),
+                            icon: const Icon(AntDesign.github),
                             onPressed: () async {
                               const url = 'https://github.com/reverope';
 
@@ -176,7 +176,7 @@ class AboutScreen extends StatelessWidget {
                               }
                             }),
                         IconButton(
-                            icon: Icon(AntDesign.instagram),
+                            icon: const Icon(AntDesign.instagram),
                             onPressed: () async {
                               const url =
                                   'https://www.instagram.com/i_am_the_darwin';
@@ -194,16 +194,16 @@ class AboutScreen extends StatelessWidget {
                             }),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Developed and Designed by",
+                    const Text("Developed and Designed by",
                         style: TextStyle(
                             height: 1.5,
                             color: Colors.grey,
                             fontSize: 12,
                             fontWeight: FontWeight.w300)),
-                    Text("Shashwat Priyadarshy",
+                    const Text("Shashwat Priyadarshy",
                         style: TextStyle(
                             height: 1.5,
                             color: Colors.grey,
@@ -215,8 +215,8 @@ class AboutScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: reportBug,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Text(
                   "Report a bug",
                   style: TextStyle(fontSize: 12),

@@ -10,7 +10,7 @@ class EditAMeeting extends StatefulWidget {
   final String endTime;
   final String mLink;
   final String firestore;
-  EditAMeeting(this.sName, this.sCode, this.startTime, this.endTime, this.mLink,
+  const EditAMeeting(this.sName, this.sCode, this.startTime, this.endTime, this.mLink,
       this.about, this.firestore);
 
   @override
@@ -18,7 +18,7 @@ class EditAMeeting extends StatefulWidget {
 }
 
 class _EditAMeetingScreenState extends State<EditAMeeting> {
-  final meetingForm = new GlobalKey<FormState>();
+  final meetingForm = GlobalKey<FormState>();
 
   void validateAndUpdateToDb() {
     final meetingFormData = meetingForm.currentState;
@@ -53,7 +53,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
 
   Widget formElement() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
         key: meetingForm,
@@ -70,18 +70,18 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                     Text(
                       "Edit Meeting",
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               color: Colors.white,
                               fontSize: 40,
                               fontWeight: FontWeight.w800)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
                       "Omit the changes below",
                       style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                         color: Colors.grey,
                         fontSize: 12,
                       )),
@@ -90,23 +90,23 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Subject Name",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           TextFormField(
                             initialValue: widget.sName,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.white,
@@ -120,7 +120,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             validator: (value) => value.isEmpty
                                 ? "Subject Name cannot be empty."
                                 : null,
@@ -131,18 +131,18 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Subject Code",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           TextFormField(
                             initialValue: widget.sCode,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.white,
@@ -156,7 +156,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             validator: (value) => value.isEmpty
                                 ? "Subject Code cannot be empty."
                                 : null,
@@ -167,18 +167,18 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Start Time",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           TextFormField(
                             initialValue: widget.startTime,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.white,
@@ -192,7 +192,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             validator: (value) => value.isEmpty
                                 ? "Start Time cannot be empty."
                                 : null,
@@ -203,18 +203,18 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "End Time",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           TextFormField(
                             initialValue: widget.endTime,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.white,
@@ -228,7 +228,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             validator: (value) => value.isEmpty
                                 ? "End Time cannot be empty."
                                 : null,
@@ -239,18 +239,18 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "Link",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           TextFormField(
                             initialValue: widget.mLink,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.white,
@@ -264,7 +264,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             validator: (value) =>
                                 value.isEmpty ? "Link cannot be empty." : null,
                             keyboardType: TextInputType.emailAddress,
@@ -274,18 +274,18 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
+                          const Text(
                             "About",
                             style:
                                 TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           TextFormField(
                             initialValue: widget.about,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.white,
@@ -299,7 +299,7 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                                 ),
                               ),
                             ),
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                             validator: (value) =>
                                 value.isEmpty ? "About cannot be empty." : null,
                             keyboardType: TextInputType.visiblePassword,
@@ -309,17 +309,17 @@ class _EditAMeetingScreenState extends State<EditAMeeting> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FlatButton(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       onPressed: validateAndUpdateToDb,
-                      child: Text('           Update           ',
+                      child: const Text('           Update           ',
                           style: TextStyle(color: Colors.yellow, fontSize: 18)),
                       textColor: Colors.white,
                       shape: RoundedRectangleBorder(
-                          side: BorderSide(
+                          side: const BorderSide(
                               color: Colors.yellow,
                               width: 0.8,
                               style: BorderStyle.solid),

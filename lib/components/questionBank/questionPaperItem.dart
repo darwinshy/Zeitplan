@@ -34,7 +34,7 @@ Widget questionPaperTile(
             backgroundColor: Colors.grey[100],
             titleTextStyle: TextStyle(color: Colors.grey[900]),
             contentTextStyle: TextStyle(color: Colors.grey[900]),
-            title: Text("Do you want to delete this question paper ?"),
+            title: const Text("Do you want to delete this question paper ?"),
             actions: [
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
@@ -59,8 +59,8 @@ Widget questionPaperTile(
   }
 
   return Container(
-    margin: EdgeInsets.all(10),
-    padding: EdgeInsets.all(18),
+    margin: const EdgeInsets.all(10),
+    padding: const EdgeInsets.all(18),
     decoration: BoxDecoration(
         color: Colors.grey[100], borderRadius: BorderRadius.circular(10)),
     child: Row(
@@ -75,13 +75,13 @@ Widget questionPaperTile(
             style: TextStyle(color: Colors.grey[100], fontSize: 10),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 200,
               child: Text(
                 record.questionPaperSubjectName,
@@ -91,7 +91,7 @@ Widget questionPaperTile(
                     fontWeight: FontWeight.w600),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(
@@ -106,7 +106,7 @@ Widget questionPaperTile(
                   fontSize: 10,
                   fontStyle: FontStyle.italic),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Row(
@@ -116,7 +116,7 @@ Widget questionPaperTile(
                   size: 10,
                   color: Colors.grey[900],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 4,
                 ),
                 Text(
@@ -129,17 +129,17 @@ Widget questionPaperTile(
             )
           ],
         ),
-        Spacer(),
+        const Spacer(),
         Row(
           children: [
             canDelete
                 ? IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.delete,
                       color: Colors.red,
                     ),
                     onPressed: deleteThisQuestionPaper)
-                : Center(),
+                : const Center(),
             IconButton(
                 icon: Icon(
                   EvilIcons.external_link,

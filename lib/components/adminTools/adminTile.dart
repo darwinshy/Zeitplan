@@ -4,7 +4,7 @@ Widget adminTool(String hint, IconData icon, void Function() navigator) {
   return InkWell(
     onTap: navigator,
     child: Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
       child: Column(

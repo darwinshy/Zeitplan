@@ -29,8 +29,8 @@ Widget itemTileAssignement(
   }
 
   return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
-      padding: EdgeInsets.symmetric(horizontal: 2),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
       child: ExpansionTile(
@@ -73,7 +73,7 @@ Widget itemTileAssignement(
                         inactiveBgColor: Colors.grey[100],
                         inactiveFgColor: Colors.grey[900],
                         initialLabelIndex: active ? 0 : 1,
-                        labels: ['Due', 'Done'],
+                        labels: const ['Due', 'Done'],
                         onToggle: (index) => updateStatusOfAssignment(index),
                         totalSwitches: 2,
                       ),

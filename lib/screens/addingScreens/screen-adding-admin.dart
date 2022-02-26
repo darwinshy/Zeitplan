@@ -33,7 +33,7 @@ class _AddingScreenState extends State<AddingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         elevation: 0,
       ),
       backgroundColor: Colors.grey[900],
@@ -44,23 +44,23 @@ class _AddingScreenState extends State<AddingScreen> {
   Widget buildAddingOptions() {
     return SafeArea(
         child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             child: FadeIn(
               1,
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   screentitleBoldBig("Admin Panel"),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   screentitleBoldMedium("Choose an action"),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
                       margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                          const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                       height: MediaQuery.of(context).size.height,
                       child: GridView.count(
                           scrollDirection: Axis.vertical,

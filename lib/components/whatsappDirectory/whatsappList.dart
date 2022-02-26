@@ -1,4 +1,4 @@
-import 'package:Zeitplan/components/animations.dart';
+import 'package:zeitplan/components/animations.dart';
 
 import '../../components/whatsappDirectory/whatsappItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -30,7 +30,7 @@ Widget streamBuildWhatsappDirectoryList(
           return Center(
               child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
+            children: const <Widget>[
               Text(
                 "Loading",
                 style: TextStyle(color: Colors.white),
@@ -54,7 +54,7 @@ Widget _buildListofNames(
         "Batchmates",
         textAlign: TextAlign.center,
         style: GoogleFonts.montserrat(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 40,
                 fontWeight: FontWeight.w800)),

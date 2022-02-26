@@ -1,4 +1,4 @@
-import 'package:Zeitplan/classes/classes.dart';
+import 'package:zeitplan/classes/classes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -17,7 +17,7 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
             backgroundColor: Colors.grey[100],
             titleTextStyle: TextStyle(color: Colors.grey[900]),
             contentTextStyle: TextStyle(color: Colors.grey[900]),
-            title: Text("Do you want to delete this submission ? "),
+            title: const Text("Do you want to delete this submission ? "),
             actions: [
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
@@ -55,8 +55,8 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
   }
 
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-    padding: EdgeInsets.all(10),
+    margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+    padding: const EdgeInsets.all(10),
     decoration: BoxDecoration(
         color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
     child: ExpansionTile(
@@ -76,10 +76,10 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
       ),
       trailing: InkWell(
         onTap: deleteThisSubmission,
-        child: Icon(Icons.delete, color: Colors.red),
+        child: const Icon(Icons.delete, color: Colors.red),
       ),
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +90,7 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
                     fontSize: 10,
                     fontFamily: "OpenSans",
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Text(
@@ -101,7 +101,7 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
                   style: TextStyle(
                     color: Colors.grey[900],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text("Description",
@@ -110,7 +110,7 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
                     fontSize: 10,
                     fontFamily: "OpenSans",
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Text(record.submitterDescription,
@@ -118,7 +118,7 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
                   style: TextStyle(
                     color: Colors.grey[900],
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Text("Click here",
@@ -127,18 +127,18 @@ Widget itemTileMySubmission(DocumentSnapshot data, BuildContext context) {
                     fontSize: 10,
                     fontFamily: "OpenSans",
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               OutlineButton(
                   borderSide: BorderSide(color: Colors.grey[900]),
-                  child: new Text(
+                  child: Text(
                     "Visit",
                     style: TextStyle(color: Colors.grey[900]),
                   ),
                   onPressed: openLink,
-                  shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(5.0)))
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0)))
             ],
           ),
         ),

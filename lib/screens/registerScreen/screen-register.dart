@@ -1,6 +1,6 @@
-import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/components/animations.dart';
-import 'package:Zeitplan/components/reusables.dart';
+import 'package:zeitplan/authentication/auth.dart';
+import 'package:zeitplan/components/animations.dart';
+import 'package:zeitplan/components/reusables.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,8 +25,8 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
   String uid;
   BuildContext globalContext;
   bool stateOfLoading = false;
-  final formKeySignUp = new GlobalKey<FormState>();
-  final _signuppagecontroller = new PageController();
+  final formKeySignUp = GlobalKey<FormState>();
+  final _signuppagecontroller = PageController();
 
   @override
   void initState() {
@@ -70,7 +70,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
             backgroundColor: Colors.grey[100],
             titleTextStyle: TextStyle(color: Colors.grey[900]),
             contentTextStyle: TextStyle(color: Colors.grey[900]),
-            title: Text(
+            title: const Text(
                 "A verification link has been sent to your email. Please follow the link to verify your account."),
             actions: [
               FlatButton(
@@ -173,7 +173,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
       return showSomeAlerts("Section can only be from A to K.", context);
     }
 
-    if (phoneNumber.length == 0) {
+    if (phoneNumber.isEmpty) {
       return showSomeAlerts("Phone Number is invalid.", context);
     }
     if (phoneNumber.length != 12 && phoneNumber.length != 13) {
@@ -181,7 +181,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
           "Enter phone number with your country code.", context);
     }
     _signuppagecontroller.animateToPage(2,
-        duration: new Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 800),
         curve: Curves.easeInOutCubic);
   }
 
@@ -284,7 +284,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
 
   Widget signUpForm() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Form(
         key: formKeySignUp,
         child: Center(
@@ -305,18 +305,18 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                             Text(
                               "Get Started",
                               style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 40,
                                       fontWeight: FontWeight.w800)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
                               "Fill up your basic details",
                               style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                               )),
@@ -328,16 +328,16 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                     FadeInLTR(
                       1.5,
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Full Name",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
@@ -348,7 +348,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     initialValue: fullname,
                                     decoration:
                                         inputDecoration("What's your name ?"),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Name cannot be empty."
                                         : null,
@@ -360,11 +360,11 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Scholar ID",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
@@ -373,7 +373,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     initialValue: scholarId,
                                     decoration: inputDecoration(
                                         "Your 7 digits, college scholar ID."),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Scholar ID cannot be empty."
                                         : null,
@@ -384,11 +384,11 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Section",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
@@ -397,7 +397,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     initialValue: section,
                                     // initialValue: "eg. BranchCode-BatchYear-Section",
                                     decoration: inputDecoration("A - K ?"),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Section cannot be empty."
                                         : null,
@@ -409,11 +409,11 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Phone Number",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
@@ -423,7 +423,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     // initialValue: "eg. BranchCode-BatchYear-Section",
                                     decoration: inputDecoration(
                                         "Your phone number along with country code."),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Section cannot be empty."
                                         : null,
@@ -434,7 +434,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             genericFlatButtonWithRoundedBorders(
@@ -459,18 +459,18 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                             Text(
                               "Finish Sign Up",
                               style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 40,
                                       fontWeight: FontWeight.w800)),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Text(
                               "See you on the other side !",
                               style: GoogleFonts.montserrat(
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                               )),
@@ -482,16 +482,16 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                     FadeInLTR(
                       1.5,
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Email",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
@@ -500,7 +500,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     initialValue: email,
                                     decoration: inputDecoration(
                                         "Your email address goes here."),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Email cannot be empty."
                                         : null,
@@ -511,11 +511,11 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Password",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
@@ -524,7 +524,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                     initialValue: password,
                                     decoration: inputDecoration(
                                         "Your secret password goes here."),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     validator: (value) => value.isEmpty
                                         ? "Password cannot be empty."
                                         : null,
@@ -535,7 +535,7 @@ class _SignUpPageScreenState extends State<SignUpPageScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             stateOfLoading == false

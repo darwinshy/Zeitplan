@@ -1,4 +1,4 @@
-import 'package:Zeitplan/components/animations.dart';
+import 'package:zeitplan/components/animations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class AddQuestionPaperScreen extends StatefulWidget {
 
 class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
   //
-  final questionForm = new GlobalKey<FormState>();
+  final questionForm = GlobalKey<FormState>();
 
   //
   String questionPaperSubjectName;
@@ -66,7 +66,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
 
   bool fieldValidation() {
     if (questionPaperSubjectName.length > 50 ||
-        questionPaperSubjectName.length == 0) {
+        questionPaperSubjectName.isEmpty) {
       showSomeAlerts("Subject Name is not valid or is too long", globalContext);
       return false;
     }
@@ -84,7 +84,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
       return false;
     }
 
-    if (questionPaperYear.length == 0 || questionPaperYear.length == null) {
+    if (questionPaperYear.isEmpty || questionPaperYear.length == null) {
       showSomeAlerts("Enter a valid Year of Question Paper", globalContext);
       return false;
     }
@@ -215,7 +215,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
 
   Widget buildForm() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
         key: questionForm,
@@ -235,7 +235,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 35, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 35, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
@@ -243,12 +243,12 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                       1,
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Combined Paper ?",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
@@ -265,17 +265,17 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                         ? FadeInLTR(
                             1.3,
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Subject Name",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
                                   ),
                                   TextFormField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText: "Enter Subject Name",
                                       focusedBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -290,7 +290,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                                         ),
                                       ),
                                     ),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     keyboardType: TextInputType.name,
                                     onSaved: (value) =>
                                         questionPaperSubjectName = value,
@@ -304,17 +304,17 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                         ? FadeInLTR(
                             1.6,
                             Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Text(
+                                  const Text(
                                     "Subject Code",
                                     style: TextStyle(
                                         color: Colors.white70, fontSize: 12),
                                   ),
                                   TextFormField(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText:
                                           "Enter 5 character Subject Code",
                                       focusedBorder: UnderlineInputBorder(
@@ -330,7 +330,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                                         ),
                                       ),
                                     ),
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                     keyboardType: TextInputType.name,
                                     onSaved: (value) =>
                                         questionPaperSubjectCode =
@@ -344,16 +344,16 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                     FadeInLTR(
                       1.9,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Semester",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             GridView.count(
@@ -483,16 +483,16 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                     FadeInLTR(
                       2.1,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Semester Type",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -537,17 +537,17 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                     FadeInLTR(
                       2.4,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Question Paper Year",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: "Enter Year of the Question Paper",
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -562,7 +562,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               keyboardType: TextInputType.number,
                               onSaved: (value) => questionPaperYear = value,
                             )
@@ -573,17 +573,17 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                     FadeInLTR(
                       2.7,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Assignment Sharable Link",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText:
                                     "Working Link with read-access enabled",
                                 focusedBorder: UnderlineInputBorder(
@@ -599,7 +599,7 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               keyboardType: TextInputType.url,
                               onSaved: (value) => questionPaperLink = value,
                             )
@@ -607,20 +607,20 @@ class _AddQuestionPaperScreenState extends State<AddQuestionPaperScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FadeInLTR(
                       3.0,
                       FlatButton(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         onPressed: validateTheForm,
-                        child: Text('           Add           ',
+                        child: const Text('           Add           ',
                             style:
                                 TextStyle(color: Colors.yellow, fontSize: 18)),
                         textColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(
+                            side: const BorderSide(
                                 color: Colors.yellow,
                                 width: 0.8,
                                 style: BorderStyle.solid),

@@ -1,4 +1,4 @@
-import 'package:Zeitplan/screens/aboutScreen/screen-about.dart';
+import 'package:zeitplan/screens/aboutScreen/screen-about.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -155,7 +155,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) {
-            return Root();
+            return const Root();
           },
         ),
       );
@@ -188,7 +188,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
             "Dashboard",
             textAlign: TextAlign.center,
             style: GoogleFonts.montserrat(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.w800)),
@@ -201,7 +201,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     formattedAppBar,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: "rob", color: Colors.white, fontSize: 12),
                   ),
                 ),
@@ -212,7 +212,7 @@ class _MainScreenScaffoldState extends State<MainScreenScaffold> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: (crStatus == "true")
             ? FloatingActionButton.extended(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 label: Text("Admin Panel",
                     style: TextStyle(color: Colors.grey[800])),
                 backgroundColor: Colors.grey[100],

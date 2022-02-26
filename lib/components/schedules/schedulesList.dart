@@ -19,10 +19,10 @@ Widget buildSchedulesBody(
           if (snapshot.hasData) {
             return streamBuildSchedules(refresh, snapshot, formatted, crStatus);
           } else {
-            return Center();
+            return const Center();
           }
         } catch (e) {
-          return Center();
+          return const Center();
         }
       });
 }
@@ -64,27 +64,27 @@ Widget buildListofSchedules(
       padding: const EdgeInsets.only(top: 10.0),
       children: <Widget>[
         FadeIn(1, dashboardTile(retriveProfileDetails, context, refresh)),
-        SizedBox(
+        const SizedBox(
           height: 30,
         ),
-        (documents.length != 0)
+        (documents.isNotEmpty)
             ? FadeIn(1.5, schedulesColumn(documents, refresh, crStatus))
             : FadeIn(1.5, noMeetings())
       ],
     );
   } catch (e) {
     print("buildListofSchedules" + e.toString());
-    return Center();
+    return const Center();
   }
 }
 
 Widget schedulesColumn(
-    List<DocumentSnapshot> documents, void refresh(), String crStatus) {
+    List<DocumentSnapshot> documents, void Function() refresh, String crStatus) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
-      Padding(
-        padding: const EdgeInsets.all(8.0),
+      const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Text(
           "Ongoing",
           style: TextStyle(color: Colors.grey),
@@ -97,8 +97,8 @@ Widget schedulesColumn(
       Divider(
         color: Colors.grey[800],
       ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
+      const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Text(
           "Scheduled",
           style: TextStyle(color: Colors.grey),
@@ -111,8 +111,8 @@ Widget schedulesColumn(
       Divider(
         color: Colors.grey[800],
       ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
+      const Padding(
+        padding: EdgeInsets.all(8.0),
         child: Text("Completed", style: TextStyle(color: Colors.grey)),
       ),
       ...documents
@@ -128,7 +128,7 @@ Widget schedulesColumn(
 
 Widget noMeetings() {
   return Container(
-    margin: EdgeInsets.only(top: 100),
+    margin: const EdgeInsets.only(top: 100),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

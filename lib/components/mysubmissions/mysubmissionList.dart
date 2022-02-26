@@ -33,7 +33,7 @@ Widget _streamBuildList(
     builder: (context, assignmentDataSnapshot) {
       try {
         // print(assignmentDataSnapshot.data.documents);
-        if (assignmentDataSnapshot.data.docs.length != 0) {
+        if (assignmentDataSnapshot.data.docs.isNotEmpty) {
           return itemListMySubmission(
               assignmentDataSnapshot.data.docs, sharedPrefsData);
         } else {
@@ -54,7 +54,7 @@ Widget itemListMySubmission(List<DocumentSnapshot> documents,
         child: screentitleBoldBig(
           "My Submissions",
         )),
-    SizedBox(
+    const SizedBox(
       height: 20,
     ),
     ...documents
@@ -68,7 +68,7 @@ Widget _noAssignmentScreen() {
     Padding(
         padding: const EdgeInsets.all(20.0),
         child: screentitleBoldBig("My Submissions")),
-    SizedBox(
+    const SizedBox(
       height: 20,
     ),
     Expanded(

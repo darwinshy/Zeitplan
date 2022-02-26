@@ -1,5 +1,5 @@
-import 'package:Zeitplan/components/questionBank/selectSemester.dart';
-import 'package:Zeitplan/components/reusables.dart';
+import 'package:zeitplan/components/questionBank/selectSemester.dart';
+import 'package:zeitplan/components/reusables.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../components/questionBank/selectSubject.dart';
@@ -17,7 +17,7 @@ class QuestionPaperScreenSelect extends StatefulWidget {
 class _QuestionPaperScreenSelectState extends State<QuestionPaperScreenSelect> {
   int semesterNumber;
   String subjectCode;
-  final _pageController = new PageController();
+  final _pageController = PageController();
 
   void setSemesterNumber(int sem) {
     setState(() {
@@ -48,7 +48,7 @@ class _QuestionPaperScreenSelectState extends State<QuestionPaperScreenSelect> {
 
   void switchToSecondPage(int n) {
     _pageController.animateToPage(n,
-        duration: new Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 800),
         curve: Curves.easeInOutCubic);
   }
 
@@ -66,7 +66,7 @@ class _QuestionPaperScreenSelectState extends State<QuestionPaperScreenSelect> {
         elevation: 0,
         actions: [
           IconButton(
-              icon: Icon(Icons.add), onPressed: goToAddQuestionPaperScreen)
+              icon: const Icon(Icons.add), onPressed: goToAddQuestionPaperScreen)
         ],
       ),
       body: Center(

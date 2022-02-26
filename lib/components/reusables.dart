@@ -7,13 +7,13 @@ Widget screentitleBoldBig(String title) {
     title,
     textAlign: TextAlign.center,
     style: GoogleFonts.montserrat(
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
             color: Colors.white, fontSize: 40, fontWeight: FontWeight.w800)),
   );
 }
 
 Widget animatedLoader() {
-  return Container(
+  return const SizedBox(
     width: 100,
     height: 100,
     child: Center(
@@ -31,7 +31,7 @@ Widget screentitleBoldMedium(String title) {
     title,
     textAlign: TextAlign.center,
     style: GoogleFonts.montserrat(
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
             color: Colors.white, fontSize: 20, fontWeight: FontWeight.w800)),
   );
 }
@@ -39,25 +39,25 @@ Widget screentitleBoldMedium(String title) {
 FlatButton genericFlatButtonWithRoundedBorders(
     String text, void Function() function) {
   return FlatButton(
-    padding: EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
     focusColor: Colors.blue,
     onPressed: function,
-    child: Text(text, style: TextStyle(color: Colors.yellow, fontSize: 18)),
+    child: Text(text, style: const TextStyle(color: Colors.yellow, fontSize: 18)),
     textColor: Colors.white,
     shape: RoundedRectangleBorder(
-        side: BorderSide(
+        side: const BorderSide(
             color: Colors.yellow, width: 0.8, style: BorderStyle.solid),
         borderRadius: BorderRadius.circular(20)),
   );
 }
 
 Widget genericFlatButtonWithLoader() {
-  return Padding(
-    padding: const EdgeInsets.all(6.0),
+  return const Padding(
+    padding: EdgeInsets.all(6.0),
     child: CircularProgressIndicator(
       backgroundColor: Colors.transparent,
       strokeWidth: 3,
-      valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellow),
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
     ),
   );
 }
@@ -66,7 +66,7 @@ FlatButton flatButtonWithRoundedShape(String text, void Function() function) {
   return FlatButton(
     minWidth: double.infinity,
     height: 60,
-    padding: EdgeInsets.all(10),
+    padding: const EdgeInsets.all(10),
     color: Colors.grey[200],
     onPressed: function,
     child: Text(text,
@@ -81,7 +81,7 @@ FlatButton flatButtonWithRoundedShape(String text, void Function() function) {
 
 InputDecoration inputDecoration(String hint) {
   return InputDecoration(
-    counterStyle: TextStyle(color: Colors.transparent),
+    counterStyle: const TextStyle(color: Colors.transparent),
     hintText: hint,
     hintStyle: TextStyle(color: Colors.grey[800], fontSize: 15),
     focusedBorder: UnderlineInputBorder(
@@ -121,7 +121,7 @@ void showProgressBar(BuildContext context) {
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           backgroundColor: Colors.transparent,
           title: Center(
             child: RefreshProgressIndicator(),
@@ -141,7 +141,7 @@ Future<void> showPromisedSomeAlerts(String text, BuildContext context) {
           title: Center(
             child: Text(
               text,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12,
               ),
             ),
@@ -154,7 +154,7 @@ Widget centerLoading() {
   return Center(
       child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
+    children: const <Widget>[
       Text(
         "Loading",
         style: TextStyle(color: Colors.white),
@@ -170,7 +170,7 @@ Widget centerLoading() {
 Widget linearProgressbar() {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
+    children: const <Widget>[
       LinearProgressIndicator(
         backgroundColor: Colors.white,
       )

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'streamproviders.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
     MultiProvider(
@@ -32,13 +33,13 @@ class _MyAppState extends State<MyApp> {
       title: 'Zeitplan',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
+  const MyHomePage({Key key}) : super(key: key);
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -47,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      navigateAfterSeconds: Root(),
+      navigateAfterSeconds: const Root(),
       seconds: 3,
       image: Image.asset(
         "asset/icon/logotext.png",

@@ -16,8 +16,8 @@ Widget itemTileL(
   final record = Schedule.fromSnapshot(data);
   if (record.meetingStatus == "0") {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
       color: Colors.grey[900],
       child: ExpansionTile(
         leading: CircleAvatar(
@@ -32,11 +32,11 @@ Widget itemTileL(
         ),
         subtitle: Text(
           record.startTime + " to " + record.endTime,
-          style: TextStyle(fontSize: 10, color: Colors.grey),
+          style: const TextStyle(fontSize: 10, color: Colors.grey),
         ),
         title: Text(
           record.subjectName.toString(),
-          style: TextStyle(color: Colors.white, fontSize: 15),
+          style: const TextStyle(color: Colors.white, fontSize: 15),
         ),
         trailing: meetingStatus(record.meetingStatus.toString()),
         children: <Widget>[
@@ -57,7 +57,7 @@ Widget itemTileL(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(Icons.surround_sound),
+                              icon: const Icon(Icons.surround_sound),
                               onPressed: () => {
                                     showDialog(
                                       context: mainScaffoldContext,
@@ -65,7 +65,7 @@ Widget itemTileL(
                                         return AlertDialog(
                                           actions: <Widget>[
                                             FlatButton(
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1,
@@ -77,9 +77,9 @@ Widget itemTileL(
                                                           .update(
                                                               {"mStatus": "0"})
                                                     },
-                                                child: Text("Live")),
+                                                child: const Text("Live")),
                                             FlatButton(
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1,
@@ -91,9 +91,9 @@ Widget itemTileL(
                                                           .update(
                                                               {"mStatus": "2"})
                                                     },
-                                                child: Text("Completed")),
+                                                child: const Text("Completed")),
                                             FlatButton(
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1,
@@ -105,14 +105,14 @@ Widget itemTileL(
                                                           .update(
                                                               {"mStatus": "1"})
                                                     },
-                                                child: Text("Sceduled"))
+                                                child: const Text("Sceduled"))
                                           ],
                                         );
                                       },
                                     )
                                   }),
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.edit,
                             ),
                             onPressed: () => {
@@ -130,7 +130,7 @@ Widget itemTileL(
                             },
                           ),
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete,
                               color: Colors.red,
                             ),
@@ -144,12 +144,12 @@ Widget itemTileL(
                         padding: const EdgeInsets.all(8.0),
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
+                              side: const BorderSide(
                                   color: Colors.white,
                                   width: 0.8,
                                   style: BorderStyle.solid),
                               borderRadius: BorderRadius.circular(20)),
-                          child: Text("       Join Meeting       "),
+                          child: const Text("       Join Meeting       "),
                           onPressed: () async {
                             try {
                               bool launched = await launch(record.link,
@@ -162,7 +162,7 @@ Widget itemTileL(
                               showDialog(
                                   context: mainScaffoldContext,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
+                                    return const AlertDialog(
                                       content: Text(
                                           "Something is not right, contact CR."),
                                     );
@@ -178,12 +178,12 @@ Widget itemTileL(
                   padding: const EdgeInsets.all(8.0),
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                             color: Colors.white,
                             width: 0.8,
                             style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(20)),
-                    child: Text("       Join Meeting       "),
+                    child: const Text("       Join Meeting       "),
                     onPressed: () async {
                       try {
                         bool launched =
@@ -196,7 +196,7 @@ Widget itemTileL(
                         showDialog(
                             context: mainScaffoldContext,
                             builder: (BuildContext context) {
-                              return AlertDialog(
+                              return const AlertDialog(
                                 content:
                                     Text("Something is not right, contact CR."),
                               );
@@ -209,7 +209,7 @@ Widget itemTileL(
       ),
     );
   } else {
-    return Center();
+    return const Center();
   }
 }
 
@@ -223,8 +223,8 @@ Widget itemTileS(
 
   if (record.meetingStatus == "1") {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
       color: Colors.grey[900],
       child: ExpansionTile(
         leading: CircleAvatar(
@@ -239,11 +239,11 @@ Widget itemTileS(
         ),
         subtitle: Text(
           record.startTime + " to " + record.endTime,
-          style: TextStyle(fontSize: 10),
+          style: const TextStyle(fontSize: 10),
         ),
         title: Text(
           record.subjectName.toString(),
-          style: TextStyle(color: Colors.white, fontSize: 15),
+          style: const TextStyle(color: Colors.white, fontSize: 15),
         ),
         trailing: meetingStatus(record.meetingStatus.toString()),
         children: <Widget>[
@@ -260,7 +260,7 @@ Widget itemTileS(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(Icons.surround_sound),
+                              icon: const Icon(Icons.surround_sound),
                               onPressed: () => {
                                     showDialog(
                                       context: mainScaffoldContext,
@@ -268,7 +268,7 @@ Widget itemTileS(
                                         return AlertDialog(
                                           actions: <Widget>[
                                             FlatButton(
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1,
@@ -280,9 +280,9 @@ Widget itemTileS(
                                                           .update(
                                                               {"mStatus": "0"})
                                                     },
-                                                child: Text("Live")),
+                                                child: const Text("Live")),
                                             FlatButton(
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1,
@@ -294,9 +294,9 @@ Widget itemTileS(
                                                           .update(
                                                               {"mStatus": "2"})
                                                     },
-                                                child: Text("Completed")),
+                                                child: const Text("Completed")),
                                             FlatButton(
-                                                shape: RoundedRectangleBorder(
+                                                shape: const RoundedRectangleBorder(
                                                   side: BorderSide(
                                                     color: Colors.white,
                                                     width: 1,
@@ -308,14 +308,14 @@ Widget itemTileS(
                                                           .update(
                                                               {"mStatus": "1"})
                                                     },
-                                                child: Text("Sceduled"))
+                                                child: const Text("Sceduled"))
                                           ],
                                         );
                                       },
                                     )
                                   }),
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.edit,
                             ),
                             onPressed: () => {
@@ -333,7 +333,7 @@ Widget itemTileS(
                             },
                           ),
                           IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.delete,
                               color: Colors.red,
                             ),
@@ -347,12 +347,12 @@ Widget itemTileS(
                         padding: const EdgeInsets.all(8.0),
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
+                              side: const BorderSide(
                                   color: Colors.white,
                                   width: 0.8,
                                   style: BorderStyle.solid),
                               borderRadius: BorderRadius.circular(20)),
-                          child: Text("       Join Meeting       "),
+                          child: const Text("       Join Meeting       "),
                           onPressed: () async {
                             try {
                               bool launched = await launch(record.link,
@@ -365,7 +365,7 @@ Widget itemTileS(
                               showDialog(
                                   context: mainScaffoldContext,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
+                                    return const AlertDialog(
                                       content: Text(
                                           "Something is not right, contact CR."),
                                     );
@@ -381,12 +381,12 @@ Widget itemTileS(
                   padding: const EdgeInsets.all(8.0),
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(
+                        side: const BorderSide(
                             color: Colors.white,
                             width: 0.8,
                             style: BorderStyle.solid),
                         borderRadius: BorderRadius.circular(20)),
-                    child: Text("       Join Meeting       "),
+                    child: const Text("       Join Meeting       "),
                     onPressed: () async {
                       try {
                         bool launched =
@@ -399,7 +399,7 @@ Widget itemTileS(
                         showDialog(
                             context: mainScaffoldContext,
                             builder: (BuildContext context) {
-                              return AlertDialog(
+                              return const AlertDialog(
                                 content:
                                     Text("Something is not right, contact CR."),
                               );
@@ -412,7 +412,7 @@ Widget itemTileS(
       ),
     );
   } else {
-    return Center();
+    return const Center();
   }
 }
 
@@ -426,8 +426,8 @@ Widget itemTileC(
 
   if (record.meetingStatus == "2") {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(10),
       color: Colors.grey[900],
       child: ExpansionTile(
         leading: CircleAvatar(
@@ -442,11 +442,11 @@ Widget itemTileC(
         ),
         subtitle: Text(
           record.startTime + " to " + record.endTime,
-          style: TextStyle(fontSize: 10),
+          style: const TextStyle(fontSize: 10),
         ),
         title: Text(
           record.subjectName.toString(),
-          style: TextStyle(color: Colors.white, fontSize: 15),
+          style: const TextStyle(color: Colors.white, fontSize: 15),
         ),
         trailing: meetingStatus(record.meetingStatus.toString()),
         children: <Widget>[
@@ -461,7 +461,7 @@ Widget itemTileC(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       IconButton(
-                          icon: Icon(Icons.surround_sound),
+                          icon: const Icon(Icons.surround_sound),
                           onPressed: () => {
                                 showDialog(
                                   context: mainScaffoldContext,
@@ -469,7 +469,7 @@ Widget itemTileC(
                                     return AlertDialog(
                                       actions: <Widget>[
                                         FlatButton(
-                                            shape: RoundedRectangleBorder(
+                                            shape: const RoundedRectangleBorder(
                                               side: BorderSide(
                                                 color: Colors.white,
                                                 width: 1,
@@ -480,9 +480,9 @@ Widget itemTileC(
                                                       .doc(reference.path)
                                                       .update({"mStatus": "0"})
                                                 },
-                                            child: Text("Live")),
+                                            child: const Text("Live")),
                                         FlatButton(
-                                            shape: RoundedRectangleBorder(
+                                            shape: const RoundedRectangleBorder(
                                               side: BorderSide(
                                                 color: Colors.white,
                                                 width: 1,
@@ -493,9 +493,9 @@ Widget itemTileC(
                                                       .doc(reference.path)
                                                       .update({"mStatus": "2"})
                                                 },
-                                            child: Text("Completed")),
+                                            child: const Text("Completed")),
                                         FlatButton(
-                                            shape: RoundedRectangleBorder(
+                                            shape: const RoundedRectangleBorder(
                                               side: BorderSide(
                                                 color: Colors.white,
                                                 width: 1,
@@ -506,14 +506,14 @@ Widget itemTileC(
                                                       .doc(reference.path)
                                                       .update({"mStatus": "1"})
                                                 },
-                                            child: Text("Sceduled"))
+                                            child: const Text("Sceduled"))
                                       ],
                                     );
                                   },
                                 )
                               }),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.edit,
                         ),
                         onPressed: () => {
@@ -530,7 +530,7 @@ Widget itemTileC(
                         },
                       ),
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
                         ),
@@ -540,36 +540,37 @@ Widget itemTileC(
                     ],
                   ),
                 )
-              : Padding(
-                  padding: const EdgeInsets.all(0.0),
+              : const Padding(
+                  padding: EdgeInsets.all(0.0),
                 )
         ],
       ),
     );
   } else {
-    return Center();
+    return const Center();
   }
 }
 
 meetingStatus(String x) {
-  if (x == "0")
+  if (x == "0") {
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 5, 8, 5),
+      padding: const EdgeInsets.fromLTRB(8, 5, 8, 5),
       decoration: BoxDecoration(border: Border.all(color: Colors.red)),
       child: Text(
         "Live",
         style: TextStyle(color: Colors.red[700]),
       ),
     );
-  else if (x == "1") {
-    return Text(
+  } else if (x == "1") {
+    return const Text(
       "Upcoming",
       style: TextStyle(color: Colors.yellow),
     );
   }
-  if (x == "2")
-    return Text(
+  if (x == "2") {
+    return const Text(
       "Completed",
       style: TextStyle(color: Colors.grey),
     );
+  }
 }

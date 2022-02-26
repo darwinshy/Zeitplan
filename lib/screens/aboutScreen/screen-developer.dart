@@ -10,7 +10,7 @@ class DeveloperScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -30,9 +30,9 @@ class DeveloperScreen extends StatelessWidget {
                       Container(
                         width: 200.0,
                         height: 200.0,
-                        decoration: new BoxDecoration(
+                        decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            image: new DecorationImage(
+                            image: DecorationImage(
                                 fit: BoxFit.cover,
                                 scale: 2,
                                 image: AssetImage(
@@ -40,7 +40,7 @@ class DeveloperScreen extends StatelessWidget {
                                 ))),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     FadeIn(
@@ -107,25 +107,25 @@ class DeveloperScreen extends StatelessWidget {
                       color: Colors.grey[900],
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    margin: EdgeInsets.only(top: 30),
-                    padding: EdgeInsets.all(20),
+                    margin: const EdgeInsets.only(top: 30),
+                    padding: const EdgeInsets.all(20),
                     child: Center(
                       child: Column(
                         children: [
-                          Text("Follow me",
+                          const Text("Follow me",
                               style: TextStyle(
                                   height: 1.5,
                                   color: Colors.grey,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w300)),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               IconButton(
-                                  icon: Icon(Typicons.facebook),
+                                  icon: const Icon(Typicons.facebook),
                                   onPressed: () async {
                                     const url = 'fb://profile/100003633027901';
 
@@ -143,7 +143,7 @@ class DeveloperScreen extends StatelessWidget {
                                     }
                                   }),
                               IconButton(
-                                  icon: Icon(AntDesign.github),
+                                  icon: const Icon(AntDesign.github),
                                   onPressed: () async {
                                     const url = 'https://github.com/reverope';
 
@@ -159,7 +159,7 @@ class DeveloperScreen extends StatelessWidget {
                                     }
                                   }),
                               IconButton(
-                                  icon: Icon(AntDesign.instagram),
+                                  icon: const Icon(AntDesign.instagram),
                                   onPressed: () async {
                                     const url =
                                         'https://www.instagram.com/i_am_the_darwin';

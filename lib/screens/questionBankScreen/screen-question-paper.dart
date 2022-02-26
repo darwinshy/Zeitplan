@@ -9,7 +9,7 @@ import '../addingScreens/screen-adding-questionpaper.dart';
 class QuestionPaperScreen extends StatefulWidget {
   final int semesterNumber;
   final String subjectCode;
-  QuestionPaperScreen(this.semesterNumber, this.subjectCode);
+  const QuestionPaperScreen(this.semesterNumber, this.subjectCode);
   @override
   _QuestionPaperScreenState createState() => _QuestionPaperScreenState();
 }
@@ -29,7 +29,7 @@ class _QuestionPaperScreenState extends State<QuestionPaperScreen> {
           elevation: 0,
           actions: [
             IconButton(
-                icon: Icon(Icons.add), onPressed: goToAddQuestionPaperScreen)
+                icon: const Icon(Icons.add), onPressed: goToAddQuestionPaperScreen)
           ],
         ),
         body: StreamBuilder<QuerySnapshot>(

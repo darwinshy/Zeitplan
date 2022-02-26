@@ -23,6 +23,7 @@ abstract class BaseAuth {
 }
 
 class Auth extends BaseAuth with ChangeNotifier {
+  @override
   Future<String> resetPassword(String email) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
@@ -32,6 +33,7 @@ class Auth extends BaseAuth with ChangeNotifier {
     }
   }
 
+  @override
   Future<String> signInWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -47,11 +49,11 @@ class Auth extends BaseAuth with ChangeNotifier {
       await user.sendEmailVerification();
       return "#Please complete the email verification process before logging in. We have sent you an email. If not recieved contact administrator.";
     } catch (e) {
-      print(e);
       return "#" + e.message.toString();
     }
   }
 
+  @override
   Future<String> createUserWithEmailAndPassword(
       String email,
       String password,
@@ -81,6 +83,7 @@ class Auth extends BaseAuth with ChangeNotifier {
     }
   }
 
+  @override
   Future<String> currentUser() async {
     try {
       User user = FirebaseAuth.instance.currentUser;
@@ -110,6 +113,7 @@ class Auth extends BaseAuth with ChangeNotifier {
     return user.photoURL;
   }
 
+  @override
   Future<void> signOut() {
     notifyListeners();
     try {
@@ -119,6 +123,7 @@ class Auth extends BaseAuth with ChangeNotifier {
     }
   }
 
+  @override
   Future<String> signInWithGoogle() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -146,9 +151,7 @@ class Auth extends BaseAuth with ChangeNotifier {
         "phone": user.phoneNumber,
         "address": null,
       });
-    } else {
-      print("User Exists");
-    }
+    } else {}
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     print("Saving User to Storage : " + user.uid);

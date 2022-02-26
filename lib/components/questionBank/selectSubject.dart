@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../animations.dart';
@@ -32,13 +31,13 @@ Widget questionCodesList(BuildContext context, Map<String, dynamic> documents,
   // print(documents);
   if (documents["codes"].isEmpty) {
     return _noAssignmentScreen();
-  } else
+  } else {
     return ListView(
       children: [
         Padding(
             padding: const EdgeInsets.all(20.0),
             child: screentitleBoldBig("Select Subject")),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         ...documents["codes"]
@@ -48,6 +47,7 @@ Widget questionCodesList(BuildContext context, Map<String, dynamic> documents,
             .toList(),
       ],
     );
+  }
 }
 
 Widget questionCodesItem(MapEntry<String, dynamic> data, int semNumber,
@@ -56,8 +56,8 @@ Widget questionCodesItem(MapEntry<String, dynamic> data, int semNumber,
     onTap: () => setSubjectCode(data.key),
     child: Container(
         width: 100,
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(18),
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
             color: Colors.grey[100], borderRadius: BorderRadius.circular(10)),
         child: Row(
@@ -67,7 +67,7 @@ Widget questionCodesItem(MapEntry<String, dynamic> data, int semNumber,
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: 300,
                   child: Text(
                     data.value["subjectName"],
@@ -104,7 +104,7 @@ Widget _noAssignmentScreen() {
     Padding(
         padding: const EdgeInsets.all(20.0),
         child: screentitleBoldBig("Select Subject")),
-    SizedBox(
+    const SizedBox(
       height: 20,
     ),
     Expanded(

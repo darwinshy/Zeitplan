@@ -42,7 +42,7 @@ class WhatsappScreen extends StatelessWidget {
               return streamBuildWhatsappDirectoryList(
                   snapshot, retriveProfileDetails, context);
             } else {
-              return Center(
+              return const Center(
                   child: CircularProgressIndicator(
                 backgroundColor: Colors.white,
               ));

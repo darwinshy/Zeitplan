@@ -9,7 +9,7 @@ BuildContext assignmentDetailViewglobalContext;
 
 class AssignmentDetailView extends StatefulWidget {
   final Assignment record;
-  AssignmentDetailView(this.record);
+  const AssignmentDetailView(this.record);
 
   @override
   _AssignmentDetailViewState createState() => _AssignmentDetailViewState();
@@ -43,7 +43,7 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
           children: [
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -52,7 +52,7 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+                            const EdgeInsets.symmetric(horizontal: 5, vertical: 15),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -68,7 +68,7 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
                               onTap: uploadYourSubmission,
                               child: CircleAvatar(
                                 backgroundColor: Colors.grey[100],
-                                child: Icon(Icons.add),
+                                child: const Icon(Icons.add),
                               ),
                             ),
                           ],
@@ -76,13 +76,13 @@ class _AssignmentDetailViewState extends State<AssignmentDetailView> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   AssignmentDetailViewDetails(
                     widget: widget,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   assignmentDetailViewSubmission(widget.record.uploadsPath)
@@ -101,7 +101,7 @@ Widget assignmentDetailViewSubmission(String uploadsCollectionPath) {
     width: double.infinity,
     decoration: BoxDecoration(
         color: Colors.grey[100], borderRadius: BorderRadius.circular(10)),
-    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -111,7 +111,7 @@ Widget assignmentDetailViewSubmission(String uploadsCollectionPath) {
               fontSize: 10,
               fontFamily: "OpenSans",
             )),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         streamBuildUploadedAssignmentList(
@@ -135,7 +135,7 @@ class AssignmentDetailViewDetails extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             color: Colors.grey[100], borderRadius: BorderRadius.circular(10)),
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -148,7 +148,7 @@ class AssignmentDetailViewDetails extends StatelessWidget {
                       fontSize: 10,
                       fontFamily: "OpenSans",
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(widget.record.assignmentAssignedDate,
@@ -158,7 +158,7 @@ class AssignmentDetailViewDetails extends StatelessWidget {
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Column(
@@ -170,7 +170,7 @@ class AssignmentDetailViewDetails extends StatelessWidget {
                       fontSize: 10,
                       fontFamily: "OpenSans",
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(
@@ -183,7 +183,7 @@ class AssignmentDetailViewDetails extends StatelessWidget {
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
             Column(
@@ -195,7 +195,7 @@ class AssignmentDetailViewDetails extends StatelessWidget {
                       fontSize: 10,
                       fontFamily: "OpenSans",
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(widget.record.assignmentDescription,

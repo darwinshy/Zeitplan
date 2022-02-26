@@ -13,7 +13,7 @@ BuildContext uploadAssignmentScreenGlobalContext;
 
 class UploadAssignmentScreen extends StatefulWidget {
   final Assignment record;
-  UploadAssignmentScreen(this.record);
+  const UploadAssignmentScreen(this.record);
 
   @override
   _UploadAssignmentScreenState createState() => _UploadAssignmentScreenState();
@@ -37,7 +37,7 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
   DateFormat formatter = DateFormat('ddMMyyyy');
 
   //
-  final assignmentSubmissionForm = new GlobalKey<FormState>();
+  final assignmentSubmissionForm = GlobalKey<FormState>();
   //
   String getDateTime() {
     var value = DateTime.now().toLocal().toString().substring(0, 19);
@@ -46,7 +46,7 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
 
   //
   bool validateFields() {
-    if (submitterDescription.length > 30 && submitterDescription.length == 0) {
+    if (submitterDescription.length > 30 && submitterDescription.isEmpty) {
       showSomeAlerts("Description too long.", context);
       return false;
     }
@@ -137,7 +137,7 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
 
   Widget buildForm() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
         key: assignmentSubmissionForm,
@@ -155,24 +155,24 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FadeInLTR(
                       1.3,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Submission Description",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -186,7 +186,7 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Submission Description cannot be empty."
                                   : null,
@@ -200,17 +200,17 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
                     FadeInLTR(
                       1.6,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Submission Sharable Link",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -224,7 +224,7 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Submission Sharable cannot be empty."
                                   : null,
@@ -235,20 +235,20 @@ class _UploadAssignmentScreenState extends State<UploadAssignmentScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FadeInLTR(
                       1.9,
                       FlatButton(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         onPressed: validateTheSubmissionForm,
-                        child: Text('           Submit           ',
+                        child: const Text('           Submit           ',
                             style:
                                 TextStyle(color: Colors.yellow, fontSize: 18)),
                         textColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(
+                            side: const BorderSide(
                                 color: Colors.yellow,
                                 width: 0.8,
                                 style: BorderStyle.solid),

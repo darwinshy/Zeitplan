@@ -15,7 +15,7 @@ class AddMeetingScreen extends StatefulWidget {
 }
 
 class _AddMeetingScreenState extends State<AddMeetingScreen> {
-  final meetingForm = new GlobalKey<FormState>();
+  final meetingForm = GlobalKey<FormState>();
 
   String sName;
   String sCode;
@@ -81,7 +81,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
 
   Widget formElement() {
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       color: Colors.black87,
       child: Form(
         key: meetingForm,
@@ -98,13 +98,13 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       screentitleBoldMedium("Add a meeting"),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
                         "You cannot add meeting prior of Today",
                         style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                           color: Colors.grey,
                           fontSize: 12,
                         )),
@@ -114,24 +114,24 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                margin: const EdgeInsets.fromLTRB(0, 75, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     FadeInLTR(
                       1.3,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Subject Name",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -145,7 +145,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Subject Name cannot be empty."
                                   : null,
@@ -159,17 +159,17 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                     FadeInLTR(
                       1.6,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Subject Code",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -183,7 +183,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Subject Code cannot be empty."
                                   : null,
@@ -197,17 +197,17 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                     FadeInLTR(
                       1.9,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Start Time",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -221,7 +221,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Start Time cannot be empty."
                                   : null,
@@ -236,17 +236,17 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                     FadeInLTR(
                       2.1,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "End Time",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -260,7 +260,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "End Time cannot be empty."
                                   : null,
@@ -274,17 +274,17 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                     FadeInLTR(
                       2.4,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "Link",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -298,7 +298,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "Link cannot be empty."
                                   : null,
@@ -312,17 +312,17 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                     FadeInLTR(
                       2.7,
                       Container(
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               "About",
                               style: TextStyle(
                                   color: Colors.white70, fontSize: 12),
                             ),
                             TextFormField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Colors.white,
@@ -336,7 +336,7 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                                   ),
                                 ),
                               ),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                               validator: (value) => value.isEmpty
                                   ? "About cannot be empty."
                                   : null,
@@ -348,20 +348,20 @@ class _AddMeetingScreenState extends State<AddMeetingScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     FadeInLTR(
                       3.2,
                       FlatButton(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         onPressed: validateAndSaveToDb,
-                        child: Text('           Add           ',
+                        child: const Text('           Add           ',
                             style:
                                 TextStyle(color: Colors.yellow, fontSize: 18)),
                         textColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                            side: BorderSide(
+                            side: const BorderSide(
                                 color: Colors.yellow,
                                 width: 0.8,
                                 style: BorderStyle.solid),

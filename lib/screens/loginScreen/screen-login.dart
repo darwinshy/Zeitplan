@@ -1,6 +1,6 @@
-import 'package:Zeitplan/authentication/auth.dart';
-import 'package:Zeitplan/components/animations.dart';
-import 'package:Zeitplan/components/reusables.dart';
+import 'package:zeitplan/authentication/auth.dart';
+import 'package:zeitplan/components/animations.dart';
+import 'package:zeitplan/components/reusables.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -21,7 +21,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
   BuildContext globalContext;
   bool stateOfLoading = false;
 
-  final formKeyLogin = new GlobalKey<FormState>();
+  final formKeyLogin = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -82,7 +82,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 Navigator.of(context).pop(),
                 Navigator.of(context).pop(),
                 Navigator.of(context).push(MaterialPageRoute<void>(
-                  builder: (BuildContext context) => Root(),
+                  builder: (BuildContext context) => const Root(),
                 ))
               }
             // If error is recieved from the API
@@ -127,18 +127,18 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                   Text(
                     "LOGIN",
                     style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                             color: Colors.white,
                             fontSize: 50,
                             fontWeight: FontWeight.w800)),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
                     "Welcome back !",
                     style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 12,
                     )),
@@ -152,18 +152,18 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Email",
                           style: TextStyle(color: Colors.white70, fontSize: 15),
                         ),
                         TextFormField(
                           decoration:
                               inputDecoration("Your email address goes here."),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) =>
                               value.isEmpty ? "Email cannot be empty." : null,
                           keyboardType: TextInputType.text,
@@ -173,18 +173,18 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Password",
                           style: TextStyle(color: Colors.white70, fontSize: 12),
                         ),
                         TextFormField(
                           decoration: inputDecoration(
                               "Your secret password goes here."),
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           validator: (value) => value.isEmpty
                               ? "Password cannot be empty."
                               : null,
@@ -195,7 +195,7 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   stateOfLoading == false
@@ -210,8 +210,8 @@ class _LoginPageScreenState extends State<LoginPageScreen> {
               Center(
                 child: InkWell(
                   onTap: goToForgotScreen,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text('Forgot Password ?',
                         style: TextStyle(color: Colors.white38, fontSize: 12)),
                   ),
